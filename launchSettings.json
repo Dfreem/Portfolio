@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "portfolio",
+      "composeLaunchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/",
+      "serviceActions": {
+        "db": "StartWithoutDebugging",
+        "portfolio": "StartDebugging"
+      }
+    }
+  }
+}
