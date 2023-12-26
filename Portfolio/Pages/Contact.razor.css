@@ -1,0 +1,137 @@
+﻿/*::deep #body-input {
+    margin-inline-end: 1rem;
+    min-height: 16rem;
+    max-height: 16rem;
+    min-width: 20rem;
+    max-width: 20rem;
+}
+
+::deep #__black-hole {
+    display: flex;
+    position: absolute;
+    bottom: 10%;
+    left: 10%;
+    cursor: pointer;
+    font-size: 20pt;
+}
+
+::deep body {
+    transition: all 1s ease;
+}
+
+    ::deep body > * {
+        transition: all 1s ease;
+    }
+
+    ::deep body.on-transition > * {
+        transition: all 1s ease;
+        transform: translateX(2000%) !important;
+    }
+
+::deep #link-wrapper {
+    position: absolute;
+    top: 20%;
+    left: 25%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding-bottom: .5rem;
+    background-color: var(--bs-gray-700);
+}
+
+::deep #message-wrapper {
+    position: absolute;
+    top: 40%;
+    left: 25%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding-bottom: .5rem;
+    background-color: var(--bs-gray-700);
+}
+
+
+    ::deep #message-wrapper > button {
+        margin-top: 10px;
+        max-width: 8rem;
+        border: 2px solid var(--bs-gray-600);
+    }
+
+    ::deep #message-wrapper input {
+        margin-inline-end: 10px;
+        border: 2px solid var(--bs-gray-600) !important;
+    }
+
+    ::deep #message-wrapper input, ::deep #message-wrapper textarea {
+        border-color: lightgoldenrodyellow;
+        border: 2px solid var(--bs-gray-700) !important;
+    }
+
+
+
+::deep .stamp img {
+    margin-top: 0;
+    margin-bottom: 10px;
+    margin-inline-start: auto;
+    margin-inline-end: 15px;
+    min-width: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    max-height: 40px;
+}
+
+
+::deep iframe {
+    margin: 0;
+    min-height: 100%;
+    max-height: 100%;
+    max-width: 100%;
+    min-width: 100%;
+}
+
+::deep #discord-frame {
+    position: absolute;
+    right: 0;
+    top: 2%;
+    bottom: 8%;
+    margin-right: 10px;
+    z-index: 10;
+}
+
+::deep .card-header {
+    background-color: var(--bs-gray-800);
+    border-bottom: 2px solid var(--bs-tertiary);
+}
+
+::deep #__light {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 100em;
+    max-height: 100em;
+    min-width: 100em;
+    max-width: 100em;
+}
+
+::deep #__ray {
+    animation: all 2s ease-in-out;
+    animation-delay: .3s;
+    animation-iteration-count: 1;
+    position: absolute;
+    opacity: .3;
+    z-index: -1;
+    pointer-events: none;
+    filter: sepia(.2);
+    transform: translateX(-800px);
+    transform-style: preserve-3d;
+}*/
+/*
+@keyframes init {
+    from {
+        transform: rotateX(0deg);
+    }
+
+    to {
+        transform: rotateX(160deg);
+    }
+}*/

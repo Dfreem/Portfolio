@@ -1,0 +1,140 @@
+﻿@using System.Text.RegularExpressions
+<div class="slider-unit" id="__@SliderParams.Name-unit">
+
+    <div class="label-wrap">
+        @if (Enabled)
+        {
+
+            <label for="@SliderParams.Name" class="slider-label" id="__@SliderParams.Name-label">
+                @SliderParams.Name
+            </label>
+            <div class="slider-value text-nowrap" id="__@SliderParams.Name-value">
+                @(ExtractValue(SliderValue!))
+            </div>
+        }
+        else
+        {
+            <label disabled for="@SliderParams.Name" class="slider-label" id="__@SliderParams.Name-label">
+                @SliderParams.Name
+            </label>
+            <div disabled class="slider-value slider-value-disabled" id="__@SliderParams.Name-value">
+                @(ExtractValue(SliderValue!))
+            </div>
+
+        }
+
+    </div>
+    @if (Enabled)
+    {
+
+
+        <a class="link icon-link slider-reset" id="__reset-@SliderParams.Name" type="button" @onclick='OnReset'>
+            <i class="bi bi-arrow-counterclockwise"></i>
+        </a>
+        <div class="input-group">
+            <input @oninput='OnSlider' type="range"
+                   class="form-range col css-slider"
+                   id="__@SliderParams.Name"
+                   name="@SliderParams.Name"
+                   value="@_sliderValue"
+                   min="@SliderParams.Min"
+                   max="@SliderParams.Max"
+                   step="@SliderParams.Step" />
+        </div>
+    }
+    else
+    {
+        <a disabled class="link icon-link link-red-100 slider-reset" id="__reset-@SliderParams.Name" type="button" @onclick='OnReset'>
+            <i class="bi bi-arrow-counterclockwise"></i>
+        </a>
+        <div class="input-group">
+            <input disabled type="range" value="@ExtractValue(SliderValue)"
+                   class="form-range col css-slider"
+                   id="__@SliderParams.Name"
+                   name="@SliderParams.Name"
+                   min="@SliderParams.Min"
+                   max="@SliderParams.Max"
+                   step="@SliderParams.Step" />
+        </div>
+
+
+    }
+</div>
+@code {
+    string _id = default!;
+
+    private string? _initialValue;
+
+    private string? _sliderValue;
+
+    private Regex _valueExtractor = new("\\((-?\\d*)\\w*\\)");
+
+    private string? ExtractValue(string? input) =>
+        input is not null ? _valueExtractor.Match(input).Groups[1].Value.Replace("(", "").Replace(")", "") : null;
+
+    [Parameter]
+    [Required]
+    public SliderUnitParams SliderParams { get; set; } = default!;
+
+    [Parameter]
+    public string? SliderValue { get; set; }
+
+    [Parameter]
+    public EventCallback<string> SliderValueChanged { get; set; }
+
+    [Parameter]
+    public bool Enabled { get; set; }
+
+    [CascadingParameter]
+    public bool Reset { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> ResetChanged { get; set; }
+
+
+    public async Task OnSlider(ChangeEventArgs args)
+    {
+        if (Enabled)
+        {
+            SliderValue = _sliderValue = args.Value?.ToString();
+            await SliderValueChanged.InvokeAsync(SliderValue);
+        }
+    }
+
+    public async Task OnReset()
+    {
+        if (Enabled)
+        {
+
+            SliderValue = _sliderValue = _initialValue;
+            await SliderValueChanged.InvokeAsync(SliderValue);
+        }
+    }
+
+    protected override void OnParametersSet()
+    {
+        if (Reset)
+        {
+            _sliderValue = SliderValue;
+            Reset = false;
+            _ = ResetChanged.InvokeAsync(Reset);
+        }
+        base.OnParametersSet();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _initialValue = ExtractValue(SliderValue);
+            _sliderValue = _initialValue;
+            StateHasChanged();
+            _id = $"__{SliderParams.Name}";
+        }
+
+        base.OnAfterRender(firstRender);
+
+    }
+
+
+}

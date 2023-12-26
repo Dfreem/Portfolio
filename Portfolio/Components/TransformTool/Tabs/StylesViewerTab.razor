@@ -1,0 +1,118 @@
+﻿@inject CssParser Parser
+@inject IJSRuntime JS
+@inject ClipboardService Clipboard
+@inject ToastService ToastService
+
+<div class="@Collapse()">
+
+    <div class="d-flex mx-3 w-100 position-absolute">
+        <!--Copy to Clipboard Button-->
+        <button data-bs-custom-class="custom-tooltip"
+                data-bs-placement="top"
+                data-bs-toggle="tooltip"
+                data-bs-title="Copy to clipboard"
+                id="__copy-button"
+                class="btn btn-secondary me-1"
+                @onclick="OnCopy">
+            <i class="bi bi-clipboard"></i>
+        </button>
+
+        <!--Download Button-->
+        <button data-bs-custom-class="custom-tooltip"
+                data-bs-placement="top"
+                data-bs-toggle="tooltip"
+                data-bs-title="Download css"
+                id="__download-button"
+                class="btn btn-secondary mx-1"
+                @onclick='OnDownload'>
+            <i class="bi bi-download"></i>
+        </button>
+    </div>
+    <!--Css View Window-->
+    <div id="__display-css" class="rounded-0">
+
+        <div id="__inner-scroll">
+            <div class="vh-100">
+
+                @if (CssText is not null)
+                {
+                    <pre class="vh-100">
+                        @CssText
+                    </pre>
+                }
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@code {
+
+    private Regex _removeSquareBrackets = new(@"\[\S *\]");
+
+    [Parameter]
+    public bool ShouldCollapse { get; set; }
+
+    private string Collapse() => ShouldCollapse ? "collapse" : "";
+
+
+    [Parameter]
+    public bool Refresh { get; set; }
+
+    [Parameter]
+    public Dictionary<string, string>? StyleSnapshot { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> RefreshChanged { get; set; }
+
+
+    public string? CssText { get; set; }
+
+
+    public async Task OnCopy()
+    {
+        try
+        {
+            await Clipboard.WriteTextAsync(CssText!);
+            ToastService.OnToast("copied css to clipboard");
+        }
+        catch (Exception e)
+        {
+
+            ToastService.OnToast($"unable to copy text to clipboard\nError Message: {e.Message}");
+        }
+    }
+
+
+    public async Task OnDownload()
+    {
+        string rules = Parser.ParseParams(StyleSnapshot!);
+
+        await Parser.GenerateDownload(rules);
+        ToastService.OnToast("downloading css");
+    }
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var _module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/site.js");
+            await _module!.InvokeVoidAsync("initTooltips");
+
+        }
+        if (Refresh)
+        {
+            // CssText = await Parser.SeedCss();
+            CssText = Parser.ParseParams(StyleSnapshot!);
+
+            StateHasChanged();
+            Refresh = false;
+            await RefreshChanged.InvokeAsync(Refresh);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+}

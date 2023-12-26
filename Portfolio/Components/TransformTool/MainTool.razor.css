@@ -1,0 +1,194 @@
+﻿* {
+    --sidetab-transition: all .6s cubic-bezier(.34,.66,.62,.99);
+}
+
+::deep #__translate-2d {
+    position: relative;
+    margin-block: .5em;
+    margin-inline: auto;
+    /*    margin-bottom: 3em;*/
+}
+
+::deep .label-wrap {
+    display: flex;
+    margin-inline: auto;
+    flex-direction: row;
+}
+
+.slider-wrapper {
+    min-height: max-content;
+    padding-block: 5px;
+    margin-inline: auto;
+}
+
+#__slider-container {
+    margin-inline: .25rem;
+}
+
+.card-header {
+    background-color: var(--bs-body-bg);
+    border-bottom: 2px solid var(--bs-orange-500);
+    box-shadow: 1px 0px 5px inset var(--bs-gray-600);
+}
+
+#__transformer {
+    margin-inline: auto;
+    max-width: 90%;
+    padding-inline: 5px;
+}
+
+::deep .btn-secondary:hover {
+    filter: brightness(1.1);
+    color: var(--bs-theme-flax) !important;
+}
+
+::deep .btn-secondary.active {
+    filter: brightness(1.3);
+    color: var(--bs-theme-green) !important;
+    box-shadow: 0px 1px 2px inset var(--bs-dark);
+}
+
+::deep .btn-secondary {
+    background-color: var(--bs-secondary);
+    color: var(--bs-theme-flax);
+}
+
+::deep .btn-toolbar > ::deep .btn-group > .btn {
+    font-weight: 700;
+    color: var(--bs-theme-cornsilk);
+    /*    border: 2px solid var(--bs-gray-500);*/
+}
+
+
+#__shell {
+    overflow: hidden;
+    min-width: 400px;
+    max-width: 400px;
+    max-height: 800px;
+    margin-inline: 1rem;
+    margin-block-end: 40px;
+    margin-block-start: 20px;
+    position: absolute;
+    background-color: var(--bs-primary);
+    visibility: visible;
+    transition: var(--sidetab-transition);
+    border-radius: 5px;
+    box-shadow: 1px 0px 5px inset var(--bs-gray-600);
+}
+
+    #__shell.pos-right {
+        right: 0;
+        left: unset;
+        bottom: 0;
+        top: 0;
+    }
+
+    #__shell.pos-left {
+        left: 0;
+        right: unset;
+        bottom: 0;
+        top: 0;
+    }
+
+    #__shell.pos-right.hide-shell {
+        visibility: hidden;
+        transform: translateX(400px);
+        transition: var(--sidetab-transition);
+    }
+
+    #__shell.pos-left.hide-shell {
+        visibility: hidden;
+        transform: translateX(-400px);
+        transition: var(--sidetab-transition);
+    }
+
+    #__shell.pos-right.peek-shell {
+        visibility: visible;
+        transform: translateX(350px);
+    }
+
+.sidebar {
+    font-size: 16pt;
+    border-radius: 5px;
+    background-color: var(--bs-professional-grey-light);
+    position: absolute;
+    display: flex;
+    top: 2rem;
+    min-height: 3rem;
+    max-height: 3rem;
+    min-width: 5rem;
+    max-width: 5rem;
+    transition: var(--sidetab-transition);
+    transition-delay: .6s;
+}
+
+    .sidebar.pos-left {
+        left: -1em;
+        transition-delay: 0;
+        transition-duration: .2s;
+        transition: all .3s ease;
+        border-block: 3px solid var(--bs-orange-700);
+        border-inline-end: 3px solid var(--bs-orange-700);
+    }
+
+    .sidebar.pos-right {
+        transition-delay: 0;
+        transition-duration: .2s;
+        right: -1em;
+        transition: var(--sidetab-transition);
+        border-inline-start: 3px solid var(--bs-orange-700);
+        border-block: 3px solid var(--bs-orange-700);
+    }
+
+    .sidebar:hover {
+        min-width: 5.75rem;
+        max-width: 5.75rem;
+        cursor: pointer;
+        transition: var(--sidetab-transition);
+    }
+
+
+    .sidebar.pos-right #__three-dots {
+        left: 0;
+        position: relative;
+        margin-inline-end: auto;
+        margin-inline-start: 0;
+        max-width: min-content;
+    }
+
+    .sidebar.pos-left #__three-dots {
+        right: 0;
+        z-index: 100;
+        position: relative;
+        margin-inline-start: auto;
+        margin-inline-end: 0;
+        max-width: min-content;
+    }
+
+div.sidebar.d-flex.pos-right:not(.hide-shell) {
+    transform: translateX(150%);
+    transition-delay: .7s;
+    transition: var(--sidetab-transition);
+}
+
+div.sidebar.d-flex.pos-left:not(.hide-shell) {
+    transform: translateX(-150%);
+    transition-delay: .7s;
+    transition: var(--sidetab-transition);
+}
+
+div.sidebar.d-flex.hide-shell {
+    transition-delay: .7s;
+    transition: var(--sidetab-transition);
+}
+
+#__shell > a.icon-link {
+    position: absolute;
+    right: 1rem;
+    top: .75rem;
+}
+
+.icon-btn {
+    background-color: transparent;
+    fill: transparent;
+}

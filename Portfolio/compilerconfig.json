@@ -1,0 +1,26 @@
+[
+  {
+    "outputFile": "wwwroot/scss/custom.css",
+    "inputFile": "wwwroot/scss/custom.scss",
+    "sourceMap": false,
+    "useNodeSass": false
+  },
+  {
+    "outputFile": "wwwroot/css/custom.css",
+    "inputFile": "wwwroot/css/custom.scss",
+    "sourceMap": false,
+    "useNodeSass": false
+  },
+  {
+    "outputFile": "wwwroot/lib/bootstrap/dist/scss/_buttons.css",
+    "inputFile": "wwwroot/lib/bootstrap/dist/scss/_buttons.scss",
+    "sourceMap": false,
+    "useNodeSass": false
+  },
+  {
+    "outputFile": "wwwroot/lib/bootstrap/dist/scss/bootstrap.css",
+    "inputFile": "wwwroot/lib/bootstrap/dist/scss/bootstrap.scss",
+    "sourceMap": false,
+    "useNodeSass": false
+  }
+]

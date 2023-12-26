@@ -1,0 +1,91 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+	<PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<TypeScriptTarget>ESNext</TypeScriptTarget>
+		<Configurations>Debug;Release;Production</Configurations>
+	</PropertyGroup>
+	<PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<TypeScriptTarget>ESNext</TypeScriptTarget>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Production|AnyCPU'" Label="Configuration">
+	  <TypeScriptTarget>ESNext</TypeScriptTarget>
+	</PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>5570f14d-85e3-4c11-9c3f-21ccf6a984e7</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<DockerfileContext>.</DockerfileContext>
+		<DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+		<StartupObject></StartupObject>
+		<Trimming>none</Trimming>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <Optimize>False</Optimize>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <Optimize>True</Optimize>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Production|AnyCPU'">
+	  <Optimize>True</Optimize>
+	</PropertyGroup>
+	<ItemGroup>
+	  <Compile Remove="wwwroot\python\**" />
+	  <Content Remove="wwwroot\python\**" />
+	  <EmbeddedResource Remove="wwwroot\python\**" />
+	  <None Remove="wwwroot\python\**" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Remove="Shared\CssRules.cs" />
+	</ItemGroup>
+	<ItemGroup>
+		<Content Remove="compilerconfig.json" />
+		<Content Remove="wwwroot\css\filter.html" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Remove="Shared\CssRules.tt" />
+		<None Remove="StylesViewer.razor.css" />
+	</ItemGroup>
+	<ItemGroup>
+		<Content Update="Pages\Index.razor">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="Shared\SideBar.razor">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\css\site.css">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\favicon.png">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+		<Content Update="wwwroot\js\site.js">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\scss\custom.css">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="compilerconfig.json" />
+		<None Include="wwwroot\js\ToastService.js" />
+	</ItemGroup>
+	<ItemGroup>
+		<Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.0-beta.2" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Properties\PublishProfiles\" />
+	  <Folder Include="Properties\ServiceDependencies\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Resource Include="wwwroot\css\filter.html">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	</ItemGroup>
+</Project>

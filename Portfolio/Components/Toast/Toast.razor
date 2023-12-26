@@ -1,0 +1,73 @@
+﻿@using Portfolio.Services
+@inject ToastService ToastService
+
+<script>
+    #__toast {
+        outline: 1px solid var(--bs - orange - 600);
+        position: absolute;
+        top: 0;
+        left: 30 %;
+        margin: 1em;
+        background - color: var(--bs - professional - grey - 300);
+        width: max - content;
+    }
+
+                    .toast {
+        background - color: var(--bs - professional - grey - 400)!important;
+    }
+
+                    .toast - success {
+        background - color: var(--bs - success);
+        border: 1px solid var(--bs - success - emphasis);
+        color: var(--bs - orange - 300);
+    }
+
+                    .toast - error {
+        background - color: var(--bs - danger);
+        border: 1px solid var(--bs - danger - emphasis);
+        color: var(--bs - theme - cornsilk);
+    }
+
+</script>
+
+<div id="__toast" role="alert" class='toast @(IsToast ? "" : "visually-hidden") position-absolute top-0'>
+    <div class="toast-body">
+        <div class="d-flex mx-2">
+
+            @ToastMessage
+            <button type="button" class="btn-close ms-3" @onclick='(() => {_timer.Stop(); IsToast = false;})' aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    public string ToastMessage { get; set; } = string.Empty;
+
+    public string ToastClass { get; set; } = string.Empty;
+
+    Timer _timer = default!;
+
+    public bool IsToast { get; set; }
+
+    public void OnToast(Object? sender, ToastEventArgs args)
+    {
+        Console.WriteLine("toast started");
+        IsToast = false;
+        ToastService.ToastEvent += OnToast;
+        _timer = new();
+        _timer.Interval = 3000;
+        ToastMessage = args.Message;
+        ToastClass = args.CssClass;
+        IsToast = true;
+        _timer.Elapsed += (Object? sender, System.Timers.ElapsedEventArgs args) =>
+        {
+            Console.WriteLine("Toast Stopped");
+            IsToast = false;
+            _timer.Stop();
+            _timer.Dispose();
+
+        };
+        _timer.Start();
+    }
+}

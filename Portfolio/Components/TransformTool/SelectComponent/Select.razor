@@ -1,0 +1,110 @@
+﻿<div id="select-wrapper"
+     data-bs-toggle="tooltip"
+     data-bs-placement="left"
+     data-bs-offset="0,10"
+     data-bs-title="Select an id of the element you want to move."
+     data-bs-custom-class="custom-tooltip"
+     data-bs-delay='{"show":500,"hide":0 }' @onmouseleave='(() => Collapse = true)'>
+    <div class="select" @onclick='(() => Collapse = !Collapse)'>
+        <div id="span-holder">
+
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="title-label" id="__select-tt">
+            @(_selected != "none" && _selected != null ? _selected : TitleLabel)
+        </div>
+        <div class="triangle @(Collapse?"rotate-90":"")">
+
+            <svg width="3.175mm"
+                 height="2.6458333mm"
+                 viewBox="0 0 3.175 2.6458333"
+                 version="1.1"
+                 id="__down-triangle"
+                 xmlns="http://www.w3.org/2000/svg"
+                 xmlns:svg="http://www.w3.org/2000/svg">
+                <path id="__triangle-path"
+                      transform="matrix(0.94124327,0.02076811,-0.02216801,0.88180897,-0.18398358,-0.57868513)"
+                      d="M 3.5538461,1.0053567 2.2169501,3.4597934 A 0.28867513,0.28867513 178.57649 0 1 1.7171045,3.4722146 L 0.25994792,1.0872105 A 0.28867514,0.28867514 118.57649 0 1 0.49911367,0.6481208 L 3.2931661,0.57868826 a 0.28867514,0.28867514 58.576486 0 1 0.26068,0.42666844 z" />
+
+            </svg>
+        </div>
+    </div>
+
+    <div class="options-wrapper">
+        <div class="@(Collapse ? "collapse" : "") rounded rounded-5">
+
+            @if (Options != null)
+            {
+                <div class="select-list d-flex flex-column-reverse">
+
+                    @foreach (var option in Options)
+                    {
+                        if (option == "none")
+                        {
+                            <Option CssClass="text-center" Value="@option" Text="----" OnClick="Selected" @bind-Selected="Selection[option]" />
+
+                        }
+                        else
+                        {
+                            <Option Value="@option" Text="@option" OnClick="Selected" @bind-Selected="Selection[option]" />
+
+                        }
+
+                    }
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private string? _selected = "none";
+
+    [Parameter]
+    public string TitleLabel { get; set; } = "select";
+
+    [Parameter]
+    public string[]? Options { get; set; }
+
+    public Dictionary<string, bool> Selection { get; set; } = [];
+
+    [Parameter]
+    public EventCallback<string> OnChange { get; set; }
+
+    public bool Collapse { get; set; } = true;
+
+    public void Selected(string option)
+    {
+        Collapse = true;
+        Selection[_selected!] = false;
+        _selected = option;
+        Selection[_selected] = true;
+        if (option != TitleLabel)
+        {
+            OnChange.InvokeAsync(option);
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        if (Options is not null)
+        {
+
+            foreach (var option in Options)
+            {
+                Selection.Add(option, false);
+            }
+        }
+        base.OnInitialized();
+    }
+
+}

@@ -1,0 +1,400 @@
+﻿@using System.Timers
+@inject IJSRuntime JS
+@inject CssParser Parser
+@inject ToastService Toaster
+
+@ChildContent
+
+@if (Tool is not null && Tool.IsInitialized == true)
+{
+    <div class="sidebar d-flex @Tool.Pos @(HideShell?"hide-shell":"")"
+         id="__sidebar"
+         @onmouseenter='(() => {if (HideShell) PeekShell = true;})'
+         @onmouseleave='(() => { if(HideShell) PeekShell = false;})'
+         @onclick='(() => HideShell = !HideShell)'
+         data-bs-toggle="tooltip"
+         data-bs-custom-class="custom-tooltip"
+         data-bs-trigger="hover manual"
+         data-bs-delay='{"show":500,"hide":0 }'
+         data-bs-offset="0,60"
+         data-bs-placement="left"
+         data-bs-animated="true"
+         data-bs-title="CSS Transform Tool">
+        <i class="bi bi-three-dots-vertical" id="__three-dots"></i>
+    </div>
+    <label class="text-theme-cornsilk" id="__try-me">Try Me</label>
+    <div id="__shell" class="@(HideShell ? "hide-shell" : "") card @Tool.Pos">
+
+        <div class="card-header pb-0 mb-3">
+
+
+            <ul class="nav nav-tabs mt-2 pb-0 mb-0">
+                <li class="nav-item">
+
+                    <button type="button"
+                            id="__transformer-button"
+                            class="nav-link @(Tool!.ActiveToggle(TabName.Transformer))"
+                            @onclick='(() => OnTabSelected(TabName.Transformer))'>
+                        Transform
+                    </button>
+                </li>
+                <li class="nav-item">
+
+                    <button type="button"
+                            id="__display-css-button"
+                            class="nav-link @(Tool!.ActiveToggle(TabName.StyleViewer))"
+                            @onclick='(() => OnTabSelected(TabName.StyleViewer))'>
+                        CSS
+                    </button>
+                </li>
+                <li class="nav-item">
+
+                    <button type="button"
+                            id="__file-upload-button"
+                            class="nav-link @(Tool!.ActiveToggle(TabName.FileUpload))"
+                            @onclick='(() => OnTabSelected(TabName.FileUpload))'>
+                        Upload
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <a @onclick='(() => HideShell = true)' class="icon-link link-tertiary">
+            <i class="bi bi-x-circle"></i>
+        </a>
+
+        <div class='@Tool.CollapseToggle(TabName.Transformer)' id="__transformer">
+            <div class="row">
+                <div class="mx-auto mb-1 width-fit">
+                    <Select Options="Tool.ElementIds" OnChange="OnTargetSelected" TitleLabel="Select Element" />
+                </div>
+            </div>
+
+            <div class="mx-auto">
+                <CascadingValue Value="Tool.TransformParams">
+
+                    <TouchPad OnTouchpadTouched="OnTranslateChanged"
+                              Id="__translate-2d"
+                              XLabel="translate-x"
+                              YLabel="translate-y">
+
+                        <div class="btn-group btn-group-sm me-1">
+
+                            <button class="btn btn-danger"
+                                    id="__rst"
+                                    @onclick='ResetAll'
+                                    data-bs-trigger="hover manual"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="left"
+                                    data-bs-animated="true"
+                                    data-bs-offset="0, 10"
+                                    data-bs-custom-class="custom-tooltip"
+                                    data-bs-delay='{"show":500,"hide":0 }'
+                                    data-bs-title="Reset all transformations">
+                                Reset All
+                                <i class="bi bi-arrow-repeat"></i>
+                            </button>
+                        </div>
+                        <div class="btn-group btn-group-sm mx-1">
+
+                            <button class="btn btn-secondary @(TestObjectShown ? "active" : "")"
+                                    id="__example-btn"
+                                    data-bs-trigger="hover manual"
+                                    data-bs-animated="true"
+                                    data-bs-custom-class="custom-tooltip"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-offset="0, 10"
+                                    data-bs-delay='{"show":500,"hide":0}'
+                                    data-bs-title="Try the tool on a test object"
+                                    @onclick='(() => {_ = _module!.InvokeVoidAsync("showExampleObject"); TestObjectShown = !TestObjectShown;})'>
+                                Test
+
+                                <i class="bi bi-box"></i>
+                            </button>
+                        </div>
+                        <div class="btn-group btn-group-sm mx-1">
+
+                            <button class="btn btn-secondary"
+                                    id="__position-btn"
+                                    data-bs-trigger="hover manual"
+                                    data-bs-animated="true"
+                                    data-bs-custom-class="custom-tooltip"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-offset="0, 10"
+                                    data-bs-delay='{"show":500,"hide":0}'
+                                    data-bs-title="Move this tool to the left side of the screen" @onclick='(() => {Tool!.Pos = "pos-left"; SetLocation();})'>
+                                <i class="bi bi-align-start"></i>
+                            </button>
+                            <button class="btn btn-secondary"
+                                    id="__position-btn"
+                                    data-bs-trigger="hover manual"
+                                    data-bs-animated="true"
+                                    data-bs-custom-class="custom-tooltip"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-offset="0, 10"
+                                    data-bs-delay='{"show":500,"hide":0}'
+                                    data-bs-title="Move this tool to the right side of the screen" @onclick='(() =>{ Tool!.Pos = "pos-right"; SetLocation();})'>
+                                <i class="bi bi-align-end"></i>
+                            </button>
+                        </div>
+                    </TouchPad>
+                </CascadingValue>
+
+            </div>
+
+            <div id="__slider-container">
+
+                <CascadingValue Value="Reset">
+
+                    <SliderUnit Enabled='true' SliderParams='(new SliderUnitParams(){ Name = "skew-x", Min = -90, Max = 90})'
+                                @bind-SliderValue='Tool.TransformParams.SkewX'
+                                @bind-SliderValue:after='OnTranslateChanged' ResetChanged="((r) => Reset = r)" />
+
+
+                    <SliderUnit Enabled='true' SliderParams='(new SliderUnitParams(){ Name = "rotate-x", Min = -90, Max = 90, Step = 1})'
+                                @bind-SliderValue="Tool.TransformParams.RotateX"
+                                @bind-SliderValue:after="OnTranslateChanged" />
+
+                    <SliderUnit Enabled='true' SliderParams='(new SliderUnitParams(){ Name = "rotate-y", Min = -90, Max = 90, Step = 1})'
+                                @bind-SliderValue="Tool.TransformParams.RotateY"
+                                @bind-SliderValue:after="OnTranslateChanged" />
+
+                    <SliderUnit Enabled='true' SliderParams='(new SliderUnitParams(){ Name = "rotate-z", Min = -90, Max = 90, Step = 1})'
+                                @bind-SliderValue="Tool.TransformParams.RotateZ"
+                                @bind-SliderValue:after="OnTranslateChanged" />
+
+
+                    <div class="form-check form-switch ms-1 mt-4" id="__perspective-enable">
+                        <InputCheckbox id="__perspective-switch"
+                                       data-bs-trigger="hover manual"
+                                       class="form-check-input"
+                                       type="checkbox"
+                                       role="switch"
+                                       data-bs-animated="true"
+                                       data-bs-custom-class="custom-tooltip"
+                                       data-bs-toggle="tooltip"
+                                       data-bs-offset="0, 10"
+                                       data-bs-title="Enable 3D translation along the z axis"
+                                       data-bs-delay='{"show":500,"hide":0}'
+                                       DisplayName="Enable Perspective"
+                                       @bind-Value='Tool.TransformParams.PerspectiveEnabled'
+                                       @bind-Value:after='OnTogglePerspective'>
+                        </InputCheckbox>
+                        <label class="form-check-label slider-value text-nowrap" id="__perspective-enable-label">Enable Perspective</label>
+
+                    </div>
+                    <SliderUnit Enabled='Tool.TransformParams.PerspectiveEnabled'
+                                SliderParams='(new SliderUnitParams(){ Name = "perspective", Min = 0, Max = 500})'
+                                @bind-SliderValue='Tool.TransformParams.Perspective'
+                                @bind-SliderValue:after="OnTranslateChanged" />
+                    <SliderUnit Enabled='Tool.TransformParams.PerspectiveEnabled'
+                                SliderParams='(new SliderUnitParams(){ Name = "translate-z", Min = -500, Max = 500})'
+                                @bind-SliderValue="Tool.TransformParams.TranslateZ"
+                                @bind-SliderValue:after="OnTranslateChanged" />
+                </CascadingValue>
+            </div>
+        </div>
+
+        <StylesViewerTab @bind-Refresh="Refresh" StyleSnapshot="@Tool.StyleSnapshot" ShouldCollapse='Tool.ShouldCollapse[TabName.StyleViewer]' />
+        <FileUploaderTab ShouldCollapse="Tool.ShouldCollapse[TabName.FileUpload]"></FileUploaderTab>
+    </div>
+    <Toast></Toast>
+}
+
+@code {
+
+    private IJSObjectReference? _module;
+
+    private string PerspectiveEnabled => TogglePerspective ? "" : "disabled";
+
+    public ToolModel? Tool { get; set; }
+
+    public double Scroll { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+
+    public bool TogglePerspective { get; set; }
+
+    public bool Refresh { get; set; }
+
+    public bool Reset { get; set; }
+
+    public bool HideShell { get; set; }
+
+    public bool PeekShell { get; set; }
+
+    public string? ToastMessage { get; set; }
+
+    public bool TestObjectShown { get; set; }
+
+    // private bool _canSense = false;
+
+    // private string[] _buttonStates = new string[3] { "active", "", "" };
+
+    // private Regex _valueExtracter = new(@"\((-?\d*)\w*\)");
+
+    Dictionary<string, string> PerspectiveStorage = [];
+
+    // private void TimeIntro()
+    // {
+    //     _timer = new();
+    //     _timer.Interval = 500;
+    //     _timer.Elapsed += HideIntro;
+    //     _numberOfBlinks = 0;
+    // }
+
+    // private void HideIntro(Object? sender, ElapsedEventArgs args)
+    // {
+    //     if (_numberOfBlinks <= 10)
+    //     {
+
+    //     }
+    // }
+
+
+    public void ExampleObject()
+    {
+        _ = _module!.InvokeVoidAsync("showExampleObject");
+
+    }
+
+    public void OnTargetSelected(string args)
+    {
+
+        Tool!.PreviousElementId = Tool.SelectedElementId;
+        Tool.SelectedElementId = args;
+
+        if (Tool.PreviousElementId is not "none" and not null)
+        {
+            PerspectiveStorage[Tool.PreviousElementId!] = Tool.TransformParams.Perspective;
+            if (Tool.StyleSnapshot.ContainsKey(Tool.PreviousElementId))
+            {
+                Tool.StyleSnapshot[Tool.PreviousElementId] = Tool.TransformParams.TransformString;
+            }
+            else
+            {
+                Tool.StyleSnapshot.Add(Tool.PreviousElementId, Tool.TransformParams.TransformString);
+            }
+        }
+        if (Tool.StyleSnapshot.ContainsKey(Tool.SelectedElementId))
+        {
+            Tool.TransformParams.TransformString = Tool.StyleSnapshot[Tool.SelectedElementId!];
+        }
+        Tool.TransformParams.Perspective = PerspectiveStorage[Tool.SelectedElementId!];
+
+    }
+
+    private void SetLocation()
+    {
+        _ = _module!.InvokeVoidAsync("setSidebarPosition", Tool!.Pos);
+        // _ = _module!.InvokeVoidAsync("showShell");
+    }
+
+
+    public void OnTranslateChanged()
+    {
+        if (Tool!.SelectedElementId is null)
+        {
+            return;
+        }
+        _module!.InvokeVoidAsync("transformById", Tool.SelectedElementId, Tool.TransformParams.TransformString);
+        StateHasChanged();
+    }
+
+    public void OnTabSelected(TabName clickedTabId)
+    {
+        if (Tool!.SelectedElementId is not null)
+        {
+            Tool.StyleSnapshot[Tool.SelectedElementId] = Tool.TransformParams.TransformString;
+
+        }
+        if (Tool.CurrentTab == clickedTabId) return;
+        Tool.ShouldCollapse[clickedTabId] = false;
+        Tool.ShouldCollapse[Tool.CurrentTab] = true;
+        Tool.CurrentTab = clickedTabId;
+        Refresh = true;
+    }
+
+    public void OnTogglePerspective()
+    {
+        if (Tool!.SelectedElementId is null) return;
+        if (!Tool!.TransformParams.PerspectiveEnabled)
+        {
+            // save the current perspective state before setting to 0
+            PerspectiveStorage[Tool.SelectedElementId] = Tool.TransformParams.Perspective;
+            Tool.TransformParams.TranslateZ = "0";
+            Tool.TransformParams.Perspective = "none";
+        }
+        else
+        {
+            if (PerspectiveStorage.TryGetValue(Tool.SelectedElementId, out string? perspective))
+            {
+                Tool.TransformParams.TransformString = perspective;
+            }
+
+        }
+        OnTranslateChanged();
+    }
+
+    public void ResetAll()
+    {
+        if (Tool?.SelectedElementId is not null)
+        {
+            Tool.TransformParams.TranslateX = "0";
+            Tool!.TransformParams.TransformString = "0";
+            Reset = true;
+            Refresh = true;
+
+        }
+        OnTranslateChanged();
+
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+        if (firstRender)
+        {
+            Tool ??= new();
+            Tool.TransformParams.PerspectiveEnabled = false;
+            Tool.CurrentTab = TabName.Transformer;
+            Tool.Tabs = new TabName[] { TabName.Transformer, TabName.StyleViewer, TabName.FileUpload };
+            PerspectiveStorage.Add("none", "");
+
+            _module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/site.js");
+
+            Tool!.ElementIds = await _module!.InvokeAsync<string[]>("getHTMLElementIds");
+            Tool!.ElementIds = Tool!.ElementIds.Append("none").ToArray();
+            foreach (var name in Tool.Tabs)
+            {
+                Tool.ShouldCollapse.Add(name, true);
+            }
+            Tool.ShouldCollapse[TabName.Transformer] = false;
+            foreach (var s in Tool.ElementIds)
+            {
+                if (!s.Contains(Tool.ExclusionPrefix) && s != "none")
+                {
+                    string computed = await _module!.InvokeAsync<string>("getElementsTransform", s);
+                    CssTransformService temp = new();
+                    temp.PerspectiveEnabled = true;
+                    Tool.TransformParams.PerspectiveEnabled = true;
+                    temp.TransformString = computed;
+                    Tool.StyleSnapshot.Add(s, temp.TransformString);
+                    PerspectiveStorage.Add(s, temp.Perspective);
+                    Tool.TransformParams.PerspectiveEnabled = false;
+                    temp.PerspectiveEnabled = false;
+                }
+            }
+            await _module!.InvokeVoidAsync("initTooltips");
+            await _module!.InvokeVoidAsync("initToast");
+            HideShell = true;
+            Tool.IsInitialized = true;
+            StateHasChanged();
+        }
+        await base.OnAfterRenderAsync(firstRender);
+
+
+    }
+}

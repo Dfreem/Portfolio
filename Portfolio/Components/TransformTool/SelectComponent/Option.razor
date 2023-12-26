@@ -1,0 +1,45 @@
+﻿@if (Selected)
+{
+    <div id="@Id" class="option @CssClass selected @(Selected ? "selected":"")" @onclick='HandleClick'>
+        @(Text ?? Value?.ToString())
+    </div>
+}
+else
+{
+     <div id="@Id" class="option @CssClass @(Selected ? "selected":"")" @onclick='HandleClick'>
+        @(Text ?? Value?.ToString())
+    </div>
+
+}
+@code {
+
+    [Parameter]
+    public bool Selected { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> SelectedChanged { get; set; }
+
+    [Parameter]
+    public EventCallback<string> OnClick { get; set; }
+
+    [Parameter]
+    public string? Value { get; set; }
+
+    [Parameter]
+    public string Text { get; set; } = default!;
+
+    [Parameter]
+    public string? CssClass { get; set; }
+
+    [Parameter]
+    public string Id { get; set; } = default!;
+
+    public async Task HandleClick()
+    {
+        Selected = !Selected;
+
+        await OnClick.InvokeAsync(Value);
+    }
+}
+
+

@@ -1,0 +1,168 @@
+﻿@using System.Timers
+@inject ILogger<FileUploaderTab> Logger
+@inject ToastService Toast
+@inject NavigationManager Nav
+@inject IWebHostEnvironment Env
+@inject ProtectedSessionStorage Session
+<div class="container mb-3 arrow-container">
+    <i id="__arrow" class="bi bi-arrow-up text-tertiary fw-800 @(_showArrow?"":"collapse")"></i>
+</div>
+<div class="container @Collapse" id="__file-uploader">
+    <div class="card my-auto">
+        <div class="card-header">
+            <h3 class="card-title text-professional-grey-200 text-center mb-0 mt-1">
+                Upload a File
+            </h3>
+        </div>
+        <div class="card-body bg-700">
+
+            <div class="card-text text-200 px-3">
+                upload an <span class="text-tertiary"> HTML </span>
+                and an <span class="text-tertiary"> optional CSS </span>
+                file
+            </div>
+            <div class="fieldset">
+
+                <div class="input-group mx-2">
+                    <InputFile @ref="_htmlFile" type="file" class="custom-file-input form-control" OnChange="OnFileSelected"></InputFile>
+                    <label class="input-group-text">Html</label>
+
+                </div>
+                <div class="input-group mx-2">
+                    <InputFile @ref="_cssFile" class="custom-file-input form-control" OnChange="OnFileSelected"></InputFile>
+                    <label class="input-group-text">CSS</label>
+
+                </div>
+            </div>
+            <div class="card-text text-200 px-2">
+                After selecting a file and clicking the
+                <span class="text-theme-green-light"> green button</span>
+                use the controls on the <a @onclick='ShowArrow' class="link-tertiary link-underline-tertiary">Transform Tab</a>
+                <br /><br />
+            </div>
+            <button @onclick="OnSubmitForm" type="submit" class="btn btn-theme-green m-2 bi bi-chevron-double-right @ActiveSubmit">Edit Your Page</button>
+            @if (FileHandler?.BrowserHtml is null)
+            {
+                <span class="text-warning">
+                    Select an HTML file
+                </span>
+            }
+
+        </div>
+    </div>
+
+</div>
+
+
+@code {
+    #region ======= Css State Variables =======
+    private bool _showArrow;
+
+    private Timer? _timer;
+
+    private int _numberOfBlinks;
+
+    [Parameter]
+    public bool ShouldCollapse { get; set; }
+
+    public string? ActiveSubmit { get; set; }
+
+    public WebFileHandler? FileHandler { get; set; }
+
+    public string Collapse => ShouldCollapse ? "visually-hidden" : "";
+    #endregion
+
+    #region ======= File Handling ========
+    // public WebFileHandler? FileHandler { get; set; }
+
+    private InputFile? _htmlFile;
+
+    private InputFile? _cssFile;
+
+    private void ShowArrow()
+    {
+        _numberOfBlinks = 0;
+        _timer = new System.Timers.Timer();
+        _timer.Interval = 500;
+        _timer.Elapsed += HideArrow;
+        _showArrow = true;
+        _timer.Start();
+    }
+
+    private void HideArrow(Object? sender, ElapsedEventArgs args)
+    {
+        Console.WriteLine("timer");
+        if (_numberOfBlinks <= 10)
+        {
+            _showArrow = !_showArrow;
+            _numberOfBlinks++;
+            InvokeAsync(StateHasChanged);
+        }
+        else
+        {
+            _showArrow = false;
+            _timer!.Stop();
+            InvokeAsync(StateHasChanged);
+        }
+    }
+
+    void OnFileSelected(InputFileChangeEventArgs args)
+    {
+        FileHandler ??= new();
+        if (args.File?.ContentType == "text/css")
+        {
+            FileHandler.BrowserCss = args.File;
+
+        }
+        else if (args.File?.ContentType == "text/html")
+        {
+            FileHandler.BrowserHtml = args.File;
+            FileHandler.FileName = args.File.Name;
+        }
+        else
+        {
+            Toast.OnToast("CSS or HTML files only", "toast-error");
+        }
+        if (FileHandler.BrowserHtml is not null)
+        {
+            ActiveSubmit = "";
+        }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _showArrow = false;
+            ActiveSubmit = "disabled";
+
+        }
+        base.OnAfterRender(firstRender);
+    }
+
+    private async Task OnSubmitForm()
+    {
+        // Logger.LogDebug(FileHandler?.BrowserHtml?.Size.ToString());
+        using var stream = FileHandler!.BrowserHtml?.OpenReadStream();
+        using var reader = new StreamReader(stream!);
+        string html = await reader.ReadToEndAsync(new CancellationToken());
+        await Session.SetAsync("htmlContent", html);
+        stream?.Dispose();
+        reader.Dispose();
+        if (FileHandler?.BrowserCss is not null)
+        {
+
+            using var cssStream = FileHandler!.BrowserCss!.OpenReadStream();
+            using var cssReader = new StreamReader(cssStream);
+            string css = await cssReader.ReadToEndAsync();
+            await Session.SetAsync("cssContent", css);
+        }
+
+        Nav.NavigateTo("/user-upload", new NavigationOptions()
+        {
+            ForceLoad = true,
+            HistoryEntryState = "Navagition state"
+        });
+    }
+    #endregion
+}

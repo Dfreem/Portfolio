@@ -1,0 +1,193 @@
+﻿* {
+    --select-bg: var(--bs-gray-500);
+    --select-color: var(--bs-gray-900);
+    --select-outline-color: goldenrod;
+    --select-title-color: goldenrod;
+    --select-hover-title-color: var(--bs-professional-grey-600);
+    --select-hover-color: var(--bs-gray-700);
+    --select-hover-bg: var(--gray-600);
+    --select-hover-outline-color: darkgoldenrod;
+    --select-selected-bg: var(--bs-gray-400);
+    --select-selected-color: var(--bs-gray-900);
+    --select-selected-outline-color: var(--bs-theme-green);
+}
+
+.select span:nth-child(1) {
+    --n: 1;
+}
+
+.select span:nth-child(5) {
+    --n: 5;
+}
+
+.select span:nth-child(2) {
+    --n: 2;
+}
+
+.select span:nth-child(6) {
+    --n: 6;
+}
+
+
+.select span:nth-child(3) {
+    --n: 3;
+}
+
+.select span:nth-child(7) {
+    --n: 7;
+}
+
+
+.select span:nth-child(4) {
+    --n: 4;
+}
+
+.select span:nth-child(8) {
+    --n: 8;
+}
+
+.select {
+    min-height: 2em;
+    max-height: 2em;
+    margin-block: 0;
+    border-radius: .25rem;
+    display: flex;
+    color: var(--select-color);
+}
+
+.title-label {
+    font-size: 1.2rem;
+    position: relative;
+    color: var(--select-title-color);
+    margin: auto;
+}
+
+.options-wrapper {
+    padding: 0;
+    border-radius: .25rem;
+    margin: 0;
+    overflow: hidden;
+    min-width: 100%;
+    position: absolute;
+    z-index: 2;
+    transition: all ease .6s;
+}
+
+#select-wrapper {
+    cursor: pointer;
+    position: relative;
+    min-height: 2rem;
+    max-height: 2rem;
+    margin-block: .5em;
+    outline: 4px solid var(--select-outline-color);
+    border-radius: .25rem;
+}
+
+    #select-wrapper > * {
+        user-select: none;
+    }
+
+
+::deep .option {
+    background-color: transparent;
+    color: var(--select-color);
+    position: relative;
+    min-width: 100%;
+    padding-inline: 1rem;
+    padding-top: .125em;
+    border: 1px solid darkgoldenrod;
+}
+
+    ::deep .option.selected {
+        background-color: var(--select-selected-bg);
+        box-shadow: 0 0 3px inset var(--bs-blue-400);
+        color: var(--select-selected-color);
+    }
+
+.select-list {
+    background-color: var(--select-bg);
+    border-radius: .25rem;
+    outline: .25rem solid var(--select-outline-color);
+    line-height: 2em;
+    margin: .25rem;
+    margin-top: .5rem;
+}
+
+::deep .option:nth-child(2) {
+    border-top-right-radius: .25rem;
+    border-top-left-radius: .25rem;
+}
+
+.select-list > .option:nth-last-of-type(n) {
+    border-bottom-left-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+}
+
+.select:hover {
+    transition-delay: .5s;
+    transition-duration: 1s;
+    color: black;
+}
+
+::deep .option:hover {
+    outline-color: var(--select-hover-outline-color);
+    color: var(--select-hover-color);
+    background-color: var(--select-hover-bg);
+    backdrop-filter: brightness(1.2);
+}
+
+.triangle {
+    fill: goldenrod;
+    background-color: transparent;
+    margin-block: auto;
+    transform-origin: center;
+    position: absolute;
+    top: .25rem;
+    right: 1rem;
+
+    transition: fill ease 1s .7s, transform ease 1s .2s; 
+}
+
+
+#select-wrapper:hover .select .triangle {
+    transition: fill ease 1s .9s;
+    fill: var(--select-hover-title-color);
+}
+
+#select-wrapper:hover .title-label {
+    transition-delay: .5s;
+    transition-duration: 1s;
+    color: var(--select-hover-title-color);
+}
+
+.rotate-90 {
+    transform: rotateZ(-90deg);
+}
+
+#span-holder {
+    position: absolute;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+    #span-holder span {
+        position: absolute;
+        width: 5%;
+        height: 100%;
+        background-color: goldenrod;
+        transform: rotate(45deg) translate(-550%, 550%);
+        border-radius: 5%;
+        left: calc((var(--n) - 1) * 13%);
+        transition: 1s;
+        transition-delay: calc((var(--n) - 1) * 0.1s);
+        /*        z-index: -1;*/
+    }
+
+#select-wrapper:hover #span-holder span {
+    transform: translateY(0) scale(3);
+    transition: 1s;
+    transition-delay: calc((var(--n) - 1) * 0.1s);
+    border-radius: 50%;
+}

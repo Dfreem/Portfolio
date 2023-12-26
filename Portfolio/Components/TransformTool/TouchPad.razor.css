@@ -1,0 +1,56 @@
+﻿
+.touchpad-wrap {
+    /*    font-family: 'Arial Rounded MT';*/
+    /*    font-stretch: extra-expanded;*/
+    max-height: max-content;
+    max-width: fit-content;
+}
+
+.touchpad {
+    text-shadow: 0 0 7px var(--bs-professionial-grey-700);
+    flex-basis: 100%;
+    min-height: 13rem;
+    max-height: auto;
+    min-width: 22rem;
+    margin-inline: auto;
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px inset var(--bs-professional-grey-500);
+    outline: 2px inset var(--bs-orange-700);
+    background-color: var(--bs-gray-600);
+}
+#__y-value {
+    position: absolute;
+    min-width: 20px;
+    transform: translate( 0px, -75px) rotateZ(90deg);
+    text-align: end;
+}
+
+
+#__y-axis {
+    position: absolute;
+    transform: translate(-25px, -130px) rotateZ(90deg);
+    text-shadow: 0 0 3px var(--bs-professional-grey-700);
+}
+
+#__x-value {
+    position: absolute;
+    min-width: 20px;
+    text-align: end;
+    transform: translate(165px, -24px);
+}
+
+#__x-axis {
+    text-shadow: 0 0 3px var(--bs-professional-grey-700);
+    position: absolute;
+    transform: translate(80px, -25px);
+}
+
+#faster {
+    display: flex;
+    max-height: fit-content;
+    max-width: fit-content;
+    /*margin-inline: auto;*/
+    margin-top: .25rem;
+}
+
+

@@ -1,0 +1,150 @@
+﻿@using System.Diagnostics.CodeAnalysis
+@using Microsoft.AspNetCore.Components
+@using Microsoft.JSInterop.Implementation;
+@using Portfolio.Shared
+@using Portfolio
+@using System.Text.RegularExpressions
+@inject IJSRuntime JS
+
+<div class="touchpad-wrap" id="@Id">
+
+    <div class="touchpad"
+         @onmousemove="HandleTouch"
+         @onmousedown="(() => _canSense = true)"
+         @onmouseup="(() => _canSense = false)">
+    </div>
+    <div class="text-professional-grey-100" id="__x-axis">
+        @XLabel
+
+    </div>
+    <div class="text-professional-grey-100" id="__y-axis">
+        @YLabel
+    </div>
+    <div class="text-orange-400" id="__y-value">@ExtractValue(Params!.TranslateY)</div>
+    <div class="text-orange-400" id="__x-value"> @ExtractValue(Params!.TranslateX)</div>
+</div>
+
+
+
+@* <label class="text-professional-grey-100">sensitivity</label> *@
+<div class="d-flex">
+    <div class="mx-auto mb-2 mt-1">
+
+        <div class="btn-toolbar mx-auto" id="faster">
+
+            @if (ChildContent is not null)
+            {
+                @ChildContent
+            }
+            <div class="btn-group btn-group-sm ms-1"
+                 data-bs-toggle="tooltip"
+                 data-bs-title="Select the touchpad sensitivity"
+                 data-bs-custom-class="custom-tooltip"
+                 data-bs-trigger="hover manual"
+                 data-bs-offset="0, 10"
+                 id="__speed-btns">
+                <button type="button" class="btn btn-secondary @_buttonStates[0]" @onclick='(() => OnSetSensitivity(1))'>1x</button>
+                <button type="button" class="btn btn-secondary @_buttonStates[1]" @onclick='(() => OnSetSensitivity(2))'>2x</button>
+                <button type="button" class="btn btn-secondary @_buttonStates[2]" @onclick='(() => OnSetSensitivity(3))'>3x</button>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+@code {
+    #region ========= Fields ==============
+
+    private bool _canSense = false;
+
+    private string[] _buttonStates = new string[3] { "active", "", "" };
+
+    private Regex _valueExtracter = new(@"\((-?\d*)\w*\)");
+
+    private int _sensitivity;
+
+    private string? _initialX;
+
+    private string? _initialY;
+
+    #endregion
+
+    #region ============ Parameters ============
+
+    [Parameter]
+    public string? Id { get; set; }
+
+    [Parameter]
+    public string? XLabel { get; set; }
+
+    [Parameter]
+    public string? YLabel { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [CascadingParameter]
+    public CssTransformService? Params { get; set; }
+
+    #endregion
+
+    #region ============ Event Callbacks ===========
+
+    [Parameter]
+    public EventCallback OnTouchpadTouched { get; set; }
+
+    #endregion
+
+    #region ========= Event Handlers =========
+
+    public void HandleTouch(MouseEventArgs e)
+    {
+        if (_canSense)
+        {
+            double tempX = ExtractValue(Params!.TranslateX);
+            double tempY = ExtractValue(Params!.TranslateY);
+            tempX += (e.MovementX * _sensitivity);
+            tempY += (e.MovementY * _sensitivity);
+            Params!.TranslateX = $"{tempX}";
+            Params!.TranslateY = $"{tempY}";
+            OnTouchpadTouched.InvokeAsync();
+            //ParamsChanged.InvokeAsync(Params);
+        }
+    }
+
+    public void OnSetSensitivity(int value)
+    {
+        _sensitivity = value;
+
+        _buttonStates = new string[] { "", "", "" };
+
+        _buttonStates[value - 1] = "active";
+    }
+
+    public void OnReset()
+    {
+        Params!.TranslateX = _initialX!;
+        Params!.TranslateY = _initialY!;
+    }
+
+    #endregion
+
+    protected int ExtractValue(string input)
+    {
+        if (input is "") { return 0; }
+        var result = _valueExtracter.Match(input).Groups[1];
+
+        return int.Parse(result.Value);
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _sensitivity = 1;
+            _initialX = Params?.TranslateX!;
+            _initialY = Params?.TranslateY!;
+        }
+        base.OnAfterRender(firstRender);
+    }
+}

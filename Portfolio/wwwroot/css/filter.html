@@ -1,0 +1,22 @@
+﻿
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%">
+    <filter id="__spotlight">
+
+        <feOffset in="SourceGraphic" dx="0" dy="0" result="offsetBlur"></feOffset>
+        <!-- highlight -->
+        <feSpecularLighting in="SourceGraphic" surfaceScale="5" specularConstant=".75" specularExponent="20" result="highlight" lighting-color="var(--bs-orange-400)">
+            <!-- e908e8a4-6734-4b6f-92c6-efa00cfcd7cd -->
+            <fePointLight x="1000" y="1000" z="20000" result="e908e8a4-6734-4b6f-92c6-efa00cfcd7cd"></fePointLight>
+        </feSpecularLighting>
+        <!-- highlightApplied -->
+        <feComposite in="highlight" in2="SourceAlpha" operator="in" result="highlightApplied"></feComposite>
+        <!-- highlightText -->
+        <feComposite in="SourceGraphic" in2="highlightApplied" operator="arithmetic" k2="1" k3="1" result="highlightText"></feComposite>
+        <!-- 44fb9371-7ca1-47fd-bda4-446a0eeffff8 -->
+        <feMerge result="44fb9371-7ca1-47fd-bda4-446a0eeffff8">
+            <feMergeNode in="offsetBlur"></feMergeNode>
+            <feMergeNode in="highlightText"></feMergeNode>
+        </feMerge>
+    </filter>
+
+</svg>

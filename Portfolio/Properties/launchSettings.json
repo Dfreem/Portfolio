@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Portfolio": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Release"
+      },
+      "applicationUrl": "{Scheme}://{ServiceHost}:{ServicePort}/"
+    }
+  }
+}
