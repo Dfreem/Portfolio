@@ -29,12 +29,11 @@ builder.Services.AddScoped<ToastService>();
 WebApplication app = builder.Build();
 
 //// Configure the HTTP request pipeline.
-//if (!app.Environment.IsDevelopment())
-//{
-//    app.UseResponseCompression();
-//    app.UseExceptionHandler("/Error");
-//}
-app.UseHsts();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Error");
+    app.UseHsts();
+}
 
 app.UseHttpsRedirection();
 
