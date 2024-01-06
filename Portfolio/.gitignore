@@ -396,3 +396,9 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+id_rsa*
+bin/
+.vs/
+*/.config/
+*/obj/
+*/PublishProfiles/
