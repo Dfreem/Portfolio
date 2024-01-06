@@ -1,18 +1,25 @@
 ﻿namespace Portfolio.Services;
-public class ToastService
+public class ToastService()
 {
-    public ToastService()
-    {
-        
-    }
+    
     public event EventHandler<ToastEventArgs> ToastEvent = default!;
 
-    public void OnToast(string message, string toastClass = "")
+    public void Success(string message)
     {
-        OnRaiseToastEvent(new(message, toastClass));
+        RaiseToastEvent(new(message,"toast-success"));
     }
 
-    protected virtual void OnRaiseToastEvent(ToastEventArgs args)
+    public void Error(string message)
+    {
+        RaiseToastEvent(new(message,"toast-error"));
+    }
+
+
+    public void Warning(string message)
+    {
+        RaiseToastEvent(new(message, "toast-warning"));
+    }
+    protected virtual void RaiseToastEvent(ToastEventArgs args)
     {
         ToastEvent?.Invoke(this, args);
     }

@@ -76,12 +76,12 @@
         try
         {
             await Clipboard.WriteTextAsync(CssText!);
-            ToastService.OnToast("copied css to clipboard");
+            ToastService.Success("copied css to clipboard");
         }
         catch (Exception e)
         {
 
-            ToastService.OnToast($"unable to copy text to clipboard\nError Message: {e.Message}");
+            ToastService.Success($"unable to copy text to clipboard\nError Message: {e.Message}");
         }
     }
 
@@ -91,7 +91,7 @@
         string rules = Parser.ParseParams(StyleSnapshot!);
 
         await Parser.GenerateDownload(rules);
-        ToastService.OnToast("downloading css");
+        ToastService.Success("downloading css");
     }
 
 

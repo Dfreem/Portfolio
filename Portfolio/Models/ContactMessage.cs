@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace Portfolio.Api.Models;
+namespace Portfolio.Models;
 
 public class ContactMessage
 {
