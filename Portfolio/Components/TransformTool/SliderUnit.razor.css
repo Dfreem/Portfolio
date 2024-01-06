@@ -90,7 +90,6 @@ input[type=range][disabled]::-moz-range-thumb {
 .slider-unit {
     margin-block: 8px;
 }
-
 .slider-label {
     text-shadow: 0 0 3px var(--bs-professional-grey-700);
     color: var(--bs-professional-grey-100);

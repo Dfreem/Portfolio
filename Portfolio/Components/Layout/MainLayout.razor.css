@@ -1,0 +1,15 @@
+.page {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 0;
+
+}
+
+footer {
+    position: sticky;
+    bottom: 0;
+}
