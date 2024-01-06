@@ -1,6 +1,6 @@
 ﻿@using System.Timers
 @inject ILogger<FileUploaderTab> Logger
-@inject ToastService Toast
+@inject ToastService ToastService
 @inject NavigationManager Nav
 @inject IWebHostEnvironment Env
 @inject ProtectedSessionStorage Session
@@ -23,25 +23,45 @@
             </div>
             <div class="fieldset">
 
-                <div class="input-group mx-2">
+                <div data-bs-trigger="hover manual"
+                     data-bs-toggle="tooltip"
+                     data-bs-placement="left"
+                     data-bs-animated="true"
+                     data-bs-offset="0, 10"
+                     data-bs-custom-class="custom-tooltip"
+                     data-bs-html="true"
+                     data-bs-delay='{"show":500,"hide":0 }'
+                     data-bs-title="choose an <span class='text-green-300'>css</span> file to alter" class="input-group mx-2">
                     <InputFile @ref="_htmlFile" type="file" class="custom-file-input form-control" OnChange="OnFileSelected"></InputFile>
                     <label class="input-group-text">Html</label>
 
                 </div>
-                <div class="input-group mx-2">
+                <div class="input-group mx-2"
+                     data-bs-trigger="hover manual"
+                     data-bs-toggle="tooltip"
+                     data-bs-placement="left"
+                     data-bs-animated="true"
+                     data-bs-html="true"
+                     data-bs-offset="0, 10"
+                     data-bs-custom-class="custom-tooltip"
+                     data-bs-delay='{"show":500,"hide":0 }'
+                     data-bs-title="choose an <span class='text-green-300'>html</span> file to alter">
                     <InputFile @ref="_cssFile" class="custom-file-input form-control" OnChange="OnFileSelected"></InputFile>
                     <label class="input-group-text">CSS</label>
 
                 </div>
             </div>
             <div class="card-text text-200 px-2">
-                After selecting a file and clicking the
-                <span class="text-theme-green-light"> green button</span>
-                use the controls on the <a @onclick='ShowArrow' class="link-tertiary link-underline-tertiary">Transform Tab</a>
-                <br /><br />
+                <p>
+
+                    After selecting a file and clicking the
+                    <span class="text-theme-green-light"> green button</span>
+                    use the controls on the <a @onclick='ShowArrow' class="link-tertiary link-underline-tertiary">Transform Tab</a>
+                    <br /><br />
+                </p>
             </div>
             <button @onclick="OnSubmitForm" type="submit" class="btn btn-theme-green m-2 bi bi-chevron-double-right @ActiveSubmit">Edit Your Page</button>
-            @if (FileHandler?.BrowserHtml is null)
+            @if (_handler?.BrowserHtml is null)
             {
                 <span class="text-warning">
                     Select an HTML file
@@ -50,7 +70,6 @@
 
         </div>
     </div>
-
 </div>
 
 
@@ -62,12 +81,11 @@
 
     private int _numberOfBlinks;
 
+    private WebFileHandler _handler = new();
     [Parameter]
     public bool ShouldCollapse { get; set; }
 
     public string? ActiveSubmit { get; set; }
-
-    public WebFileHandler? FileHandler { get; set; }
 
     public string Collapse => ShouldCollapse ? "visually-hidden" : "";
     #endregion
@@ -91,7 +109,6 @@
 
     private void HideArrow(Object? sender, ElapsedEventArgs args)
     {
-        Console.WriteLine("timer");
         if (_numberOfBlinks <= 10)
         {
             _showArrow = !_showArrow;
@@ -106,24 +123,23 @@
         }
     }
 
-    void OnFileSelected(InputFileChangeEventArgs args)
+    private void OnFileSelected(InputFileChangeEventArgs args)
     {
-        FileHandler ??= new();
         if (args.File?.ContentType == "text/css")
         {
-            FileHandler.BrowserCss = args.File;
-
+            _handler.BrowserCss = args.File;
+            ToastService.Success("css file accepted");
         }
         else if (args.File?.ContentType == "text/html")
         {
-            FileHandler.BrowserHtml = args.File;
-            FileHandler.FileName = args.File.Name;
+            _handler.BrowserHtml = args.File;
+            ToastService.Success("html file accepted");
         }
         else
         {
-            Toast.Error("CSS or HTML files only");
+            ToastService.Error("CSS or HTML files only");
         }
-        if (FileHandler.BrowserHtml is not null)
+        if (_handler.BrowserHtml != null)
         {
             ActiveSubmit = "";
         }
@@ -140,29 +156,54 @@
         base.OnAfterRender(firstRender);
     }
 
+    // Using WebFileHandler
     private async Task OnSubmitForm()
     {
-        // Logger.LogDebug(FileHandler?.BrowserHtml?.Size.ToString());
-        using var stream = FileHandler!.BrowserHtml?.OpenReadStream();
-        using var reader = new StreamReader(stream!);
-        string html = await reader.ReadToEndAsync(new CancellationToken());
-        await Session.SetAsync("htmlContent", html);
-        stream?.Dispose();
-        reader.Dispose();
-        if (FileHandler?.BrowserCss is not null)
-        {
+        await using var htmlStream = _handler!.BrowserHtml!.OpenReadStream();
+        using StreamReader htmlReader = new(htmlStream);
+        var htmlContent = await htmlReader.ReadToEndAsync();
+        await Session.SetAsync("htmlContent", htmlContent);
+        htmlReader.Dispose();
+        htmlStream.Dispose();
 
-            using var cssStream = FileHandler!.BrowserCss!.OpenReadStream();
-            using var cssReader = new StreamReader(cssStream);
-            string css = await cssReader.ReadToEndAsync();
-            await Session.SetAsync("cssContent", css);
+        if (_handler!.BrowserCss != null)
+        {
+            await using var cssStream = _handler!.BrowserCss!.OpenReadStream();
+            using StreamReader cssReader = new(cssStream);
+            var cssContent = await cssReader.ReadToEndAsync();
+            await Session.SetAsync("cssContent", cssContent);
+            cssReader.Dispose();
+            cssStream.Dispose();
         }
-
-        Nav.NavigateTo("/user-upload", new NavigationOptions()
-        {
-            ForceLoad = true,
-            HistoryEntryState = "Navagition state"
-        });
+        Nav.NavigateTo("user-upload", true);
     }
+
+
+
+    // Using Session storage
+    // private async Task OnSubmitForm()
+    // {
+    //     Logger.LogDebug(FileHandler?.BrowserHtml?.Size.ToString());
+    //     using var stream = FileHandler!.BrowserHtml?.OpenReadStream();
+    //     using var reader = new StreamReader(stream!);
+    //     string html = await reader.ReadToEndAsync(new CancellationToken());
+    //     await Session.SetAsync("htmlContent", html);
+    //     stream?.Dispose();
+    //     reader.Dispose();
+    //     if (FileHandler?.BrowserCss is not null)
+    //     {
+
+    //         using var cssStream = FileHandler!.BrowserCss!.OpenReadStream();
+    //         using var cssReader = new StreamReader(cssStream);
+    //         string css = await cssReader.ReadToEndAsync();
+    //         await Session.SetAsync("cssContent", css);
+    //     }
+
+    //     Nav.NavigateTo("user-upload", new NavigationOptions()
+    //         {
+    //             ForceLoad = true,
+    //             HistoryEntryState = "Navagition state"
+    //         });
+    // }
     #endregion
 }

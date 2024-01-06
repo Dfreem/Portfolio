@@ -31,8 +31,15 @@
             <ul class="nav nav-tabs mt-2 pb-0 mb-0">
                 <li class="nav-item">
 
-                    <button type="button"
-                            id="__transformer-button"
+                    <button data-bs-toggle="tooltip"
+                            data-bs-custom-class="custom-tooltip"
+                            data-bs-trigger="hover manual"
+                            data-bs-delay='{"show":500,"hide":0 }'
+                            data-bs-offset="0,60"
+                            data-bs-placement="left"
+                            data-bs-animated="true"
+                            data-bs-title="Move html elements with sliders"
+                            type="button"
                             class="nav-link @(Tool!.ActiveToggle(TabName.Transformer))"
                             @onclick='(() => OnTabSelected(TabName.Transformer))'>
                         Transform
@@ -40,7 +47,15 @@
                 </li>
                 <li class="nav-item">
 
-                    <button type="button"
+                    <button data-bs-toggle="tooltip"
+                            data-bs-custom-class="custom-tooltip"
+                            data-bs-trigger="hover manual"
+                            data-bs-delay='{"show":500,"hide":0 }'
+                            data-bs-offset="0,60"
+                            data-bs-placement="left"
+                            data-bs-animated="true"
+                            data-bs-title="view copy or download your css changes"
+                            type="button"
                             id="__display-css-button"
                             class="nav-link @(Tool!.ActiveToggle(TabName.StyleViewer))"
                             @onclick='(() => OnTabSelected(TabName.StyleViewer))'>
@@ -49,7 +64,15 @@
                 </li>
                 <li class="nav-item">
 
-                    <button type="button"
+                    <button data-bs-toggle="tooltip"
+                            data-bs-custom-class="custom-tooltip"
+                            data-bs-trigger="hover manual"
+                            data-bs-delay='{"show":500,"hide":0 }'
+                            data-bs-offset="0,60"
+                            data-bs-placement="left"
+                            data-bs-animated="true"
+                            data-bs-title="Use this tool on your own html/css files"
+                            type="button"
                             id="__file-upload-button"
                             class="nav-link @(Tool!.ActiveToggle(TabName.FileUpload))"
                             @onclick='(() => OnTabSelected(TabName.FileUpload))'>
@@ -90,7 +113,7 @@
                                     data-bs-offset="0, 10"
                                     data-bs-custom-class="custom-tooltip"
                                     data-bs-delay='{"show":500,"hide":0 }'
-                                    data-bs-title="Reset all transformations">
+                                    data-bs-title="Reset all transformations on the currently selected object">
                                 Reset All
                                 <i class="bi bi-arrow-repeat"></i>
                             </button>

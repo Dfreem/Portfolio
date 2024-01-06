@@ -31,8 +31,9 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 builder.Services.AddSignalR();
-
+builder.Services.AddSession();
 builder.Services.AddHttpClient();
+builder.Services.AddScoped<WebFileHandler>();
 builder.Services.AddScoped<CssParser>();
 builder.Services.AddScoped<ClipboardService>();
 builder.Services.AddScoped<ToastService>();

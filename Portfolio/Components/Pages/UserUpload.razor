@@ -1,0 +1,60 @@
+﻿@page "/user-upload"
+@layout UserContentLayout
+@inject HttpClient Client
+@inject ILogger<UserUpload> Logger
+@inject ProtectedSessionStorage Session
+
+@if (isConnected && CssString is not null)
+{
+    <style>
+        @CssString
+    </style>
+}
+<link rel="stylesheet" href="/scss/custom.css" /> 
+    
+@if (!isConnected)
+{
+    <div>Connecting ...</div>
+}
+else
+{
+    <div id="__user-content">
+        @Markup
+    </div>
+}
+
+@code {
+    public MarkupString Markup { get; set; } = default!;
+
+    private bool isConnected;
+
+    public string? CssString { get; set; }
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            isConnected = true;
+            await LoadUserContentAsync();
+            StateHasChanged();
+        }
+
+    }
+    private async Task LoadUserContentAsync()
+    {
+        var results = await Session.GetAsync<string>("htmlContent");
+        if (results.Success)
+        {
+            Markup = (MarkupString)results.Value!;
+        }
+        var cssResults = await Session.GetAsync<string>("cssContent");
+        if (cssResults.Success)
+        {
+            CssString = cssResults.Value!;
+            Console.WriteLine(CssString);
+        }
+        StateHasChanged();
+        
+    }
+}

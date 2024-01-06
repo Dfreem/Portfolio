@@ -1,0 +1,14 @@
+﻿/*
+body {
+    transition: all 1s ease;
+    display: flex;
+}
+
+    body > * {
+        transition: all 1s ease;
+    }
+
+    body.on-transition > * {
+        transition: all 1s ease;
+        transform: translateX(-2000%) !important;
+    }*/

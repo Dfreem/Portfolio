@@ -76,36 +76,36 @@
     box-shadow: 1px 0px 5px inset var(--bs-gray-600);
 }
 
-    #__shell.pos-right {
-        right: 0;
-        left: unset;
-        bottom: 0;
-        top: 0;
-    }
+#__shell.pos-right {
+    right: 0;
+    left: unset;
+    bottom: 0;
+    top: 0;
+}
 
-    #__shell.pos-left {
-        left: 0;
-        right: unset;
-        bottom: 0;
-        top: 0;
-    }
+#__shell.pos-left {
+    left: 0;
+    right: unset;
+    bottom: 0;
+    top: 0;
+}
 
-    #__shell.pos-right.hide-shell {
-        visibility: hidden;
-        transform: translateX(400px);
-        transition: var(--sidetab-transition);
-    }
+#__shell.pos-right.hide-shell {
+    visibility: hidden;
+    transform: translateX(400px);
+    transition: var(--sidetab-transition);
+}
 
-    #__shell.pos-left.hide-shell {
-        visibility: hidden;
-        transform: translateX(-400px);
-        transition: var(--sidetab-transition);
-    }
+#__shell.pos-left.hide-shell {
+    visibility: hidden;
+    transform: translateX(-400px);
+    transition: var(--sidetab-transition);
+}
 
-    #__shell.pos-right.peek-shell {
-        visibility: visible;
-        transform: translateX(350px);
-    }
+#__shell.pos-right.peek-shell {
+    visibility: visible;
+    transform: translateX(350px);
+}
 
 .sidebar {
     font-size: 16pt;

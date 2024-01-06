@@ -1,0 +1,102 @@
+﻿@page "/"
+
+@using Portfolio.Components.Layout
+@using System.Timers
+
+@layout MainLayout
+
+@inject NavigationManager Nav
+<PageTitle>Home</PageTitle>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%">
+    <filter id="__spotlight">
+
+        <feOffset in="SourceGraphic" dx="0" dy="0" result="offsetBlur"></feOffset>
+        <!-- highlight -->
+        <feSpecularLighting in="SourceGraphic" surfaceScale="5" specularConstant=".75" specularExponent="20" result="highlight" lighting-color="var(--bs-orange-400)">
+            <!-- e908e8a4-6734-4b6f-92c6-efa00cfcd7cd -->
+            <fePointLight x="1000" y="1000" z="20000" result="e908e8a4-6734-4b6f-92c6-efa00cfcd7cd"></fePointLight>
+        </feSpecularLighting>
+        <!-- highlightApplied -->
+        <feComposite in="highlight" in2="SourceAlpha" operator="in" result="highlightApplied"></feComposite>
+        <!-- highlightText -->
+        <feComposite in="SourceGraphic" in2="highlightApplied" operator="arithmetic" k2="1" k3="1" result="highlightText"></feComposite>
+        <!-- 44fb9371-7ca1-47fd-bda4-446a0eeffff8 -->
+        <feMerge result="44fb9371-7ca1-47fd-bda4-446a0eeffff8">
+            <feMergeNode in="offsetBlur"></feMergeNode>
+            <feMergeNode in="highlightText"></feMergeNode>
+        </feMerge>
+    </filter>
+
+</svg>
+
+
+<style>
+    .point-light {
+        filter: url(#__spotlight);
+    }
+</style>
+
+<body class="@(Transitioning?"on-transition":"")">
+
+    <MainTool>
+        <div id="__face-photo">
+            <div class="visually-hidden position-absolute" id="example-object">
+                <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" version="1.1">
+                    <path d="M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80" fill="orange" stroke="orange" stroke-width="5" />
+                </svg>
+
+            </div>
+
+
+            <text id="__name-link-top" class="point-light h1">Devin Freeman</text>
+            <h1 id="__name-link-bottom">Devin Freeman</h1>
+        </div>
+        <div id="__light">
+            <img id="__ray" src="/images/light-ray.png" />
+        </div>
+
+        <a id="__black-hole" class="icon-link link-tertiary icon-link-hover link-offset-2-hover link" @onclick='(() => OnNavigate("/contact"))'>
+            <text class="point-light">Contact Me</text>
+
+            <i class="bi bi-arrow-right">
+
+            </i>
+        </a>
+    </MainTool>
+</body>
+
+@code {
+
+    public bool Transitioning { get; set; }
+
+    string _toUrl = string.Empty;
+
+    Timer _timer = default!;
+
+    public bool Initialized { get; set; } = false;
+
+    // blank URL does no navigation
+    public void OnNavigate(string url = "")
+    {
+        _toUrl = url;
+        Transitioning = !Transitioning;
+        StateHasChanged();
+        _timer = new Timer();
+        _timer.Interval = 500;
+        _timer.Elapsed += TransitionTimerElapsed;
+        _timer.Start();
+
+    }
+
+
+    private void TransitionTimerElapsed(Object? sender, ElapsedEventArgs args)
+    {
+        _timer.Stop();
+        if (_toUrl != string.Empty)
+        {
+            Nav.NavigateTo(_toUrl);
+        }
+    }
+
+
+}
