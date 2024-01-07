@@ -2,8 +2,8 @@
 
 ## TODO
 
-- [ ] Mobile Friendly
-- [ ] Tooltips
+- [x] Tooltips
+- [x] Fix user upload feature
 - [ ] About
   - [ ] the site
   - [ ] me
@@ -13,4 +13,4 @@
 - [ ] intro/docs/explanation of Transform Tool
 - [ ] Title for Discord widget (Let's Code)
 - [ ] new discord widget using json api
-- [ ] 
+- [ ] Mobile Friendly
