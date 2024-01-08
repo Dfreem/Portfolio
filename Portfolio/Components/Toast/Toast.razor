@@ -4,8 +4,10 @@
 <style>
     .toastr {
         position: absolute;
-        top: 20%;
-        left:10%;
+        top: 5%;
+        font-size: 14pt;
+        left:50%;
+        transform-origin:center;
          /* left: calc(30% - 7.5rem); */
         border-radius: 5px;
         min-width: 15rem;
@@ -31,7 +33,6 @@
     }
 
     .toast-success .close i {
-        color: #aa0000;
         filter: contrast(2);
         font-weight: 800;
     }
@@ -41,7 +42,9 @@
     }
 
     .toast-success {
-        color: var(--bs-professional-grey-800);
+        color: black;
+        text-shadow: 0 0 1px var(--bs-theme-green-dark);
+         /* color: var(--bs-professional-grey-800); */
         background-color: var(--bs-theme-green) !important;
         border: 1px solid var(--bs-theme-green-light) !important;
     }
@@ -90,7 +93,7 @@
 
 <div class="@ToastClass toastr">
     <div class="toastr-header">
-        <a class="btn btn-link link-danger ms-auto close p-0" aria-label="Close"><i class="bi bi-x fs-3 p-0"></i></a>
+        <a class="btn btn-link link-danger ms-auto close p-0" aria-label="Close" @onclick='OffToast'><i class="bi bi-x fs-3 p-0"></i></a>
     </div>
     <div class="toastr-body px-4">
         <pre>
