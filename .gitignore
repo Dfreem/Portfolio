@@ -398,7 +398,7 @@ FodyWeavers.xsd
 *.sln.iml
 id_rsa*
 bin/
-*.vs/
+*.vs/*
 */.config/
 */obj/
 */PublishProfiles/
