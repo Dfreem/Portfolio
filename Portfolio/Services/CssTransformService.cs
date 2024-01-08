@@ -47,7 +47,7 @@ public sealed partial class CssTransformService
 
     public string Matrix3d
     {
-        get => _matrix3d ?? "";
+        get => _matrix3d ?? " ";
         set => _matrix3d = value;
     }
 
@@ -133,7 +133,7 @@ public sealed partial class CssTransformService
             }
             else
             {
-                _perspective = value.Contains("px") || value.Contains("none") ? $"perspective({value})" : $"perspective({value}px)";
+                _perspective = value.Contains("px") || value.Contains("none") ? $" perspective({value})" : $" perspective({value}px)";
             }
         }
     }
@@ -149,7 +149,7 @@ public sealed partial class CssTransformService
     public string TransformString
     {
         // perspective must be listed first if present
-        get => (_perspective + " " +
+        get => (" " + _perspective + " " +
                 _skewX + " " +
                 _translateX + " " +
                 _translateY + " " +
@@ -157,7 +157,7 @@ public sealed partial class CssTransformService
                 _rotateX + " " +
                 _rotateY + " " +
                 _rotateZ + " " +
-                _matrix3d).Trim();
+                _matrix3d);
         set
         {
             if (value is not null)

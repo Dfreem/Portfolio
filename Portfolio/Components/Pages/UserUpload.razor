@@ -1,27 +1,29 @@
 ﻿@page "/user-upload"
-@layout UserContentLayout
+@layout MainLayout
 @inject HttpClient Client
 @inject ILogger<UserUpload> Logger
 @inject ProtectedSessionStorage Session
-
-@if (isConnected && CssString is not null)
-{
-    <style>
-        @CssString
-    </style>
-}
-<link rel="stylesheet" href="/scss/custom.css" /> 
+<MainTool>
     
-@if (!isConnected)
-{
-    <div>Connecting ...</div>
-}
-else
-{
-    <div id="__user-content">
-        @Markup
-    </div>
-}
+    @if (isConnected && CssString is not null)
+    {
+        <style>
+            @CssString
+        </style>
+    }
+    <link rel="stylesheet" href="/scss/custom.css" /> 
+        
+    @if (!isConnected)
+    {
+        <div>Connecting ...</div>
+    }
+    else
+    {
+        <div id="__user-content" class="h-100 w-100">
+            @Markup
+        </div>
+    }
+</MainTool>
 
 @code {
     public MarkupString Markup { get; set; } = default!;

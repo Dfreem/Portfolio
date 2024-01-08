@@ -1,17 +1,13 @@
 ﻿@inject IJSRuntime JS
 @inject NavigationManager Nav
 
-<style>
-
-</style>
-
 <div id="__hover-menu"
      class="@Position"
      @onclick='ToggleShell'
      @onmouseenter='(() => {Hover = true; _ = HoverChanged.InvokeAsync(Hover);})'
      @onmouseleave='(() => {Hover = false; _ = HoverChanged.InvokeAsync(Hover);})'>
 
-    <div class="sidebar">
+    <div class="pull-tab">
         <i class="bi bi-three-dots-vertical" id="__three-dots"></i>
 
     </div>

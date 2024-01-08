@@ -6,7 +6,7 @@
     max-width: 20rem;
 }
 
-::deep #__black-hole {
+::deep #__contact-nav {
     display: flex;
     position: absolute;
     bottom: 10%;
@@ -68,7 +68,7 @@ body {
 ::deep #__ray {
     position: absolute;
     opacity: .7;
-    filter: sepia(.2) brightness(1.3);
+    filter: brightness(1.3);
     transform-style: preserve-3d;
     transform-origin: center;
     transform: translateX(-324px) translateY(-633px) rotateZ(55deg) rotateX(50deg);

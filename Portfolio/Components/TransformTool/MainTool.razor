@@ -7,8 +7,8 @@
 
 @if (Tool is not null && Tool.IsInitialized == true)
 {
-    <div class="sidebar d-flex @Tool.Pos @(HideShell?"hide-shell":"")"
-         id="__sidebar"
+    <div class="pull-tab d-flex @Tool.Pos @(HideShell?"hide-shell":"")"
+         id="__pull-tab"
          @onmouseenter='(() => {if (HideShell) PeekShell = true;})'
          @onmouseleave='(() => { if(HideShell) PeekShell = false;})'
          @onclick='(() => HideShell = !HideShell)'
@@ -221,7 +221,11 @@
         <StylesViewerTab @bind-Refresh="Refresh" StyleSnapshot="@Tool.StyleSnapshot" ShouldCollapse='Tool.ShouldCollapse[TabName.StyleViewer]' />
         <FileUploaderTab ShouldCollapse="Tool.ShouldCollapse[TabName.FileUpload]"></FileUploaderTab>
     </div>
-    <Toast></Toast>
+    <Toast>
+        <Args>
+
+        </Args>
+    </Toast>
 }
 
 @code {

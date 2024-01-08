@@ -1,5 +1,4 @@
 ﻿@inject CssParser Parser
-@inject IJSRuntime JS
 @inject ClipboardService Clipboard
 @inject ToastService ToastService
 
@@ -31,7 +30,7 @@
     <!--Css View Window-->
     <div id="__display-css" class="rounded-0">
 
-        <div id="__inner-scroll">
+        <div id="__inner-scroll" class="pe-5">
             <div class="vh-100">
 
                 @if (CssText is not null)
@@ -88,7 +87,7 @@
 
     public async Task OnDownload()
     {
-        string rules = Parser.ParseParams(StyleSnapshot!);
+        string rules = Parser.Parse(StyleSnapshot!);
 
         await Parser.GenerateDownload(rules);
         ToastService.Success("downloading css");
@@ -97,16 +96,10 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
-        {
-            var _module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/site.js");
-            await _module!.InvokeVoidAsync("initTooltips");
-
-        }
-        if (Refresh)
+       if (Refresh)
         {
             // CssText = await Parser.SeedCss();
-            CssText = Parser.ParseParams(StyleSnapshot!);
+            CssText = Parser.Parse(StyleSnapshot!);
 
             StateHasChanged();
             Refresh = false;

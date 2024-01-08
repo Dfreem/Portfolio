@@ -32,18 +32,6 @@ public partial class CssParser : IDisposable
         GC.SuppressFinalize(this);
     }
 
-
-    ///// <summary>
-    ///// Gets an array of stylesheet names.
-    ///// </summary>
-    ///// <returns>An array of stylesheet names.</returns>
-    //public async Task<string[]> GetStyleSheets()
-    //{
-    //    _module ??= await _js!.InvokeAsync<IJSObjectReference>("import", "./js/site.js");
-    //    return await _module!.InvokeAsync<string[]>("getStylesheets");
-    //}
-
-
     /// <summary>
     /// Generates and downloads a CSS file from a given CSS string.
     /// </summary>
@@ -118,7 +106,7 @@ public partial class CssParser : IDisposable
     /// </summary>
     /// <param name="container">A dictionary of CSS rules where keys are element IDs and values are transform rules.</param>
     /// <returns>The processed CSS as a string.</returns>
-    public string ParseParams(Dictionary<string, string> container)
+    public string Parse(Dictionary<string, string> container)
     {
         if (container.Count == 0)
         {
@@ -128,7 +116,7 @@ public partial class CssParser : IDisposable
         string[] rules = [];
         foreach ((string id, string p) in container)
         {
-            if (p is not null and not "" && id is not "")
+            if (p != "" && p != "" && id != "")
             {
                 rules = [.. rules, $"#{id} {{ transform: {p};}}\n\n"];
             }
@@ -160,8 +148,8 @@ public partial class CssParser : IDisposable
     {
         input = EmptyTransformPattern().Replace(input, "");
         Regex tooManySpaces = new("\\s{2,}");
-        input = tooManySpaces.Replace(input, "");
-        return input;
+        input = tooManySpaces.Replace(input, " ");
+        return $" {input}";
     }
 
 }

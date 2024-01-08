@@ -18,21 +18,21 @@
     }
 
 
-.sidebar > ul > li {
+.pull-tab > ul > li {
     left: -250%;
     list-style: none;
     transform: translateX(-4em);
     width: 110px;
     height: 50px;
     padding: 2px;
-    transition: var(--sidebar-transition);
+    transition: var(--pull-tab-transition);
     transition-delay: .6s;
     justify-content: left;
 }
 
 
 .nav-btn {
-    transition: var(--sidebar-transition);
+    transition: var(--pull-tab-transition);
     transition-delay: .6s;
     margin-block: 1em;
     font-size: 10pt;
