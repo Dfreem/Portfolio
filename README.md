@@ -14,3 +14,4 @@
 - [ ] Title for Discord widget (Let's Code)
 - [ ] new discord widget using json api
 - [ ] Mobile Friendly
+- [ ] Make Toast fire as separate async messages

@@ -3,11 +3,11 @@
     "http": {
       "commandName": "Project",
       "launchBrowser": true,
-      "hotReloadEnabled": true,
       "launchUrl": "http://localhost:5050",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
+      "hotReloadEnabled": true,
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5050"
     },
@@ -22,15 +22,24 @@
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "https://localhost:5051",
-      "hotReloadEnabled": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
+      "hotReloadEnabled": true,
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:5051"
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "launchBrowser": true,
+      "launchUrl": "https://localhost:5051/",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "https://localhost:5051"
+      },
+      "distributionName": ""
     }
   },
-  
   "$schema": "http://json.schemastore.org/launchsettings.json",
   "iisSettings": {
     "windowsAuthentication": false,

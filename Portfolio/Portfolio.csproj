@@ -5,6 +5,7 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Configurations>Debug;Production</Configurations>
+		<UserSecretsId>355fe254-d631-4cd8-af18-6387a38dccc9</UserSecretsId>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -175,7 +176,6 @@
 		</PackageReference>
 		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.0-beta.2" />
 		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql.Design" Version="1.1.2" />
-		<PackageReference Include="pythonnet" Version="3.1.0-preview2024-01-04" />
 		<PackageReference Include="System.Net.Http" Version="4.3.4" />
 		<PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
 	</ItemGroup>

@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portfolio", "Portfolio\Portfolio.csproj", "{96993B4B-2215-4381-B046-39A0FEEB03A8}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "squares_n_bombs", "..\squares_n_bombs\squares_n_bombs.pyproj", "{B76F3ACF-389E-470C-8202-EA5517B2D77B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,6 +20,12 @@ Global
 		{96993B4B-2215-4381-B046-39A0FEEB03A8}.Production|Any CPU.Build.0 = Production|Any CPU
 		{96993B4B-2215-4381-B046-39A0FEEB03A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96993B4B-2215-4381-B046-39A0FEEB03A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B76F3ACF-389E-470C-8202-EA5517B2D77B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B76F3ACF-389E-470C-8202-EA5517B2D77B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B76F3ACF-389E-470C-8202-EA5517B2D77B}.Production|Any CPU.ActiveCfg = Debug|Any CPU
+		{B76F3ACF-389E-470C-8202-EA5517B2D77B}.Production|Any CPU.Build.0 = Debug|Any CPU
+		{B76F3ACF-389E-470C-8202-EA5517B2D77B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B76F3ACF-389E-470C-8202-EA5517B2D77B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
