@@ -432,4 +432,21 @@ body {
 
 .slider-reset {
     transform: translateX(5%);
+}.widget-header > img {
+border-radius: 50%;
+margin-block: .25rem;
 }
+
+.bi-discord {
+color: white;
+}
+
+.widget-header {
+border-top-left-radius: 5px;
+border-top-right-radius: 5px;
+background-color: #5865f2;
+font-family: 'Josefin Sans';
+padding-inline: 1rem;
+color: white;
+}
+

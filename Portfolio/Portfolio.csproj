@@ -16,7 +16,6 @@
 
 	<ItemGroup>
 		<None Include="compilerconfig.json" />
-		<None Include="Components\Pages\Error.razor" />
 		<None Include="wwwroot\js\site.js" />
 		<None Include="wwwroot\js\ToastService.js" />
 		<None Include="wwwroot\lib\bootstrap\css\bootstrap-grid.css" />
@@ -185,10 +184,17 @@
 		<Content Update="wwwroot\css\site.css">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
+		<Content Update="wwwroot\pdf\Resumev2.pdf">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 
 	<ItemGroup>
 	  <None Update="..\.dockerignore" Link="wwwroot\python\.dockerignore" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Components\DiscordWidget\" />
 	</ItemGroup>
 
 </Project>

@@ -1,0 +1,135 @@
+﻿@inject IHttpClientFactory ClientFactory
+<style>
+
+    .bi-discord {
+        color: white;
+    }
+
+    .widget-header {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        background-color: #5865f2;
+        font-family: 'Josefin Sans';
+        padding-inline: 1rem;
+        color: white;
+    }
+
+    .idle {
+        color: #E8AC30;
+    }
+
+    .member-status {
+        max-width: 8px;
+        max-height: 8px;
+        padding: inherit;
+        margin: 0;
+        border-radius: 50%;
+        position: fixed;
+        transform: translate(8px, 4px) scale(.6);
+    }
+
+    .dnd {
+        color: var(--bs-danger);
+        filter: contrast(1.5);
+    }
+
+    .avatar {
+        border-radius: 50%;
+        max-width: 16px;
+        max-height: 16px;
+    }
+
+    .member {
+        margin-block: 2px;
+        display: inline-flex;
+    }
+
+    .online {
+        color: var(--bs-theme-green-light);
+    }
+
+    a.link-light:hover {
+        color: lightsteelblue !important;
+        text-decoration-color: lightsteelblue !important;
+    }
+
+</style>
+
+<div class="card widget">
+    @if (Initialized)
+    {
+        <div class="stamp widget-header pb-2 pt-3">
+            <div class="row">
+                <div class="fs-3">
+                    <i class="bi bi-discord mb-0 ms-auto fs-20">
+                    </i>
+                    @Model!.Name
+                </div>
+            </div>
+            <div class="row">
+                <div class="fs-10  d-flex mt-2">
+                    <span> Members Online @Model.PresenceCount </span>
+                    <span class="ms-auto">
+
+                        Join us on
+                    </span>
+                    <a href="@Model.InstantInvite" class="link link-light ms-1 fst-italic">
+                        Discord
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body d-flex flex-column">
+            @foreach (var item in Model.Members)
+            {
+
+                <div class="member">
+                    <img class="avatar" src="@item.AvatarUrl" />
+                    <div class="member-status @item.Status">
+                        @switch (item.Status)
+                        {
+                            case ("idle"):
+                                <i class="bi bi-moon-fill"></i>
+                                break;
+                            case ("dnd"):
+                                <i class="bi bi-dash-circle-fill"></i>
+                                break;
+                            case ("online"):
+                            default:
+                                <i class="bi bi-circle-fill"></i>
+                                break;
+                        }
+                    </div>
+                    <div class="mx-2 text-theme-cornsilk fs-12">
+                        @item.Username
+                    </div>
+                    <span class="ms-auto mb-0 mt-auto text-blue-100 fs-10">
+                        @item.Game?.Name
+                    </span>
+                </div>
+
+            }
+        </div>
+    }
+</div>
+@code {
+
+    public DiscordWidget? Model { get; set; }
+
+    public Uri? Invite { get; set; }
+
+    public bool Initialized { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Uri widgetApi = new("https://discord.com/api/guilds/1036788810572374087/widget.json");
+        var client = ClientFactory.CreateClient();
+        Model = await client.GetFromJsonAsync<DiscordWidget>(widgetApi);
+        if (Model != null)
+        {
+            Initialized = true;
+        }
+
+        await base.OnInitializedAsync();
+    }
+}

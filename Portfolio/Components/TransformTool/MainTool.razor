@@ -10,7 +10,7 @@
     <div class="pull-tab d-flex @Tool.Pos @(HideShell?"hide-shell":"")"
          id="__pull-tab"
          @onmouseenter='(() => {if (HideShell) PeekShell = true;})'
-         @onmouseleave='(() => { if(HideShell) PeekShell = false;})'
+         @onmouseleave='(() => {if (HideShell) PeekShell = false;})'
          @onclick='(() => HideShell = !HideShell)'
          data-bs-toggle="tooltip"
          data-bs-custom-class="custom-tooltip"
@@ -253,30 +253,7 @@
 
     public bool TestObjectShown { get; set; }
 
-    // private bool _canSense = false;
-
-    // private string[] _buttonStates = new string[3] { "active", "", "" };
-
-    // private Regex _valueExtracter = new(@"\((-?\d*)\w*\)");
-
     Dictionary<string, string> PerspectiveStorage = [];
-
-    // private void TimeIntro()
-    // {
-    //     _timer = new();
-    //     _timer.Interval = 500;
-    //     _timer.Elapsed += HideIntro;
-    //     _numberOfBlinks = 0;
-    // }
-
-    // private void HideIntro(Object? sender, ElapsedEventArgs args)
-    // {
-    //     if (_numberOfBlinks <= 10)
-    //     {
-
-    //     }
-    // }
-
 
     public void ExampleObject()
     {

@@ -2,16 +2,18 @@
 
 ## TODO
 
-- [x] Tooltips
-- [x] Fix user upload feature
+- [x] tooltips
+- [x] fix user upload feature
 - [ ] About
   - [ ] the site
   - [ ] me
   - [ ] my resume
-- [ ] WebAssembly games
+- [ ] web assembly games
 - [ ] message text formatting/style
 - [ ] intro/docs/explanation of Transform Tool
-- [ ] Title for Discord widget (Let's Code)
+- [ ] title for Discord widget (Let's Code)
 - [ ] new discord widget using json api
-- [ ] Mobile Friendly
-- [ ] Make Toast fire as separate async messages
+- [ ] mobile Friendly
+- [ ] make Toast fire as separate async messages
+- [ ] disable dark mode
+- [ ] mobile version
