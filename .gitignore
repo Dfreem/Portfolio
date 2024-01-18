@@ -175,6 +175,8 @@ DocProject/Help/*.hhk
 DocProject/Help/*.hhp
 DocProject/Help/Html2
 DocProject/Help/html
+*appsettings.*
+
 
 # Click-Once directory
 publish/
