@@ -405,3 +405,7 @@ bin/
 */obj/
 */PublishProfiles/
 *.vs/Portfolio/*
+
+*/Dockerfile
+*/compose.*
+*/.dockerignore
