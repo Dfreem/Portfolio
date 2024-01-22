@@ -1,9 +1,8 @@
 ﻿@page "/"
+@layout MainLayout
 
 @using Portfolio.Components.Layout
-@using System.Timers
-@layout MainLayout
-@inject NavigationManager Nav
+
 <PageTitle>Home</PageTitle>
 
 <style>
@@ -34,7 +33,7 @@
 
 </style>
 
-<body class="@(Transitioning?"on-transition":"")">
+<body>
 
     <MainTool>
         <div id="__face-photo">
@@ -54,39 +53,3 @@
         </div>
     </MainTool>
 </body>
-
-@code {
-
-    public bool Transitioning { get; set; }
-
-    string _toUrl = string.Empty;
-
-    Timer _timer = default!;
-
-    public bool Initialized { get; set; } = false;
-
-    // blank URL does no navigation
-    public void OnNavigate(string url = "")
-    {
-        _toUrl = url;
-        Transitioning = !Transitioning;
-        StateHasChanged();
-        _timer = new Timer();
-        _timer.Interval = 500;
-        _timer.Elapsed += TransitionTimerElapsed;
-        _timer.Start();
-
-    }
-
-
-    private void TransitionTimerElapsed(Object? sender, ElapsedEventArgs args)
-    {
-        _timer.Stop();
-        if (_toUrl != string.Empty)
-        {
-            Nav.NavigateTo(_toUrl);
-        }
-    }
-
-
-}

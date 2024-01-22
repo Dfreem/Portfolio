@@ -1,7 +1,8 @@
-using Portfolio.Components;
-using Portfolio.Services;
-using Portfolio.Data;
 using Microsoft.EntityFrameworkCore;
+
+using Portfolio.Components;
+using Portfolio.Data;
+using Portfolio.Services;
 //using Serilog;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -9,8 +10,8 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("MySqlConnection");
 builder.Services.AddDbContextFactory<PortfolioDbContext>(options =>
 {
-    options.UseMySql(connectionString, MySqlServerVersion.Parse("mysql-8.0"));
-    options.EnableDetailedErrors();
+options.UseMySql(connectionString, MySqlServerVersion.Parse("mysql-8.0"));
+options.EnableDetailedErrors();
 });
 builder.Services.AddRazorPages();
 builder.Services.AddRazorComponents()
@@ -27,7 +28,7 @@ builder.Services.AddScoped<ToastService>();
 WebApplication app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error");
+app.UseExceptionHandler("/Error");
 }
 
 app.UseStaticFiles();

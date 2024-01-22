@@ -9,7 +9,7 @@ $coral: #ef8354;
 $paynes-gray: #4f5d75;
 
 $safety-orange: #ed7916;
-$dark-purple: #292749;
+$dark-purple: #3E3D5B;
 
 $theme-dark-blue: #175484;
 $theme-cornsilk: #fefae0;
@@ -40,6 +40,7 @@ $professional-grey-900: shade-color($theme-professional-grey, 40%) !default;
 @import "../lib/bootstrap/scss/_variables.scss";
 @import "../lib/bootstrap/scss/_variables-dark.scss";
 
+
 $primary: $gray-700;
 $secondary: $professional-grey-400;
 $tertiary: $coral;
@@ -52,7 +53,7 @@ $body-bg: $gray-800;
 $body-color: $safety-orange;
 
 $enable-gradients: true;
-
+$enable-dark-mode:false;
 $btn-box-shadow: 1px 1px 4px $professional-grey-800;
 $btn-font-family: "Cuisine", sans-serif;
 $btn-secondary-bg: color.adjust($gray-500, $hue: 22deg, $lightness: 12%);

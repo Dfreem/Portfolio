@@ -12,6 +12,7 @@ public class ContactMessage
     [JsonPropertyName("email")]
     public string FromEmail { get; set; } = default!;
 
+    [Required]
     [JsonPropertyName("name")]
     public string FromName { get; set; } = string.Empty;
 
@@ -21,9 +22,7 @@ public class ContactMessage
     [JsonPropertyName("subject")]
     public string? Subject { get; set; }
 
-    [JsonPropertyName("content")]
     [Required]
+    [JsonPropertyName("content")]
     public string Body { get; set; } = default!;
-
-
 }

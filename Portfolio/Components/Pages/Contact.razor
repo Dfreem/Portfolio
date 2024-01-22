@@ -7,69 +7,7 @@
 
 <PageTitle>Contact Me</PageTitle>
 
-<style>
-    #link-wrapper {
-        position: absolute;
-        top: 2rem;
-        /* bottom: 4rem; */
-        right: 2rem;
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: column;
-        padding-bottom: .5rem;
-        min-width: 350px;
-        background-color: var(--bs-gray-700);
-    }
-
-    #message-wrapper {
-        /* min-height: 400px; */
-        max-height: 420px;
-        min-width: 650px;
-        max-width: 650px;
-        position: absolute;
-        bottom: 100px;
-        left: 20%;
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: column;
-        padding-bottom: .5rem;
-        background-color: var(--bs-gray-700);
-    }
-
-        #message-wrapper.default {
-            transform: translateX(10px);
-            transition: all 1s cubic-bezier(.14,-0.75,.89,1.13);
-        }
-
-        #message-wrapper.sending {
-            transition: all 1s cubic-bezier(.14,-0.75,.89,1.13);
-            transform: translate(300%, -200%);
-        }
-
-        #message-wrapper > button {
-            margin-top: 10px;
-            max-width: 8rem;
-            border: 2px solid var(--bs-gray-600);
-        }
-
-        #message-wrapper input {
-            margin-inline-end: 15px;
-            line-height: 2rem;
-            border: none;
-            text-shadow: none;
-        }
-
-    input:hover, input:focus, a:any-link:focus, a:any-link:hover {
-        text-shadow: none;
-    }
-
-    #message-wrapper input, #message-wrapper textarea {
-        border: none;
-        background-color: var(--bs-gray-600);
-    }
-
-</style>
-<body class="@(Transitioning ? "on-transition" : "")">
+<body>
 
     <div class="position-absolute left-10 top-0 mt-5" id="__page-title">
         <text class="glow fs-1">
@@ -81,7 +19,6 @@
         <img id="__ray" src="/images/light-ray.png" />
     </div>
 
-    <Toast></Toast>
 
     <EditForm OnSubmit="Submit" Model="NewMessage">
         <div class="container">
@@ -199,12 +136,6 @@
 
 @code {
 
-    string _toUrl = string.Empty;
-
-    Timer _timer = default!;
-
-    public bool Transitioning { get; set; }
-
     public ContactMessage NewMessage { get; set; } = default!;
 
     private bool Sent { get; set; } = false;
@@ -230,37 +161,12 @@
         Sent = false;
         StateHasChanged();
     }
-    public void OnNavigate(string url = "")
-    {
-        _toUrl = url;
-        Transitioning = !Transitioning;
-        StateHasChanged();
-        _timer = new Timer();
-        _timer.Interval = 500;
-        _timer.Elapsed += TransitionTimerElapsed;
-        _timer.Start();
-        NewMessage = new();
 
-    }
-
-
-    private void TransitionTimerElapsed(Object? sender, ElapsedEventArgs args)
-    {
-        _timer.Stop();
-        if (_toUrl != string.Empty)
-        {
-            _nav.NavigateTo(_toUrl);
-        }
-    }
     protected override async Task OnInitializedAsync()
     {
-        _nav.LocationChanged += (Object? sender, LocationChangedEventArgs args) =>
-        {
-
-            OnNavigate();
-        };
         NewMessage = new();
         await base.OnInitializedAsync();
     }
+
 }
 

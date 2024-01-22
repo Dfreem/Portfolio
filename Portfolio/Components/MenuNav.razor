@@ -1,59 +1,5 @@
-﻿
-<style>
-    .site-map {
-        transition: var(--pull-tab-transition);
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: -11rem;
-        background-color: var(--bs-gray-800) !important;
-        display: flex;
-        flex-direction: column;
-        min-width: 13rem;
-        max-width: 13rem;
-        min-height: 100vh;
-        max-height: 100vh;
-        border-right: 2px solid var(--bs-tertiary);
-        background-color: red;
-        z-index: 10;
-    }
-
-        .site-map > ul {
-            margin-block: 2rem;
-            margin-inline: auto;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-weight: 600;
-        }
-
-            .site-map > ul > li {
-                margin: 1rem;
-                margin-block: 2rem;
-                margin-inline: auto;
-                font-size: 16pt;
-            }
-
-            .nav-link-active {
-                color: cornsilk;
-            }
-
-        .site-map .link {
-            max-width: fit-content;
-        }
-
-        .site-map:hover {
-            left: -1rem;
-            transition: var(--pull-tab-transition);
-        }
-
-
-    .menu-dots {
-        top: 0;
-        left: 11.25rem;
-        position: inherit;
-        transition: var(--pull-tab-transition);
-    }
-
-</style>
+﻿@inherits ComponentBase
+@inject NavigationManager Nav
 
 <div class="site-map">
     <i class="menu-dots bi bi-three-dots-vertical fs-16"></i>
@@ -61,22 +7,61 @@
     <ul class="list-unstyled">
         <li>
 
-            <NavLink ActiveClass="nav-link-active" class="link link-yellow-400" id="__home-link" href="/" Match="NavLinkMatch.All">
+            <a @onclick='(() => TriggerTransition("/"))' class="link link-yellow-400 @Active["/"]">
                 Home
-            </NavLink>
+            </a>
         </li>
-        @* <li>
-            <NavLink ActiveClass="nav-link-active" href="games" class="link link-yellow-400">
-                Games
-            </NavLink>
-        </li> *@
         <li>
-            <NavLink ActiveClass="nav-link-active" Match="NavLinkMatch.All" href="/contact" class="link link-yellow-400">
+            <a @onclick='(() => TriggerTransition("/contact"))' class="link link-yellow-400 @Active["/contact"]">
                 Contact Me
-            </NavLink>
+            </a>
         </li>
     </ul>
 </div>
+
 @code {
 
+    [Parameter]
+    public bool Transition { get; set; }
+
+    public Dictionary<string, string> Active { get; set; } = new();
+
+    private string _url = "/";
+
+    [Parameter]
+    public EventCallback<bool> TransitionChanged { get; set; }
+
+    public async Task TriggerTransition(string url)
+    {
+        if (_url == url) return;
+        Active[_url] = string.Empty;
+        _url = url;
+        Active[_url] = "nav-link-active";
+        Transition = true;
+        await TransitionChanged.InvokeAsync(Transition);
+        Timer timer = new();
+        timer.Interval = 1100;
+        timer.Elapsed += async (object? sender, ElapsedEventArgs args) =>
+        {
+
+            timer.Stop();
+            await InvokeAsync(OnTransition);
+        };
+        timer.Start();
+    }
+
+    public async Task OnTransition()
+    {
+        Nav.NavigateTo(_url);
+        Transition = false;
+        await TransitionChanged.InvokeAsync(Transition);
+    }
+
+    protected override void OnInitialized()
+    {
+        Active.Add("/", string.Empty);
+        Active.Add("/contact", string.Empty);
+
+        base.OnInitialized();
+    }
 }

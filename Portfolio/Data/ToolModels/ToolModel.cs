@@ -33,19 +33,19 @@ public partial class ToolModel
 
     public string CollapseToggle(TabName tab)
     {
-        return ShouldCollapse[tab] ? "collapse" : "";
+    return ShouldCollapse[tab] ? "collapse" : "";
     }
 
     public string ActiveToggle(TabName tab)
     {
-        return ShouldCollapse[tab] ? "" : "active";
+    return ShouldCollapse[tab] ? "" : "active";
     }
 
     public bool ShowShell { get; set; }
 
     public string ExtractValue(string input)
     {
-        return ExtractorPattern().Match(input).Value.Replace("(", "").Replace(")", "");
+    return ExtractorPattern().Match(input).Value.Replace("(", "").Replace(")", "");
     }
 
     [GeneratedRegex(@"\((-?\d*)\w*\)")]

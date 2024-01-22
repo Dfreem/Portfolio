@@ -10,8 +10,19 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="wwwroot\lib\fontawesome-iconpicker\**" />
+	  <Content Remove="wwwroot\lib\fontawesome-iconpicker\**" />
+	  <EmbeddedResource Remove="wwwroot\lib\fontawesome-iconpicker\**" />
+	  <None Remove="wwwroot\lib\fontawesome-iconpicker\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Content Remove="compilerconfig.json" />
 	  <Content Remove="Components\Layout\UserContentLayout.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <_ContentIncludedByDefault Remove="wwwroot\css\site-mobile.css" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -158,8 +169,6 @@
 		<None Include="wwwroot\lib\open-iconic\font\fonts\open-iconic.woff" />
 		<None Include="wwwroot\lib\open-iconic\ICON-LICENSE" />
 		<None Include="wwwroot\lib\open-iconic\README.md" />
-		<None Include="wwwroot\scss\custom.css" />
-		<None Include="wwwroot\scss\custom.min.css" />
 		<None Include="wwwroot\scss\custom.scss" />
 	</ItemGroup>
 
@@ -191,10 +200,6 @@
 
 	<ItemGroup>
 	  <None Update="..\.dockerignore" Link="wwwroot\python\.dockerignore" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Components\DiscordWidget\" />
 	</ItemGroup>
 
 </Project>

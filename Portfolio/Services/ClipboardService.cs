@@ -8,16 +8,16 @@ public sealed class ClipboardService
 
     public ClipboardService(IJSRuntime jsRuntime)
     {
-        _jsRuntime = jsRuntime;
+    _jsRuntime = jsRuntime;
     }
 
     public ValueTask<string> ReadTextAsync()
     {
-        return _jsRuntime.InvokeAsync<string>("navigator.clipboard.readText");
+    return _jsRuntime.InvokeAsync<string>("navigator.clipboard.readText");
     }
 
     public ValueTask WriteTextAsync(string text)
     {
-        return _jsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", text);
+    return _jsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", text);
     }
 }

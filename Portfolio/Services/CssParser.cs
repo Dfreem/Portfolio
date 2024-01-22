@@ -23,13 +23,13 @@ public partial class CssParser : IDisposable
 
     public CssParser(IJSRuntime js, ILogger<CssParser> logger)
     {
-        _js = js;
-        _logger = logger;
+    _js = js;
+    _logger = logger;
     }
 
     public void Dispose()
     {
-        GC.SuppressFinalize(this);
+    GC.SuppressFinalize(this);
     }
 
     /// <summary>
@@ -38,14 +38,14 @@ public partial class CssParser : IDisposable
     /// <param name="cssString">The CSS content as a string.</param>
     public async ValueTask GenerateDownload(string cssString)
     {
-        _module ??= await _js!.InvokeAsync<IJSObjectReference>("import", "./js/site.js");
+    _module ??= await _js!.InvokeAsync<IJSObjectReference>("import", "./js/site.js");
 
-        string tempFilePath = "./generate";
-        File.WriteAllText(tempFilePath, cssString);
-        using FileStream fs = File.OpenRead(tempFilePath);
-        using DotNetStreamReference fileRef = new(fs);
-        await _module!.InvokeVoidAsync("downloadCssFromStream", "generated.css", fileRef);
-        File.Delete(tempFilePath);
+    string tempFilePath = "./generate";
+    File.WriteAllText(tempFilePath, cssString);
+    using FileStream fs = File.OpenRead(tempFilePath);
+    using DotNetStreamReference fileRef = new(fs);
+    await _module!.InvokeVoidAsync("downloadCssFromStream", "generated.css", fileRef);
+    File.Delete(tempFilePath);
     }
 
 
@@ -64,40 +64,40 @@ public partial class CssParser : IDisposable
     private string Parse(params string[]? rules)
     {
 
-        if (rules!.Length == 0)
-        {
-            return string.Empty;
-        }
+    if (rules!.Length == 0)
+    {
+    return string.Empty;
+    }
 
-        string cssString = string.Empty;
-        string imports = string.Empty;
-        for (int i = 0; i < rules!.Length; i++)
-        {
-            string rule = rules[i];
-            if (rule.Contains("@import"))
-            {
-                imports += $" {rule}\n\n";
-            }
-            else
-            {
-                string[] brackets = rule.Split('{');
+    string cssString = string.Empty;
+    string imports = string.Empty;
+    for (int i = 0; i < rules!.Length; i++)
+    {
+    string rule = rules[i];
+    if (rule.Contains("@import"))
+    {
+    imports += $" {rule}\n\n";
+    }
+    else
+    {
+    string[] brackets = rule.Split('{');
 
-                // remove blazor css selectors
-                brackets[0] = SquareBracketPattern().Replace(brackets[0], "");
-                cssString += $"{brackets[0]} {{\n";
-                brackets = brackets[^1]
-                    .Replace("}", "")
-                    .Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+    // remove blazor css selectors
+    brackets[0] = SquareBracketPattern().Replace(brackets[0], "");
+    cssString += $"{brackets[0]} {{\n";
+    brackets = brackets[^1]
+        .Replace("}", "")
+        .Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 
-                for (int m = 0; m < brackets.Length; m++)
-                {
-                    string attribute = RemoveEmptyTransforms(brackets[m]);
-                    cssString += $"    {attribute};\n";
-                }
-                cssString += "}\n\n";
-            }
-        }
-        return BuildCssString(cssString, imports);
+    for (int m = 0; m < brackets.Length; m++)
+    {
+    string attribute = RemoveEmptyTransforms(brackets[m]);
+    cssString += $"    {attribute};\n";
+    }
+    cssString += "}\n\n";
+    }
+    }
+    return BuildCssString(cssString, imports);
     }
 
 
@@ -108,33 +108,33 @@ public partial class CssParser : IDisposable
     /// <returns>The processed CSS as a string.</returns>
     public string Parse(Dictionary<string, string> container)
     {
-        if (container.Count == 0)
-        {
-            return string.Empty;
-        }
+    if (container.Count == 0)
+    {
+    return string.Empty;
+    }
 
-        string[] rules = [];
-        foreach ((string id, string p) in container)
-        {
-            if (p != "" && p != "" && id != "")
-            {
-                rules = [.. rules, $"#{id} {{ transform: {p};}}\n\n"];
-            }
-        }
-        return Parse(rules);
+    string[] rules = [];
+    foreach ((string id, string p) in container)
+    {
+    if (p != "" && p != "" && id != "")
+    {
+    rules = [.. rules, $"#{id} {{ transform: {p};}}\n\n"];
+    }
+    }
+    return Parse(rules);
     }
 
 
     private string BuildCssString(string cssString, string? imports = null)
     {
-        string css = string.Empty;
-        if (imports is not null and not "")
-        {
-            css += $"/*#region ======== Imports ========*/\n\n{imports}\n/*#endregion*/\n\n";
-        }
-        css += $"{cssString}\n";
+    string css = string.Empty;
+    if (imports is not null and not "")
+    {
+    css += $"/*#region ======== Imports ========*/\n\n{imports}\n/*#endregion*/\n\n";
+    }
+    css += $"{cssString}\n";
 
-        return css;
+    return css;
     }
 
     /// <summary>
@@ -146,10 +146,10 @@ public partial class CssParser : IDisposable
 
     public string RemoveEmptyTransforms(string input)
     {
-        input = EmptyTransformPattern().Replace(input, "");
-        Regex tooManySpaces = new("\\s{2,}");
-        input = tooManySpaces.Replace(input, " ");
-        return $" {input}";
+    input = EmptyTransformPattern().Replace(input, "");
+    Regex tooManySpaces = new("\\s{2,}");
+    input = tooManySpaces.Replace(input, " ");
+    return $" {input}";
     }
 
 }

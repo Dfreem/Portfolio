@@ -5,6 +5,10 @@
         color: white;
     }
 
+    .widget {
+        overflow-y: scroll;
+    }
+
     .widget-header {
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
@@ -12,6 +16,12 @@
         font-family: 'Josefin Sans';
         padding-inline: 1rem;
         color: white;
+    }
+
+    .widget-body {
+        padding: 1rem;
+        min-height: 30rem;
+        max-height: 30rem;
     }
 
     .idle {
@@ -24,8 +34,8 @@
         padding: inherit;
         margin: 0;
         border-radius: 50%;
-        position: fixed;
-        transform: translate(8px, 4px) scale(.6);
+        position: absolute;
+        transform: translate(8px, 4px) scale(.5);
     }
 
     .dnd {
@@ -45,7 +55,7 @@
     }
 
     .online {
-        color: var(--bs-theme-green-light);
+        color: #00bb33; 
     }
 
     a.link-light:hover {
@@ -79,7 +89,7 @@
                 </div>
             </div>
         </div>
-        <div class="card-body d-flex flex-column">
+        <div class="widget-body d-flex flex-column">
             @foreach (var item in Model.Members)
             {
 

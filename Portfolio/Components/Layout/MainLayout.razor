@@ -1,61 +1,73 @@
 ﻿@inherits LayoutComponentBase
+@inject NavigationManager NAV
 
 <PageTitle>Devin Freeman</PageTitle>
 
-<div class="page">
-    <main role="main">
-        <article class="content vh-100">
-            <MenuNav></MenuNav>
-            @Body
-        </article>
+@if (Initialized)
+{
 
-        <footer class="border-top bg-professional-grey-600 w-100 text-orange-400">
-            2022 - Devin Freeman - Software & Web Developer
-        </footer>
-    </main>
+    <div class="page">
+        <main role="main">
+            <article class="content vh-100">
+                <MenuNav @bind-Transition='Transition' @bind-Transition:after='OnTransition'></MenuNav>
+                <div class="@TransitionClass" id="transporter">
+                    <Toast> </Toast>
+                    @Body
+                </div>
+            </article>
 
-</div>
-@* <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%">
-    <filter id="__spotlight">
+            <footer class="border-top bg-professional-grey-600 w-100 text-orange-400">
+                2022 - Devin Freeman - Software & Web Developer
+            </footer>
+        </main>
 
-        <feOffset in="SourceGraphic" dx="0" dy="0" result="offsetBlur"></feOffset>
-        <!-- highlight -->
-        <feSpecularLighting in="SourceGraphic" surfaceScale="5" specularConstant=".75" specularExponent="20" result="highlight" lighting-color="var(--bs-orange-400)">
-            <!-- e908e8a4-6734-4b6f-92c6-efa00cfcd7cd -->
-            <fePointLight x="1000" y="1000" z="20000" result="e908e8a4-6734-4b6f-92c6-efa00cfcd7cd"></fePointLight>
-        </feSpecularLighting>
-        <!-- highlightApplied -->
-        <feComposite in="highlight" in2="SourceAlpha" operator="in" result="highlightApplied"></feComposite>
-        <!-- highlightText -->
-        <feComposite in="SourceGraphic" in2="highlightApplied" operator="arithmetic" k2="1" k3="1" result="highlightText"></feComposite>
-        <!-- 44fb9371-7ca1-47fd-bda4-446a0eeffff8 -->
-        <feMerge result="44fb9371-7ca1-47fd-bda4-446a0eeffff8">
-            <feMergeNode in="offsetBlur"></feMergeNode>
-            <feMergeNode in="highlightText"></feMergeNode>
-        </feMerge>
-    </filter>
+    </div>
 
-</svg> *@
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%">
-    <filter id="__spotlight">
+    <!-- Hidden if screen-size < 1000px -->
+    <BusinessCard></BusinessCard>
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%">
+        <filter id="__spotlight">
 
-        <feOffset in="SourceGraphic" dx="0" dy="0" result="offsetBlur"></feOffset>
-        <!-- highlight -->
-        <feSpecularLighting in="SourceGraphic" surfaceScale="5" specularConstant=".75" specularExponent="20" result="highlight" lighting-color="var(--bs-orange-400)">
-            <!-- e908e8a4-6734-4b6f-92c6-efa00cfcd7cd -->
-            <fePointLight x="1000" y="1000" z="20000" result="e908e8a4-6734-4b6f-92c6-efa00cfcd7cd"></fePointLight>
-        </feSpecularLighting>
-        <!-- highlightApplied -->
-        <feComposite in="highlight" in2="SourceAlpha" operator="in" result="highlightApplied"></feComposite>
-        <!-- highlightText -->
-        <feComposite in="SourceGraphic" in2="highlightApplied" operator="arithmetic" k2="1" k3="1" result="highlightText"></feComposite>
-        <!-- 44fb9371-7ca1-47fd-bda4-446a0eeffff8 -->
-        <feMerge result="44fb9371-7ca1-47fd-bda4-446a0eeffff8">
-            <feMergeNode in="offsetBlur"></feMergeNode>
-            <feMergeNode in="highlightText"></feMergeNode>
-        </feMerge>
-    </filter>
+            <feOffset in="SourceGraphic" dx="0" dy="0" result="offsetBlur"></feOffset>
+            <!-- highlight -->
+            <feSpecularLighting in="SourceGraphic" surfaceScale="5" specularConstant=".75" specularExponent="20" result="highlight" lighting-color="var(--bs-orange-400)">
+                <!-- e908e8a4-6734-4b6f-92c6-efa00cfcd7cd -->
+                <fePointLight x="1000" y="1000" z="20000" result="e908e8a4-6734-4b6f-92c6-efa00cfcd7cd"></fePointLight>
+            </feSpecularLighting>
+            <!-- highlightApplied -->
+            <feComposite in="highlight" in2="SourceAlpha" operator="in" result="highlightApplied"></feComposite>
+            <!-- highlightText -->
+            <feComposite in="SourceGraphic" in2="highlightApplied" operator="arithmetic" k2="1" k3="1" result="highlightText"></feComposite>
+            <!-- 44fb9371-7ca1-47fd-bda4-446a0eeffff8 -->
+            <feMerge result="44fb9371-7ca1-47fd-bda4-446a0eeffff8">
+                <feMergeNode in="offsetBlur"></feMergeNode>
+                <feMergeNode in="highlightText"></feMergeNode>
+            </feMerge>
+        </filter>
 
-</svg>
+    </svg>
+}
 
 
+@code {
+    public string ViewPortState { get; set; } = string.Empty;
+
+    public bool Transition { get; set; }
+
+    public string TransitionClass { get; set; } = string.Empty;
+
+    public bool Initialized { get; set; } = false;
+
+    public async Task OnTransition()
+    {
+        TransitionClass = TransitionClass == "on-transition" ? string.Empty : "on-transition";
+        StateHasChanged();
+        await Task.CompletedTask;
+    }
+
+    protected override void OnInitialized()
+    {
+        Initialized = true;
+        base.OnInitialized();
+    }
+}
