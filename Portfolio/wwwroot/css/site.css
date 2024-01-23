@@ -22,6 +22,10 @@ html {
     overflow: hidden;
 }
 
+::-webkit-scrollbar {
+    width: 0;
+}
+
 body {
     overflow: hidden;
     font-family: 'Josefin Sans';

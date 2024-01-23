@@ -12,9 +12,9 @@ public class WebFileHandler : IDisposable
     public void Dispose()
     {
 
-    BrowserHtml ??= null;
-    BrowserCss ??= null;
-    GC.SuppressFinalize(this);
+        BrowserHtml ??= null;
+        BrowserCss ??= null;
+        GC.SuppressFinalize(this);
 
     }
 }
