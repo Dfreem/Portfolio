@@ -11,7 +11,7 @@
 }
 
 .mobile-business-card {
-    visibility: hidden;
+    visibility: collapse;
 }
 
 html {
