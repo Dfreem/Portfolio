@@ -7,6 +7,20 @@
 
 <PageTitle>Contact Me</PageTitle>
 
+<style>
+    .toastr {
+        position: absolute;
+        top: 5%;
+        font-size: 14pt;
+        left: 40% !important;
+        transform-origin: center;
+        /* left: calc(30% - 7.5rem); */
+        border-radius: 5px;
+        min-width: 15rem;
+        max-width: 15rem;
+        font-weight: 600;
+         }
+</style>
 <body>
 
     <div class="position-absolute left-10 top-0 mt-5" id="__page-title">
@@ -20,7 +34,8 @@
     </div>
 
 
-    <EditForm OnSubmit="Submit" Model="NewMessage">
+    <EditForm OnValidSubmit="Submit" Model="NewMessage">
+        <DataAnnotationsValidator />
         <div class="container">
             <div id="message-wrapper" class='card @(Sent?"sending":"default")'>
                 <div class="stamp h3 text-orange-300 d-flex card-header">
@@ -31,30 +46,31 @@
                 <div class="card-body p-0">
 
                     <div class="hstack my-2">
-                        <div class="vstack mx-2">
+                        <div class="vstack mt-1 mx-2">
 
 
                             <div class="form-input mx-2 mt-2">
 
                                 <label class="form-input mb-1 text-orange-300">Subject</label>
-                                <InputText class="form-control" id="subject-input" @bind-Value="NewMessage.Subject"></InputText>
+                                <InputText tabindex="1" class="form-control" id="subject-input" @bind-Value="NewMessage.Subject"></InputText>
                             </div>
                             <div class="mx-2 form-input mt-1">
                                 <label class="form-label mt-1 text-orange-300">Email</label>
-                                <InputText class="form-control" id="from-email" @bind-Value="NewMessage.FromEmail"></InputText>
+                                <InputText tabindex="2" class="form-control" id="from-email" @bind-Value="NewMessage.FromEmail"></InputText>
                             </div>
                             <div class="form-input mx-2 mt-1">
                                 <label class="form-label mt-1 text-orange-300">Name</label>
-                                <InputText class="form-control" id="from-name" @bind-Value="NewMessage.FromName"></InputText>
+                                <InputText tabindex="3" class="form-control" id="from-name" @bind-Value="NewMessage.FromName"></InputText>
                             </div>
                             <div class="form-input mx-2 mt-1 mb-1">
-                                <button type="submit" class="mt-2 btn btn-tertiary">Submit</button>
+                                <button tabindex="5" type="submit" class="mt-2 btn btn-tertiary">Submit</button>
 
                             </div>
                         </div>
                         <div class="form-input">
                             <label class="form-label text-input text-orange-300">Write a Message</label>
-                            <InputTextArea class="form-control fs-16 text-200" id="body-input" @bind-Value='NewMessage.Body'></InputTextArea>
+                            <InputTextArea tabindex="4" class="form-control fs-16 text-200" id="body-input" @bind-Value='NewMessage.Body'></InputTextArea>
+                            <ValidationSummary class="position-absolute top-50 v-message" />
 
                         </div>
                     </div>
@@ -77,7 +93,7 @@
 
                     <div class="card-title text-center">
 
-                        <a class="icon-link icon-link-hover mx-auto link link-orange-500" href="resume">
+                        <a class="icon-link icon-link-hover mx-auto link link-orange-500" href="/pdf/Resumev2.pdf" target="_blank">
 
                             <span class="text-shadow">
                                 My Resume
@@ -136,9 +152,10 @@
 
 @code {
 
+    [SupplyParameterFromForm]
     public ContactMessage NewMessage { get; set; } = default!;
 
-    private bool Sent { get; set; } = false;
+    public bool Sent { get; set; } = false;
 
     private async Task Submit()
     {

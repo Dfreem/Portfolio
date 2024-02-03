@@ -20,6 +20,7 @@ body {
     transition: transform 1s ease;
     min-width: 1300px;
 }
+
     body.on-transition > * {
         transition: all 1s ease;
         transform: translateX(2000%) !important;
@@ -150,65 +151,54 @@ body {
 }
 
 ::deep #link-wrapper {
-        position: absolute;
-        top: 2rem;
-        /* bottom: 4rem; */
-        right: 2rem;
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: column;
-        padding-bottom: .5rem;
-        min-width: 350px;
-        background-color: var(--bs-gray-700);
+    position: absolute;
+    top: 2rem;
+    /* bottom: 4rem; */
+    right: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding-bottom: .5rem;
+    min-width: 350px;
+    background-color: var(--bs-gray-700);
+}
+
+::deep #message-wrapper {
+    /* min-height: 400px; */
+    max-height: 420px;
+    min-width: 650px;
+    max-width: 650px;
+    position: absolute;
+    bottom: 100px;
+    left: 20%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding-bottom: .5rem;
+    background-color: var(--bs-gray-700);
+}
+
+    ::deep #message-wrapper.default {
+        transform: translateX(10px);
+        transition: all 1s cubic-bezier(.14,-0.75,.89,1.13);
     }
 
-    ::deep #message-wrapper {
-        /* min-height: 400px; */
-        max-height: 420px;
-        min-width: 650px;
-        max-width: 650px;
-        position: absolute;
-        bottom: 100px;
-        left: 20%;
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: column;
-        padding-bottom: .5rem;
-        background-color: var(--bs-gray-700);
+    ::deep #message-wrapper.sending {
+        transition: all 1s cubic-bezier(.14,-0.75,.89,1.13);
+        transform: translate(300%, -200%);
     }
 
-        ::deep #message-wrapper.default {
-            transform: translateX(10px);
-            transition: all 1s cubic-bezier(.14,-0.75,.89,1.13);
-        }
-
-        ::deep #message-wrapper.sending {
-            transition: all 1s cubic-bezier(.14,-0.75,.89,1.13);
-            transform: translate(300%, -200%);
-        }
-
-        ::deep #message-wrapper > button {
-            margin-top: 10px;
-            max-width: 8rem;
-            border: 2px solid var(--bs-gray-600);
-        }
-
-        ::deep #message-wrapper input {
-            margin-inline-end: 15px;
-            line-height: 2rem;
-            border: none;
-            text-shadow: none;
-        }
-
-    input:hover, input:focus, a:any-link:focus, a:any-link:hover {
-        text-shadow: none;
+    ::deep #message-wrapper > button {
+        margin-top: 10px;
+        max-width: 8rem;
+        border: 2px solid var(--bs-gray-600);
     }
 
-    #message-wrapper input, #message-wrapper textarea {
+    ::deep #message-wrapper input {
+        margin-inline-end: 15px;
+        line-height: 2rem;
         border: none;
-        color: var(--bs-gray-900);
-        font-size: 12pt;
-        background-color: var(--bs-gray-500);
+        text-shadow: none;
     }
 
 

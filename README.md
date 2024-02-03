@@ -2,18 +2,17 @@
 
 ## TODO
 
-- [x] tooltips
-- [x] fix user upload feature
+- [x] Tooltips
+- [x] Fix user upload feature
 - [ ] About
   - [ ] the site
   - [ ] me
-  - [ ] my resume
-- [ ] ~~web assembly games~~
+  - [x] my resume
+- [ ] ~~WebAssembly games~~
 - [ ] message text formatting/style
 - [ ] intro/docs/explanation of Transform Tool
-- [x] title for Discord widget (Let's Code)
+- [x] Title for Discord widget (Let's Code)
 - [x] new discord widget using json api
-- [x] mobile ~~Friendly~~ business card
-- [x] make Toast fire as separate async messages
-- [ ] ~~disable dark mode~~
-- [ ] Contact Message Portal
+- [ ] Mobile Friendly
+- [ ] Notifications for messages
+- [ ] Transform Tool Api

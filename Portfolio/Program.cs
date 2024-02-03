@@ -1,4 +1,7 @@
+
+using Serilog;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 
 using Portfolio.Components;
 using Portfolio.Data;
@@ -10,14 +13,20 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("MySqlConnection");
 builder.Services.AddDbContextFactory<PortfolioDbContext>(options =>
 {
-options.UseMySql(connectionString, MySqlServerVersion.Parse("mysql-8.0"));
-options.EnableDetailedErrors();
+    options.UseMySql(connectionString, MySqlServerVersion.Parse("mysql-8.0"));
+    options.EnableDetailedErrors();
 });
+builder.Logging.ClearProviders();
+using var logConfig = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("Logs/logs.txt")
+    .CreateLogger();
+
 builder.Services.AddRazorPages();
 builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents()
-    .AddInteractiveWebAssemblyComponents();
+    .AddInteractiveServerComponents();
 builder.Services.AddSignalR();
+builder.Services.AddControllers();
 builder.Services.AddSession();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<WebFileHandler>();
@@ -28,16 +37,23 @@ builder.Services.AddScoped<ToastService>();
 WebApplication app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
-app.UseExceptionHandler("/Error");
+    app.UseExceptionHandler("/Error");
+}
+else
+{
+    app.UseDeveloperExceptionPage();
 }
 
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAntiforgery();
 app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode()
-    .AddInteractiveWebAssemblyRenderMode();
+    .AddInteractiveServerRenderMode();
+app.MapControllers();
+app.MapControllerRoute(
+    name: "TransformTool",
+    pattern: "{controller=TransformTool}/{action=get-tool}");
 app.MapRazorPages();
 app.UseWebSockets();
-//app.MapGet("/", () => "143.244.183.193");
+//app.MapGet("/", () => "24.199.101.197");
 app.Run();

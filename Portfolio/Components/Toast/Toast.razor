@@ -1,6 +1,85 @@
 ﻿@using Portfolio.Services
 @inject ToastService _toast
 
+<style>
+
+    .toast-default {
+        background-color: transparent;
+        transform: translateY(50%);
+        visibility: hidden;
+        transition: all 1s ease-in-out;
+    }
+
+    .toast-error .close i {
+        color: cornsilk;
+        padding-block: 0;
+        filter: contrast(2);
+    }
+
+    .toast-error .close:hover i {
+        color: var(--bs-professional-grey-500);
+    }
+
+    .toast-success .close i {
+        filter: contrast(2);
+        font-weight: 800;
+    }
+
+    .toast-success .close:hover i {
+        color: var(--bs-theme-earth-yellow) !important;
+    }
+
+    .toast-success {
+        color: var(--bs-orange-600);
+        filter: contrast(1.6);
+        text-shadow: 0 0 1px var(--bs-theme-dark-purple);
+        background-color: var(--bs-theme-green) !important;
+        border: 1px solid var(--bs-theme-green-light) !important;
+        transition: all 1s ease-in-out;
+    }
+
+    .toast-error {
+        color: white;
+        background-color: #c03b3b !important;
+        border: 1px solid var(--bs-red-600) !important;
+    }
+
+    .toast-warning {
+        color: black;
+        /* text-shadow: 0 0 3px black; */
+        text-size-adjust: 25%;
+        background-color: #ffb006 !important;
+    }
+
+    .toastr-header {
+        padding: 0;
+        max-height: 1.5rem;
+        display: flex;
+        align-items: center;
+        background: inherit;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+
+
+        .toastr-header > a.btn {
+            margin: 0;
+        }
+
+    .toastr-body {
+        background-color: inherit;
+        filter: saturate(.4) brightness(1.2);
+        padding-inline: 1rem;
+        padding-block: .5rem;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+    .hide-toast {
+        visibility: hidden;
+    }
+
+</style>
 
 <div class="@ToastClass toastr">
     <div class="toastr-header">

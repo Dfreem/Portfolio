@@ -1,5 +1,6 @@
 ﻿@inherits ComponentBase
 @inject NavigationManager Nav
+@inject IHttpClientFactory _clientFactory
 
 <div class="site-map">
     <i class="menu-dots bi bi-three-dots-vertical fs-16"></i>
@@ -15,7 +16,7 @@
             <a @onclick='(() => TriggerTransition("/contact"))' class="link link-yellow-400 @Active["/contact"]">
                 Contact Me
             </a>
-        </li>
+        </li> 
     </ul>
 </div>
 
@@ -61,6 +62,7 @@
     {
         Active.Add("/", string.Empty);
         Active.Add("/contact", string.Empty);
+        Active.Add("/test", string.Empty);
 
         base.OnInitialized();
     }

@@ -14,9 +14,6 @@
     visibility: hidden;
 }
 
-.business-card-body {
-}
-
 html {
     min-width: 1200px;
     overflow: hidden;
@@ -459,7 +456,7 @@ body {
 }
 
 #transporter {
-    transition: opacity .5s ease-in-out;
+    transition: opacity .6s ease-in-out;
     opacity: 100%;
 }
 
@@ -468,89 +465,20 @@ body {
         opacity: 0% !important;
     }
 
-.toastr {
-    position: absolute;
-    top: 5%;
-    font-size: 14pt;
-    left: 50%;
-    transform-origin: center;
-    /* left: calc(30% - 7.5rem); */
-    border-radius: 5px;
-    min-width: 15rem;
-    font-weight: 700;
+input:hover, input:focus, a:any-link:focus, a:any-link:hover {
+    text-shadow: none;
 }
 
-.toast-default {
-    background-color: transparent;
-    transform: translateY(50%);
-    visibility: hidden;
-    transition: all 1s ease-in-out;
+#message-wrapper input, #message-wrapper textarea {
+    border: none;
+    color: var(--bs-gray-300) !important;
+    font-weight: 400;
+    font-size: 12pt;
+    background-color: var(--bs-gray-600);
+    backdrop-filter: opacity(.6);
 }
 
-.toast-error .close i {
-    color: cornsilk;
-    padding-block: 0;
-    filter: contrast(2);
-}
-
-.toast-error .close:hover i {
-    color: var(--bs-professional-grey-500);
-}
-
-.toast-success .close i {
-    filter: contrast(2);
-    font-weight: 800;
-}
-
-.toast-success .close:hover i {
-    color: var(--bs-theme-earth-yellow) !important;
-}
-
-.toast-success {
-    color: black;
-    text-shadow: 0 0 1px var(--bs-theme-green-dark);
-    /* color: var(--bs-professional-grey-800); */
-    background-color: var(--bs-theme-green) !important;
-    border: 1px solid var(--bs-theme-green-light) !important;
-}
-
-.toast-error {
-    color: white;
-    background-color: #c03b3b !important;
-    border: 1px solid var(--bs-red-600) !important;
-}
-
-.toast-warning {
-    color: black;
-    /* text-shadow: 0 0 3px black; */
-    text-size-adjust: 25%;
-    background-color: #ffb006 !important;
-}
-
-.toastr-header {
-    padding: 0;
-    max-height: 1.5rem;
-    display: flex;
-    align-items: center;
-    background: inherit;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}
-
-
-    .toastr-header > a.btn {
-        margin: 0;
-    }
-
-.toastr-body {
-    background-color: inherit;
-    filter: saturate(.4) brightness(1.2);
-    padding-inline: 1rem;
-    padding-block: .5rem;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-
-.hide-toast {
-    visibility: hidden;
+.validation-message, .validation-message::marker {
+    color: var(--bs-red-300);
+    filter: contrast(1.5);
 }

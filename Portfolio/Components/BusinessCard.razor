@@ -125,11 +125,8 @@
 
     public bool Initialized { get; set; }
 
-    private bool _sent = false;
-
     private async Task Submit()
     {
-        _sent = true;
         StateHasChanged();
         await Task.Delay(1000);
         using var context = await _factory.CreateDbContextAsync();
@@ -144,7 +141,6 @@
             _toast.Error("Unable to send message at this time.\nPlease try again later.");
         }
         NewMessage = new() { Subject = "MOBILE" };
-        _sent = false;
         StateHasChanged();
     }
 
