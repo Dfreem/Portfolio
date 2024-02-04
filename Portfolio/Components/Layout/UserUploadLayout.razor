@@ -1,0 +1,39 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager NAV
+
+
+<div class="page">
+    <main role="main">
+        <article class="content vh-100">
+            <MenuNav @bind-Transition='Transition' @bind-Transition:after='OnTransition'></MenuNav>
+            <div class="@TransitionClass" id="__transporter">
+                <Toast> </Toast>
+                @Body
+            </div>
+        </article>
+    </main>
+
+</div>
+
+@code {
+    public string ViewPortState { get; set; } = string.Empty;
+
+    public bool Transition { get; set; }
+
+    public string TransitionClass { get; set; } = string.Empty;
+
+    public bool Initialized { get; set; } = false;
+
+    public async Task OnTransition()
+    {
+        TransitionClass = TransitionClass == "on-transition" ? string.Empty : "on-transition";
+        StateHasChanged();
+        await Task.CompletedTask;
+    }
+
+    protected override void OnInitialized()
+    {
+        Initialized = true;
+        base.OnInitialized();
+    }
+}

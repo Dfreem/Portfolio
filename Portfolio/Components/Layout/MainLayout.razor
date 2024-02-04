@@ -1,5 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @inject NavigationManager NAV
+@inject IJSRuntime JS
 
 <PageTitle>Devin Freeman</PageTitle>
 
@@ -10,18 +11,18 @@
         <main role="main">
             <article class="content vh-100">
                 <MenuNav @bind-Transition='Transition' @bind-Transition:after='OnTransition'></MenuNav>
-                <div class="@TransitionClass" id="transporter">
+                <div class="@TransitionClass" id="__transporter">
                     <Toast> </Toast>
                     @Body
                 </div>
             </article>
-
-            <footer class="border-top bg-professional-grey-600 w-100 text-orange-400">
-                2022 - Devin Freeman - Software & Web Developer
-            </footer>
         </main>
 
     </div>
+
+    <footer class="border-top bg-professional-grey-600 w-100 text-orange-400">
+        2022 - Devin Freeman - Software & Web Developer
+    </footer>
 
     <!-- Hidden if screen-size < 1000px -->
     <BusinessCard></BusinessCard>

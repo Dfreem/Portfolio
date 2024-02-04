@@ -21,7 +21,7 @@
     margin-inline: auto;
 }
 
-#__slider-container {
+::deep #__slider-container {
     margin-inline: .25rem;
 }
 

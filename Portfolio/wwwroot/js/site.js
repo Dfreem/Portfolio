@@ -27,36 +27,14 @@ export async function downloadCssFromStream(fileName, contentStreamReference) {
     anchorElement.remove();
     URL.revokeObjectURL(url);
 }
-
-export function initTooltips() {
-    let tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-    [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
-    window.addEventListener('show.bs.tooltip', (e) => {
-        let cancelToken = setTimeout(() => {
-            const target = document.getElementById(e.target['id']);
-            bootstrap.Tooltip.getInstance(target).hide();
-        }, 3000);
-        window.addEventListener('hide.bs.tooltip', () => {
-            clearTimeout(cancelToken);
-        });
-    });
-}
-
 export function initToast() {
     const toastElList = document.querySelectorAll('.toast');
     [...toastElList].map(toastEl => new bootstrap.Toast(toastEl));
-
 }
-
-export function resetTooltip(id) {
-    const selector = `[data-bs-toggle='tooltip']#${id}`;
-    let tt = bootstrap.Tooltip.getInstance(selector);
-    tt.hide();
-    tt.dispose();
-    const parent = document.querySelector(selector);
-    tt = new bootstrap.Tooltip(parent);
-
-
+export function initTooltips() {
+    $('[data-bs-toggle="tooltip"]').tooltip({
+        "container": "body"
+    });
 }
 
 export function getHTMLElementIds() {
@@ -69,6 +47,7 @@ export function getHTMLElementIds() {
 export function transformById(elementId, transformString) {
     const toMove = document.getElementById(elementId);
     toMove.style.transformOrigin = "0 0 0";
+    toMove.style.position = "absolute";
     toMove.style.transform = transformString;
 
 }

@@ -21,7 +21,7 @@ html {
 }
 
 .page,
-#message-container,
+#__message-container,
 .page > * {
     visibility: hidden !important;
 }
@@ -75,7 +75,7 @@ body > * {
     right: 3px;
 }
 
-#card-logo {
+#__card-logo {
     background-color: var(--bs-professional-grey-500);
     border-radius: 50%;
     padding: 1.75rem .5rem .5rem .75rem;
@@ -92,7 +92,7 @@ body > * {
     font-weight: 600;
 }
 
-#slogan {
+#__slogan {
     position: absolute;
     bottom: 3%;
     right: 6%;
@@ -105,7 +105,7 @@ body > * {
     left: 27%;
 }
 
-#name-link {
+#__name-link {
     font-size: 24pt;
     line-height: 2rem;
     font-weight: 500;
@@ -116,18 +116,18 @@ body > * {
     text-decoration-skip-ink: all;
 }
 
-#sub-name {
+#__sub-name {
     text-decoration: none;
     color: var(--bs-professional-grey-600);
     font-weight: 500;
     text-indent: 2px;
 }
 
-#dev {
+#__dev {
     font-size: 16pt;
 }
 
-#titles {
+#__titles {
     font-size: 12pt;
     margin-bottom: 0;
     margin-top: auto;
@@ -163,39 +163,39 @@ body > * {
     }
 }
 
-.link:hover #resume {
+.link:hover #__resume {
     fill: #ff0600;
     color: #ff0600;
     transition: all .6s linear;
     --bs-link-hover-color: var(--bs-theme-cornsilk);
 }
 
-.link:hover #linked-in {
+.link:hover #__linked-in {
     fill: #378fe9;
     transition: all .6s linear;
 }
 
-.link:hover #github {
+.link:hover #__github {
     color: black;
     transition: all .6s linear;
 }
 
-.link:hover #yellow-g {
+.link:hover #__yellow-g {
     fill: #FFC107;
     transition: all .6s linear;
 }
 
-.link:hover #orange-g {
+.link:hover #__orange-g {
     fill: #FF3D00;
     transition: all .6s linear;
 }
 
-.link:hover #green-g {
+.link:hover #__green-g {
     fill: #4CAF50;
     transition: all .6s linear;
 }
 
-.link:hover #blue-g {
+.link:hover #__blue-g {
     fill: #1976D2;
     transition: all .6s linear;
 }
@@ -209,7 +209,7 @@ body > * {
     fill: var(--bs-tertiary);
 }
 
-#mobile-message {
+#__mobile-message {
     position: absolute;
     bottom: 16%;
     left: 33%;
@@ -218,7 +218,7 @@ body > * {
     overflow-block: hidden;
 }
 
-    #mobile-message input {
+    #__mobile-message input {
         background-color: rgba(var(--bs-100-rgb), 255) ;
         border-radius: 5px;
         border: 1px solid var(--bs-600);
@@ -229,12 +229,12 @@ body > * {
         font-family: 'Cascadia Mono';
     }
 
-    #mobile-message .input-group {
+    #__mobile-message .input-group {
         min-width: 10rem;
         max-width: 10rem;
     }
 
-    #mobile-message .textarea {
+    #__mobile-message .textarea {
         background-color: rgba(var(--bs-100-rgb), 255) ;
         border: 1px solid var(--bs-600);
         border-radius: 5px;

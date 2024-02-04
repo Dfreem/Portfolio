@@ -1,4 +1,4 @@
-﻿::deep #body-input {
+﻿::deep #__body-input {
     margin-inline-end: 1rem;
     min-height: 16rem;
     max-height: 16rem;
@@ -27,7 +27,7 @@ body {
     }
 
 
-::deep #discord-widget {
+::deep #__discord-widget {
     min-height: 100vh;
     /* margin-top: 0 !important; */
 }
@@ -113,44 +113,44 @@ body {
     min-width: 100%;
 }
 
-::deep .link:hover #resume {
+::deep .link:hover #__resume {
     fill: #ff0600;
     color: #ff0600;
     transition: all .6s linear;
     --bs-link-hover-color: var(--bs-theme-cornsilk);
 }
 
-::deep .link:hover #linked-in {
+::deep .link:hover #__linked-in {
     fill: #378fe9;
     transition: all .6s linear;
 }
 
-::deep .link:hover #github {
+::deep .link:hover #__github {
     color: black;
     transition: all .6s linear;
 }
 
-::deep .link:hover #yellow-g {
+::deep .link:hover #__yellow-g {
     fill: #FFC107;
     transition: all .6s linear;
 }
 
-::deep .link:hover #orange-g {
+::deep .link:hover #__orange-g {
     fill: #FF3D00;
     transition: all .6s linear;
 }
 
-::deep .link:hover #green-g {
+::deep .link:hover #__green-g {
     fill: #4CAF50;
     transition: all .6s linear;
 }
 
-::deep .link:hover #blue-g {
+::deep .link:hover #__blue-g {
     fill: #1976D2;
     transition: all .6s linear;
 }
 
-::deep #link-wrapper {
+::deep #__link-wrapper {
     position: absolute;
     top: 2rem;
     /* bottom: 4rem; */
@@ -163,7 +163,7 @@ body {
     background-color: var(--bs-gray-700);
 }
 
-::deep #message-wrapper {
+::deep #__message-wrapper {
     /* min-height: 400px; */
     max-height: 420px;
     min-width: 650px;
@@ -178,23 +178,23 @@ body {
     background-color: var(--bs-gray-700);
 }
 
-    ::deep #message-wrapper.default {
+    ::deep #__message-wrapper.default {
         transform: translateX(10px);
         transition: all 1s cubic-bezier(.14,-0.75,.89,1.13);
     }
 
-    ::deep #message-wrapper.sending {
+    ::deep #__message-wrapper.sending {
         transition: all 1s cubic-bezier(.14,-0.75,.89,1.13);
         transform: translate(300%, -200%);
     }
 
-    ::deep #message-wrapper > button {
+    ::deep #__message-wrapper > button {
         margin-top: 10px;
         max-width: 8rem;
         border: 2px solid var(--bs-gray-600);
     }
 
-    ::deep #message-wrapper input {
+    ::deep #__message-wrapper input {
         margin-inline-end: 15px;
         line-height: 2rem;
         border: none;

@@ -42,7 +42,7 @@ public sealed partial class CssTransformService
     /// </summary>
     public CssTransformService()
     {
-    SetTransform("0");
+        SetTransform("0");
     }
 
     public string Matrix3d
@@ -58,16 +58,16 @@ public sealed partial class CssTransformService
         get => _perspectiveEnabled;
         set
         {
-        _perspectiveEnabled = value;
-        if (_perspectiveEnabled)
-        {
-        _perspective = _savedPerspective;
-        }
-        else
-        {
-        _savedPerspective = _perspective;
-        _perspective = "perspective(none)";
-        }
+            _perspectiveEnabled = value;
+            if (_perspectiveEnabled)
+            {
+                _perspective = _savedPerspective;
+            }
+            else
+            {
+                _savedPerspective = _perspective;
+                _perspective = "perspective(none)";
+            }
         }
     }
 
@@ -115,31 +115,31 @@ public sealed partial class CssTransformService
     {
         get
         {
-        if (PerspectiveEnabled)
-        {
-        return _perspective ?? "";
-        }
-        return "";
+            if (PerspectiveEnabled)
+            {
+                return _perspective ?? "";
+            }
+            return "";
         }
         set
         {
-        if (!PerspectiveEnabled)
-        {
-        return;
-        }
-        if (PerspectivePattern().IsMatch(value))
-        {
-        _perspective = value;
-        }
-        else
-        {
-        _perspective = value.Contains("px") || value.Contains("none") ? $" perspective({value})" : $" perspective({value}px)";
-        }
+            if (!PerspectiveEnabled)
+            {
+                return;
+            }
+            if (PerspectivePattern().IsMatch(value))
+            {
+                _perspective = value;
+            }
+            else
+            {
+                _perspective = value.Contains("px") || value.Contains("none") ? $" perspective({value})" : $" perspective({value}px)";
+            }
         }
     }
 
 
-    public string TransformStyle { get; set; } = "preserve-3d";
+    //public string TransformStyle { get; set; } = "preserve-3d";
 
     /// <summary>
     /// Set the transform string to a space seperate list of css transform functions as if setting the css transform attribute on an element.<br />
@@ -160,10 +160,10 @@ public sealed partial class CssTransformService
                 _matrix3d);
         set
         {
-        if (value is not null)
-        {
-        SetTransform(value);
-        }
+            if (value is not null)
+            {
+                SetTransform(value);
+            }
         }
     }
 
@@ -171,74 +171,74 @@ public sealed partial class CssTransformService
 
     internal void SetTransform(string value)
     {
-    // we take care of matrix before splitting at ' ' because this would break the matrix
-    if (Matrix3dPattern().IsMatch(value))
-    {
-    this.Matrix3d = Matrix3dPattern().Match(value).Value.Trim();
+        // we take care of matrix before splitting at ' ' because this would break the matrix
+        if (Matrix3dPattern().IsMatch(value))
+        {
+            this.Matrix3d = Matrix3dPattern().Match(value).Value.Trim();
 
-    // remove the matrix that has been used, then set other transforms as normal
-    value = Matrix3dPattern().Replace(value, "");
-    }
-    string[] allTransforms = value.Split(' ');
-    Array.ForEach(allTransforms, t =>
-    {
-    switch (t)
-    {
-        case var skew when SkewXPattern().IsMatch(t):
-            skew = SkewXPattern().Match(skew).Groups[0].Value;
-            _skewX = skew;
-            break;
-        case var transX when TranslateXPattern().IsMatch(t):
-            transX = TranslateXPattern().Match(transX).Groups[0].Value;
-            _translateX = transX;
-            break;
-
-        case var transY when TranslateYPattern().IsMatch(t):
-            transY = TranslateYPattern().Match(transY).Groups[0].Value;
-            _translateY = transY;
-            break;
-        case var transZ when TranslateZPattern().IsMatch(t):
-            transZ = TranslateZPattern().Match(transZ).Groups[0].Value;
-            _translateZ = transZ;
-            break;
-        case var rotateY when RotateYPattern().IsMatch(t):
-            rotateY = RotateYPattern().Match(rotateY).Groups[0].Value;
-            _rotateY = rotateY;
-            break;
-        case var rotateX when RotateXPattern().IsMatch(t):
-            rotateX = RotateXPattern().Match(rotateX).Groups[0].Value;
-            _rotateX = rotateX;
-            break;
-        case var rotateZ when RotateZPattern().IsMatch(t):
-            rotateZ = RotateZPattern().Match(rotateZ).Groups[0].Value;
-            _rotateZ = rotateZ;
-            break;
-        case var perspective when PerspectiveEnabled && PerspectivePattern().IsMatch(t):
-            perspective = PerspectivePattern().Match(perspective).Groups[0].Value;
-            _perspective = perspective;
-            break;
-
-        // dont reset matrix, it's used for storing any pre-existing transforms
-        case var _ when t == "0" || t == "(0)":
-            if (PerspectiveEnabled)
+            // remove the matrix that has been used, then set other transforms as normal
+            value = Matrix3dPattern().Replace(value, "");
+        }
+        string[] allTransforms = value.Split(' ');
+        Array.ForEach(allTransforms, t =>
+        {
+            switch (t)
             {
+                case var skew when SkewXPattern().IsMatch(t):
+                    skew = SkewXPattern().Match(skew).Groups[0].Value;
+                    _skewX = skew;
+                    break;
+                case var transX when TranslateXPattern().IsMatch(t):
+                    transX = TranslateXPattern().Match(transX).Groups[0].Value;
+                    _translateX = transX;
+                    break;
 
-            _perspective = "perspective(none)";
+                case var transY when TranslateYPattern().IsMatch(t):
+                    transY = TranslateYPattern().Match(transY).Groups[0].Value;
+                    _translateY = transY;
+                    break;
+                case var transZ when TranslateZPattern().IsMatch(t):
+                    transZ = TranslateZPattern().Match(transZ).Groups[0].Value;
+                    _translateZ = transZ;
+                    break;
+                case var rotateY when RotateYPattern().IsMatch(t):
+                    rotateY = RotateYPattern().Match(rotateY).Groups[0].Value;
+                    _rotateY = rotateY;
+                    break;
+                case var rotateX when RotateXPattern().IsMatch(t):
+                    rotateX = RotateXPattern().Match(rotateX).Groups[0].Value;
+                    _rotateX = rotateX;
+                    break;
+                case var rotateZ when RotateZPattern().IsMatch(t):
+                    rotateZ = RotateZPattern().Match(rotateZ).Groups[0].Value;
+                    _rotateZ = rotateZ;
+                    break;
+                case var perspective when PerspectiveEnabled && PerspectivePattern().IsMatch(t):
+                    perspective = PerspectivePattern().Match(perspective).Groups[0].Value;
+                    _perspective = perspective;
+                    break;
+
+                // dont reset matrix, it's used for storing any pre-existing transforms
+                case var _ when t == "0" || t == "(0)":
+                    if (PerspectiveEnabled)
+                    {
+
+                        _perspective = "perspective(none)";
+                    }
+                    _skewX = "skewX(0deg)";
+                    _translateX = "translateX(0px)";
+                    _translateY = "translateY(0px)";
+                    _translateZ = "translateZ(0px)";
+                    _rotateX = "rotateX(0deg)";
+                    _rotateY = "rotateY(0deg)";
+                    _rotateZ = "rotateZ(0deg)";
+
+
+                    break;
+                default:
+                    break;
             }
-            _skewX = "skewX(0deg)";
-            _translateX = "translateX(0px)";
-            _translateY = "translateY(0px)";
-            _translateZ = "translateZ(0px)";
-            _rotateX = "rotateX(0deg)";
-            _rotateY = "rotateY(0deg)";
-            _rotateZ = "rotateZ(0deg)";
-
-
-            break;
-        default:
-            break;
-    }
-    });
+        });
     }
 
     #region Regex
@@ -272,7 +272,7 @@ public sealed partial class CssTransformService
 
     public override string ToString()
     {
-    return TransformString;
+        return TransformString;
     }
     #endregion
 }

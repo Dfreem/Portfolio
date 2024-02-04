@@ -1,5 +1,5 @@
 ﻿@page "/user-upload"
-@layout MainLayout
+@layout UserUploadLayout
 @inject HttpClient Client
 @inject ILogger<UserUpload> Logger
 @inject ProtectedSessionStorage Session
@@ -12,7 +12,7 @@
             @CssString
         </style>
     }
-    <link rel="stylesheet" href="/scss/custom.css" /> 
+    @* <link rel="stylesheet" href="/scss/custom.css" />  *@
         
     @if (!isConnected)
     {
@@ -55,7 +55,6 @@
         if (cssResults.Success)
         {
             CssString = cssResults.Value!;
-            Console.WriteLine(CssString);
         }
         StateHasChanged();
         

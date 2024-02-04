@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Portfolio.Components;
 using Portfolio.Data;
 using Portfolio.Services;
-//using Serilog;
+using Microsoft.Extensions.Logging.Configuration;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -17,10 +17,11 @@ builder.Services.AddDbContextFactory<PortfolioDbContext>(options =>
     options.EnableDetailedErrors();
 });
 builder.Logging.ClearProviders();
-using var logConfig = new LoggerConfiguration()
-    .WriteTo.Console()
-    .WriteTo.File("Logs/logs.txt")
+using var seriLogger = new LoggerConfiguration()
+    .WriteTo.Console(Serilog.Events.LogEventLevel.Debug)
+    .WriteTo.File("Logs/logs.txt", Serilog.Events.LogEventLevel.Debug)
     .CreateLogger();
+Log.Logger = seriLogger;
 
 builder.Services.AddRazorPages();
 builder.Services.AddRazorComponents()

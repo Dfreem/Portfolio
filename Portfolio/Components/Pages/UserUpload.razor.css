@@ -1,4 +1,6 @@
-﻿
+﻿.main, body, .body, html {
+    background-color: none!important;
+}
 
 ::deep .custom-tooltip,
 .custom-tooltip {

@@ -11,7 +11,7 @@
          id="__pull-tab"
          @onmouseenter='(() => {if (HideShell) PeekShell = true;})'
          @onmouseleave='(() => {if (HideShell) PeekShell = false;})'
-         @onclick='(() => HideShell = !HideShell)'
+         @onclick='OnShowHideTool'
          data-bs-toggle="tooltip"
          data-bs-custom-class="custom-tooltip"
          data-bs-trigger="hover manual"
@@ -40,6 +40,7 @@
                             data-bs-animated="true"
                             data-bs-title="Move html elements with sliders"
                             type="button"
+                            id="__transform-tab"
                             class="nav-link @(Tool!.ActiveToggle(TabName.Transformer))"
                             @onclick='(() => OnTabSelected(TabName.Transformer))'>
                         Transform
@@ -82,7 +83,7 @@
             </ul>
         </div>
 
-        <a @onclick='(() => HideShell = true)' class="icon-link link-tertiary">
+        <a @onclick='OnShowHideTool' class="icon-link link-tertiary">
             <i class="bi bi-x-circle"></i>
         </a>
 
@@ -253,6 +254,12 @@
 
     Dictionary<string, string> PerspectiveStorage = [];
 
+    public void OnShowHideTool()
+    {
+        // await _module!.InvokeVoidAsync("resetTooltip", "__pull-tab");
+        HideShell = !HideShell;
+    }
+
     public void ExampleObject()
     {
         _ = _module!.InvokeVoidAsync("showExampleObject");
@@ -351,9 +358,17 @@
 
     }
 
+    public async Task RescanIds()
+    {
+        _module ??= await JS.InvokeAsync<IJSObjectReference>("import", "./js/site.js");
+
+        Tool!.ElementIds = await _module!.InvokeAsync<string[]>("getHTMLElementIds");
+    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
 
+        await base.OnAfterRenderAsync(firstRender);
         if (firstRender)
         {
             Tool ??= new();
@@ -386,14 +401,11 @@
                     temp.PerspectiveEnabled = false;
                 }
             }
-            await _module!.InvokeVoidAsync("initTooltips");
-            await _module!.InvokeVoidAsync("initToast");
             HideShell = true;
             Tool.IsInitialized = true;
+            await _module!.InvokeVoidAsync("initToast");
             StateHasChanged();
         }
-        await base.OnAfterRenderAsync(firstRender);
-
-
+        await _module!.InvokeVoidAsync("initTooltips");
     }
 }

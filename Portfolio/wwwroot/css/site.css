@@ -26,7 +26,7 @@ html {
 body {
     overflow: hidden;
     font-family: 'Josefin Sans';
-    background-color: var(--bs-professional-grey-700) !important;
+    /*background-color: var(--bs-professional-grey-700) !important;*/
     min-width: 1200px;
 }
 
@@ -455,12 +455,12 @@ body {
     color: white;
 }
 
-#transporter {
+#__transporter {
     transition: opacity .6s ease-in-out;
     opacity: 100%;
 }
 
-    #transporter.on-transition {
+    #__transporter.on-transition {
         transition: opacity .5s ease-in-out;
         opacity: 0% !important;
     }
@@ -469,7 +469,7 @@ input:hover, input:focus, a:any-link:focus, a:any-link:hover {
     text-shadow: none;
 }
 
-#message-wrapper input, #message-wrapper textarea {
+#__message-wrapper input, #__message-wrapper textarea {
     border: none;
     color: var(--bs-gray-300) !important;
     font-weight: 400;
