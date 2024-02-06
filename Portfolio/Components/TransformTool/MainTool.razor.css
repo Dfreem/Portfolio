@@ -184,11 +184,22 @@ div.pull-tab.d-flex.hide-shell {
 
 #__shell > a.icon-link {
     position: absolute;
-    right: 1rem;
+    right: .5rem;
     top: .75rem;
 }
 
 .icon-btn {
     background-color: transparent;
     fill: transparent;
+}
+
+::deep .nav-link {
+    font-size: 10pt!important;
+
+}
+
+#__docs {
+    margin-block-start: 0;
+    min-height: fit-content;
+    min-width: fit-content;
 }

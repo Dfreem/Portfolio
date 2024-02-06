@@ -1,6 +1,6 @@
 ﻿@import url("../lib/bootstrap/css/bootstrap.css");
 @import url("../scss/custom.css");
-@import url('https://fonts.googleapis.com/css2?family=Dosis;wght@400;500;600&family=Fira+Sans:wght@400;500&family=Ubuntu:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600&family=Fira+Sans:wght@400;500&family=Ubuntu:wght@400;500;700&display=swap');
 
 :root {
     --pull-tab-transition: all .6s cubic-bezier(.48, .38, .71, 1.34);
@@ -16,7 +16,8 @@
 
 html {
     min-width: 1200px;
-    overflow: hidden;
+    min-height: 100vh;
+    /*overflow: hidden;*/
 }
 
 ::-webkit-scrollbar {
@@ -47,14 +48,13 @@ body {
     border-inline-end: 2px solid var(--bs-orange-300);
 }
 
-.custom-tooltip > * {
-    color: var(--bs-orange-300) !important;
-}
 
 .custom-tooltip {
-    background-color: var(--bs-gray-700);
+    background-color: transparent;
     --bs-tooltip-opacity: 1;
-    --bs-tooltip-border-radius: 0px 5px 5px 0px;
+    --bs-tooltip-bg: var(--bs-800);
+    --bs-tooltip-border-radius: 0px 8px 8px 0px;
+    --bs-tooltip-color: var(--bs-orange-300);
     border-inline-start-width: 2px;
     border-inline-start-style: solid;
     filter: contrast(1.4);
@@ -63,7 +63,7 @@ body {
 
 .nav-tabs {
     border: none;
-    gap: 3px;
+    /*gap: 3px;*/
     margin-bottom: 0;
     --bs-nav-tabs-border-color: none !important;
 }
@@ -383,6 +383,7 @@ body {
 .footer {
     position: absolute;
     bottom: 0;
+    padding-inline-start: 4rem;
 }
 
 .fade-face {

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TransformTool.md</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <link rel="stylesheet" href="../css/transform-tool-docs.css" /> 
+</head>
+<body>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+                ? 'dark'
+                : 'default'
+        });
+    </script>
+    <h1 id="css-transform-tool-documentation">Transform Tool Documentation</h1>
+    <h2 id="overview">Overview</h2>
+    <p>The Transform Tool is a component designed for manipulating CSS transformations on HTML elements. It provides a user-friendly interface with sliders to control various <strong>css transform</strong> properties such as <strong>translate</strong>, <strong>rotate</strong>, <strong>skew</strong>, and <strong>perspective</strong>.</p>
+   <hr>
+    <h2 id="css-transform-tool-guide">Usage Guide</h2>
+    <p>Welcome to the CSS Transform Tool! This guide will help you make the most of the tool's features, starting with how to upload your own HTML and CSS for customization.</p>
+    <h3 id="getting-started">Getting Started</h3>
+    <p>The transform tool is design to work with your own html and css and provide you with new css to add to your project. The new css when added to your current stylesheets will carry over any changes you made with the tool.</p>
+    <ol>
+        <li>
+            <p><h4>Uploading Your HTML and CSS:</h4></p>
+            <ul>
+                <li>Navigate to the <strong>Upload</strong> tab.</li>
+                <li>Click on the top <strong>Choose File</strong> button to select your HTML file.</li>
+                <li>Optionally, select a CSS file by clicking on the bottom <strong>Choose File</strong> button.</li>
+                <li>Click the Upload button to to display your web-page.</li>
+            </ul>
+        </li>
+        <li>
+            <p><h4>Selecting an Element:</h4></p>
+            <ul>
+                <li>In the <strong>Transform</strong> tab, use the selector menu at the top of the tool labeled &quot;Select Element&quot; to choose an HTML element from your uploaded file.</li>
+            </ul>
+        </li>
+        <li>
+            <p><h4>Transform Your HTML:</h4></p>
+            <ul>
+                <li>use the sliders found on the <strong>Transform</strong> tab to change the elements on your web-page</li>
+            </ul>
+        </li>
+        <li>
+            <p><h4>Copy Your New CSS</h4></p>
+            <ul>
+                <li>when your finished editing, there are 2 ways to get your changes into your project. First click the <strong>CSS</strong> tab.</li>
+                <li>in this tab, you  will be able to view</li>
+            </ul>
+        </li>
+    </ol>
+    <h3 id="tool-tabs">Tool Tabs</h3>
+    <ol>
+        <li>
+            <p><h4>Transform Tab:</h4></p>
+            <ul>
+                <li>Use sliders to modify properties like skew, rotation, and translation.</li>
+                <li>Experiment with the &quot;Test&quot; button to visualize changes on a sample object.</li>
+                <li>Adjust the tool's position on the screen using the alignment buttons.</li>
+            </ul>
+        </li>
+        <li>
+            <p><h4>CSS Tab:</h4></p>
+            <ul>
+                <li>View, copy, or download the CSS changes made in the &quot;Transform&quot; tab.</li>
+                <li>The &quot;Copy&quot; button instantly copies the CSS to your clipboard.</li>
+            </ul>
+        </li>
+        <li>
+            <p><h4>Upload Tab:</h4></p>
+            <ul>
+                <li>Easily switch between uploaded HTML and CSS files using the tab navigation.</li>
+                <li>Make changes to your original files and re-upload them for continuous experimentation.</li>
+            </ul>
+        </li>
+        <li>
+            <p><h4>Documentation Tab:</h4></p>
+            <ul>
+                <li>show this documentation</li>
+            </ul>
+        </li>
+    </ol>
+     <hr>
+    <h2 id="understanding-transformations">Understanding Transformations</h2>
+    <h3 id="perspective-3d-effect">Perspective</h3>
+        <p>
+          By default, perspective is turned off, ensuring 2D transformations. Enabling it will allow you to move your elements in 3d space.
+        </p>
+    <h3 id="perspective-impact">Perspective Impact:</h3>
+    <p>Enabling the perspective toggle switch influences how other transformations are perceived, adding depth to your design. The css perspective function changes the perceived distance between the back most layer and the viewer. This slider correlates exactly to the css perspective property including the effects it has on the other transform properties.</p>
+    <h4 id="nesting-elements">Nesting Elements:</h4>
+    <p>The way you structure and nest HTML elements can significantly alter how transformations are applied. For instance when editing a nested object, it takes on the scope of it's outermost parent. This means that if you apply a rotation, the vertex of the rotation point will be based on the outer most html element that your target is nesting in. This can result in a rotation appearing as more of a sweeping motion rather than oriented around a point within the element.</p>
+    <h4 id="hierarchy-matters"><strong>Hierarchy Matters</strong>:</h4>
+    <p>Elements are transformed based on their position in the HTML hierarchy. A child element's transformation can be influenced by its parent.</p>
+
+</body>
+</html>

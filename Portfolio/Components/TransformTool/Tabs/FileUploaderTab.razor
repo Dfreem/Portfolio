@@ -4,7 +4,7 @@
 @inject NavigationManager Nav
 @inject IWebHostEnvironment Env
 @inject ProtectedSessionStorage Session
-<div class="container mb-3 arrow-container">
+<div class="container mb-3 arrow-container @Collapse">
     <i id="__arrow" class="bi bi-arrow-up text-tertiary fw-800 @(_showArrow?"":"collapse")"></i>
 </div>
 <div class="container @Collapse" id="__file-uploader">
@@ -87,7 +87,7 @@
 
     public string? ActiveSubmit { get; set; }
 
-    public string Collapse => ShouldCollapse ? "visually-hidden" : "";
+    public string Collapse => ShouldCollapse ? "collapse" : "";
     #endregion
 
     #region ======= File Handling ========

@@ -29,6 +29,9 @@
 
 	<ItemGroup>
 		<None Include="compilerconfig.json" />
+		<None Include="wwwroot\documentation\transform-tool-docs.html" />
+		<None Include="wwwroot\documentation\transform-tool-docs.md" />
+		<None Include="wwwroot\documentation\transform-tool-docs.pdf" />
 		<None Include="wwwroot\js\site.js" />
 		<None Include="wwwroot\js\ToastService.js" />
 		<None Include="wwwroot\lib\jquery\jquery.js" />
@@ -50,6 +53,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.1" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -64,6 +68,10 @@
 		<Content Update="wwwroot\css\site.css">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
+		<Content Update="wwwroot\documentation\transform-tool-docs.html">
+		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		  <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
 		<Content Update="wwwroot\pdf\Resumev2.pdf">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
@@ -75,10 +83,6 @@
 
 	<ItemGroup>
 	  <UpToDateCheckInput Remove="Components\Pages\Test.razor" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <_WebToolingArtifacts Remove="Properties\launchSettings.json" />
 	</ItemGroup>
 
 </Project>

@@ -49,11 +49,11 @@ $success: #8cb369;
 $danger: $theme-bittersweet-shimmer;
 $warning: #F4EF85;
 
-$body-bg: $gray-800;
+$body-bg: $professional-grey-500;
 $body-color: $safety-orange;
 
 $enable-gradients: true;
-$enable-dark-mode:false;
+/*$enable-dark-mode:false;*/
 $btn-box-shadow: 1px 1px 4px $professional-grey-800;
 $btn-font-family: "Cuisine", sans-serif;
 $btn-secondary-bg: color.adjust($gray-500, $hue: 22deg, $lightness: 12%);

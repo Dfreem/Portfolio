@@ -8,5 +8,5 @@ public enum TabName
     FileUpload = 3,
     MatrixTest = 4,
     Shell = 5,
-    Instructions = 6
+    Documentation = 6
 }

@@ -3,10 +3,10 @@
 @inject CssParser Parser
 @inject ToastService Toaster
 
-@ChildContent
 
 @if (Tool is not null && Tool.IsInitialized == true)
 {
+    @ChildContent
     <div class="pull-tab d-flex @Tool.Pos @(HideShell?"hide-shell":"")"
          id="__pull-tab"
          @onmouseenter='(() => {if (HideShell) PeekShell = true;})'
@@ -25,7 +25,7 @@
     <label class="text-theme-cornsilk" id="__try-me">Try Me</label>
     <div id="__shell" class="@(HideShell ? "hide-shell" : "") card @Tool.Pos">
 
-        <div class="card-header pb-0 mb-3">
+        <div class="card-header pb-0 mb-0">
 
 
             <ul class="nav nav-tabs mt-2 pb-0 mb-0">
@@ -80,6 +80,23 @@
                         Upload
                     </button>
                 </li>
+                <li class="nav-item">
+
+                    <button data-bs-toggle="tooltip"
+                            data-bs-custom-class="custom-tooltip"
+                            data-bs-trigger="hover manual"
+                            data-bs-delay='{"show":500,"hide":0 }'
+                            data-bs-offset="0,60"
+                            data-bs-placement="left"
+                            data-bs-animated="true"
+                            data-bs-title="Get started with this guide"
+                            type="button"
+                            id="__documentation-button"
+                            class="nav-link @(Tool!.ActiveToggle(TabName.Documentation))"
+                            @onclick='(() => OnTabSelected(TabName.Documentation))'>
+                        Documentation
+                    </button>
+                </li>
             </ul>
         </div>
 
@@ -89,7 +106,7 @@
 
         <div class='@Tool.CollapseToggle(TabName.Transformer)' id="__transformer">
             <div class="row">
-                <div class="mx-auto mb-1">
+                <div class="mx-auto mb-1 mt-2">
                     <Select Options="Tool.ElementIds" OnChange="OnTargetSelected" TitleLabel="Select Element" />
                 </div>
             </div>
@@ -104,7 +121,7 @@
 
                         <div class="btn-group btn-group-sm me-1">
 
-                            <button class="btn btn-danger"
+                            <button class="btn btn-danger text-light"
                                     id="__rst"
                                     @onclick='ResetAll'
                                     data-bs-trigger="hover manual"
@@ -221,7 +238,15 @@
 
         <StylesViewerTab @bind-Refresh="Refresh" StyleSnapshot="@Tool.StyleSnapshot" ShouldCollapse='Tool.ShouldCollapse[TabName.StyleViewer]' />
         <FileUploaderTab ShouldCollapse="Tool.ShouldCollapse[TabName.FileUpload]"></FileUploaderTab>
+
+        <div class=' @Tool.CollapseToggle(TabName.Documentation)' id="__docs">
+            <iframe style="font-size: 16pt; padding: 0; margin: 0; min-height: 800px; min-width: 400px;" src="/documentation/transform-tool-docs.html" />
+        </div>
     </div>
+}
+else
+{
+       
 }
 
 @code {
@@ -374,7 +399,7 @@
             Tool ??= new();
             Tool.TransformParams.PerspectiveEnabled = false;
             Tool.CurrentTab = TabName.Transformer;
-            Tool.Tabs = new TabName[] { TabName.Transformer, TabName.StyleViewer, TabName.FileUpload };
+            Tool.Tabs = new TabName[] { TabName.Transformer, TabName.StyleViewer, TabName.FileUpload, TabName.Documentation };
             PerspectiveStorage.Add("none", "");
 
             _module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/site.js");

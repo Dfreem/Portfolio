@@ -1,12 +1,11 @@
 
-using Serilog;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-
 using Portfolio.Components;
 using Portfolio.Data;
 using Portfolio.Services;
 using Microsoft.Extensions.Logging.Configuration;
+using System.Net;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -17,14 +16,15 @@ builder.Services.AddDbContextFactory<PortfolioDbContext>(options =>
     options.EnableDetailedErrors();
 });
 builder.Logging.ClearProviders();
-using var seriLogger = new LoggerConfiguration()
-    .WriteTo.Console(Serilog.Events.LogEventLevel.Debug)
-    .WriteTo.File("Logs/logs.txt", Serilog.Events.LogEventLevel.Debug)
-    .CreateLogger();
-Log.Logger = seriLogger;
+//using var seriLogger = new LoggerConfiguration()
+//    .WriteTo.Console(Serilog.Events.LogEventLevel.Debug)
+//    .WriteTo.File("Logs/logs.txt", Serilog.Events.LogEventLevel.Debug)
+//    .CreateLogger();
+//Log.Logger = seriLogger;
 
 builder.Services.AddRazorPages();
 builder.Services.AddRazorComponents()
+    .AddInteractiveWebAssemblyComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddSignalR();
 builder.Services.AddControllers();
@@ -49,6 +49,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAntiforgery();
 app.MapRazorComponents<App>()
+    .AddInteractiveWebAssemblyRenderMode()
     .AddInteractiveServerRenderMode();
 app.MapControllers();
 app.MapControllerRoute(
@@ -56,5 +57,5 @@ app.MapControllerRoute(
     pattern: "{controller=TransformTool}/{action=get-tool}");
 app.MapRazorPages();
 app.UseWebSockets();
-//app.MapGet("/", () => "24.199.101.197");
 app.Run();
+
