@@ -39,6 +39,7 @@ export function initTooltips() {
 
 export function getHTMLElementIds() {
     const elements = document.querySelectorAll('[id]');
+    console.log(elements);
     let ids = Array.from(elements).map(element => element.id);
     ids = ids.filter(e => !e.includes('__'));
     return ids;
