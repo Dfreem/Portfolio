@@ -68,7 +68,17 @@
 
     protected override void OnInitialized()
     {
-        Initialized = true;
         base.OnInitialized();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Initialized = true;
+            StateHasChanged();
+        }
+
+        base.OnAfterRender(firstRender);
     }
 }

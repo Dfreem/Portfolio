@@ -1,5 +1,8 @@
 ﻿'use strict';
 
+export function initTooltips() {
+    $('[data-bs-toggle="tooltip"]').tooltip()
+}
 
 export function getStylesheets(exclusionPrefix = '__') {
     let sheets = [];
@@ -27,19 +30,8 @@ export async function downloadCssFromStream(fileName, contentStreamReference) {
     anchorElement.remove();
     URL.revokeObjectURL(url);
 }
-export function initToast() {
-    const toastElList = document.querySelectorAll('.toast');
-    [...toastElList].map(toastEl => new bootstrap.Toast(toastEl));
-}
-export function initTooltips() {
-    $('[data-bs-toggle="tooltip"]').tooltip({
-        "container": "body"
-    });
-}
-
 export function getHTMLElementIds() {
     const elements = document.querySelectorAll('[id]');
-    console.log(elements);
     let ids = Array.from(elements).map(element => element.id);
     ids = ids.filter(e => !e.includes('__'));
     return ids;
@@ -54,7 +46,6 @@ export function transformById(elementId, transformString) {
 }
 
 export function switchTabs(from, to) {
-
     document.getElementById(from).classList.add('collapse');
     document.getElementById(`${from}-button`).classList.remove('active');
     document.getElementById(to).classList.remove('collapse');

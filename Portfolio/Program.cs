@@ -6,6 +6,8 @@ using Portfolio.Data;
 using Portfolio.Services;
 using Microsoft.Extensions.Logging.Configuration;
 using System.Net;
+using Serilog;
+using Microsoft.JSInterop;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -16,15 +18,13 @@ builder.Services.AddDbContextFactory<PortfolioDbContext>(options =>
     options.EnableDetailedErrors();
 });
 builder.Logging.ClearProviders();
-//using var seriLogger = new LoggerConfiguration()
-//    .WriteTo.Console(Serilog.Events.LogEventLevel.Debug)
-//    .WriteTo.File("Logs/logs.txt", Serilog.Events.LogEventLevel.Debug)
-//    .CreateLogger();
-//Log.Logger = seriLogger;
+builder.Host.UseSerilog((ctx, lc) => lc
+    .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}")
+    .WriteTo.File("Log.txt", outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}")
+    .Enrich.FromLogContext());
 
 builder.Services.AddRazorPages();
 builder.Services.AddRazorComponents()
-    .AddInteractiveWebAssemblyComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddSignalR();
 builder.Services.AddControllers();
@@ -34,7 +34,6 @@ builder.Services.AddScoped<WebFileHandler>();
 builder.Services.AddScoped<CssParser>();
 builder.Services.AddScoped<ClipboardService>();
 builder.Services.AddScoped<ToastService>();
-
 WebApplication app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
@@ -44,12 +43,12 @@ else
 {
     app.UseDeveloperExceptionPage();
 }
+app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAntiforgery();
 app.MapRazorComponents<App>()
-    .AddInteractiveWebAssemblyRenderMode()
     .AddInteractiveServerRenderMode();
 app.MapControllers();
 app.MapControllerRoute(

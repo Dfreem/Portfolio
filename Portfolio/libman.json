@@ -7,8 +7,16 @@
       "destination": "wwwroot/lib/font-awesome/"
     },
     {
+      "library": "bootstrap-icons@1.11.3",
+      "destination": "wwwroot/lib/bootstrap-icons/"
+    },
+    {
       "library": "bootstrap@5.3.2",
-      "destination": "wwwroot/lib/bootstrap/"
+      "destination": "wwwroot/lib/bootstrap/bootstrap/",
+      "files": [
+        "js/bootstrap.min.js",
+        "js/bootstrap.bundle.min.js"
+      ]
     }
   ]
 }
