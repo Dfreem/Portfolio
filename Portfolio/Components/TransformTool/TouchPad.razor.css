@@ -47,10 +47,10 @@
 
 #faster {
     display: flex;
-    max-height: fit-content;
+    flex-wrap: nowrap;
     max-width: fit-content;
     /*margin-inline: auto;*/
-    margin-top: .25rem;
+    /*margin-top: 10px;*/
 }
 
 

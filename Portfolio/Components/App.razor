@@ -1,21 +1,25 @@
-﻿@inject IHostEnvironment Env
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="/" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" media="screen and (min-width: 1000px)" href="css/site.css" />
-    <link rel="stylesheet" media="screen and (max-width: 999px)" href="css/site-mobile.css" />
-    <link rel="stylesheet" href="Portfolio.styles.css" asp-append-version="true" />
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
-    <HeadOutlet @rendermode="InteractiveServer" />
+    <link rel="stylesheet" href="Portfolio.styles.css" />
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/app.css" media="screen and (min-width:1000px)" />
+    <link rel="stylesheet" href="/app-mobile.css" media="screen and (max-width:999px)" />
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <HeadOutlet @rendermode="new InteractiveServerRenderMode(true)" />
 </head>
+
 <body>
-    <Routes @rendermode="InteractiveServer" />
-    <script src="/lib/jquery/jquery.js"></script>
-    <script src="/lib/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="_framework/blazor.server.js"></script>
+    <Routes @rendermode="new InteractiveServerRenderMode(true)" />
+    <script src="/jquery/jquery.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="_framework/blazor.web.js"></script>
 </body>
+
 </html>

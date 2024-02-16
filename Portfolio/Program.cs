@@ -1,15 +1,13 @@
-
+using Microsoft.AspNetCore.WebSockets;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
+
 using Portfolio.Components;
 using Portfolio.Data;
 using Portfolio.Services;
-using Microsoft.Extensions.Logging.Configuration;
-using System.Net;
-using Serilog;
-using Microsoft.JSInterop;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+using Serilog;
+
+var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("MySqlConnection");
 builder.Services.AddDbContextFactory<PortfolioDbContext>(options =>
@@ -34,27 +32,29 @@ builder.Services.AddScoped<WebFileHandler>();
 builder.Services.AddScoped<CssParser>();
 builder.Services.AddScoped<ClipboardService>();
 builder.Services.AddScoped<ToastService>();
-WebApplication app = builder.Build();
+
+if (!builder.Environment.IsDevelopment())
+{
+    builder.WebHost.UseStaticWebAssets();
+}
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error");
+    app.UseExceptionHandler("/Error", createScopeForErrors: true);
+    app.UseForwardedHeaders();
+    app.UseCertificateForwarding();
 }
-else
-{
-    app.UseDeveloperExceptionPage();
-}
-app.UseHttpsRedirection();
 
 app.UseStaticFiles();
-app.UseRouting();
 app.UseAntiforgery();
+
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 app.MapControllers();
-app.MapControllerRoute(
-    name: "TransformTool",
-    pattern: "{controller=TransformTool}/{action=get-tool}");
+
 app.MapRazorPages();
 app.UseWebSockets();
 app.Run();
-

@@ -1,0 +1,193 @@
+﻿@import url('../custom.css');
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+    font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+    font-size: var(--vscode-markdown-font-size, 14px);
+    padding: 0 .5rem;
+    padding-bottom: 5rem;
+    /*    background-color: var(--bs-professional-grey-200);*/
+    line-height: var(--vscode-markdown-line-height, 22px);
+    word-wrap: break-word;
+}
+
+#code-csp-warning {
+    position: fixed;
+    top: 0;
+    right: 0;
+    color: white;
+    margin: 16px;
+    text-align: center;
+    font-size: 12px;
+    font-family: sans-serif;
+    background-color: #444444;
+    cursor: pointer;
+    padding: 6px;
+    box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+    #code-csp-warning:hover {
+        text-decoration: none;
+        background-color: #007acc;
+        box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+    }
+
+body.scrollBeyondLastLine {
+    margin-bottom: calc(100vh - 22px);
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+p {
+    color: var(--bs-gray-200);
+    margin: .5rem;
+}
+
+
+ul, ol {
+    color: var(--bs-gray-200);
+    padding-inline-start: 1.5rem !important;
+    margin-inline-end: .25rem;
+}
+
+li {
+    margin-block: .5rem;
+}
+
+a {
+    text-decoration: none;
+}
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    a:focus,
+    input:focus,
+    select:focus,
+    textarea:focus {
+        outline: 1px solid -webkit-focus-ring-color;
+        outline-offset: -1px;
+    }
+
+hr {
+    border: 0;
+    height: 2px;
+    color: var(--bs-orange-500);
+    border-bottom: 2px solid;
+}
+
+h1 {
+    padding-bottom: 0.3em;
+    line-height: 1.2;
+    border-bottom-width: 1px;
+    font-weight: normal;
+    border-bottom-style: solid;
+    color: var(--bs-gray-200);
+}
+
+h2 {
+    color: var(--bs-orange-200);
+    filter: contrast(2);
+    font-weight: normal;
+    font-size: 18pt;
+    border-color: rgba(0, 0, 0, 0.18);
+}
+
+h3 {
+    color: var(--bs-orange-300);
+}
+
+h4 {
+    color: var(--bs-orange-400);
+}
+
+table {
+    border-collapse: collapse;
+}
+
+    table > thead > tr > th {
+        text-align: left;
+        border-bottom: 1px solid;
+    }
+
+    table > thead > tr > th,
+    table > thead > tr > td,
+    table > tbody > tr > th,
+    table > tbody > tr > td {
+        padding: 5px 10px;
+    }
+
+    table > tbody > tr + tr > td {
+        border-top: 1px solid;
+    }
+
+blockquote {
+    margin: 0 7px 0 5px;
+    padding: 0 16px 0 10px;
+    border-left-width: 5px;
+    border-left-style: solid;
+}
+
+code {
+    font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+    font-size: 1em;
+    line-height: 1.357em;
+}
+
+body.wordWrap pre {
+    white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+    padding: 16px;
+    border-radius: 3px;
+    overflow: auto;
+}
+
+pre {
+    background-color: #f8f8f8;
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+}
+
+    pre:not(.hljs) {
+        padding: 23px;
+        line-height: 19px;
+    }
+
+blockquote {
+    background: rgba(127, 127, 127, 0.1);
+    border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+    height: 1.4em;
+}
+
+code {
+    font-size: 14px;
+    line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+    color: #C9AE75; /* Change the old color so it seems less like an error */
+    font-size: inherit;
+}
+
+.page {
+    page-break-after: always;
+}
+
+#css-transform-tool-guide {
+    max-width: fit-content;
+    border-bottom: 1px solid var(--bs-orange-600) !important;
+}

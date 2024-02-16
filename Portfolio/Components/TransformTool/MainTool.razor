@@ -1,5 +1,4 @@
-﻿@using System.Timers
-@inject IJSRuntime JS
+﻿@inject IJSRuntime JS
 @inject CssParser Parser
 @inject ToastService Toaster
 
@@ -240,13 +239,15 @@
         <FileUploaderTab ShouldCollapse="Tool.ShouldCollapse[TabName.FileUpload]"></FileUploaderTab>
 
         <div class=' @Tool.CollapseToggle(TabName.Documentation)' id="__docs">
-            <iframe style="font-size: 16pt; padding: 0; margin: 0; min-height: 800px; min-width: 400px;" src="/documentation/transform-tool-docs.html" />
+            <iframe style="font-size: 16pt; padding: 0; margin: 0; min-height: 800px; min-width: 400px;" src="documentation/transform-tool-docs.html" />
         </div>
     </div>
 }
 else
 {
-
+    <div class="position-absolute top-50 left-50">
+        <h1 class="text-center">Loading...</h1>
+    </div>
 }
 
 @code {
@@ -434,6 +435,7 @@ else
             HideShell = true;
             Tool.IsInitialized = true;
             StateHasChanged();
+
         }
         await _module!.InvokeVoidAsync("initTooltips");
     }

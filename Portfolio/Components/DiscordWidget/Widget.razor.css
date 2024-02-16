@@ -1,0 +1,66 @@
+﻿
+::deep .bi-discord {
+    color: white;
+}
+
+::deep .widget {
+    overflow-y: hidden;
+}
+
+::deep .widget-header {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: #5865f2;
+    font-family: 'Josefin Sans';
+    padding-inline: 1rem;
+    color: white;
+}
+
+::deep .widget-body {
+    overflow-y: scroll;
+    padding: 1rem;
+    min-height: 30rem;
+    max-height: 30rem;
+    padding-bottom: 2rem;
+}
+
+::deep .idle {
+    color: #E8AC30;
+}
+
+::deep .member-status {
+    max-width: 8px;
+    max-height: 8px;
+    padding: inherit;
+    margin: 0;
+    border-radius: 50%;
+    position: relative;
+    left: -.33rem;
+    bottom: -.33rem;
+    transform: scale(.5);
+}
+
+::deep .dnd {
+    color: var(--bs-danger);
+    filter: contrast(1.5);
+}
+
+::deep .avatar {
+    border-radius: 50%;
+    max-width: 16px;
+    max-height: 16px;
+}
+
+::deep .member {
+    margin-block: 1px;
+    display: inline-flex;
+}
+
+::deep .online {
+    color: #00bb33;
+}
+
+a.link-light:hover {
+    color: lightsteelblue !important;
+    text-decoration-color: lightsteelblue !important;
+}

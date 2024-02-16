@@ -1,0 +1,297 @@
+﻿@import url("./bootstrap/css/bootstrap.min.css");
+@import url("./custom.css");
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600&family=Fira+Sans:wght@400;500&display=swap');
+
+:root {
+    --pull-tab-transition: all .6s cubic-bezier(.48, .38, .71, 1.34);
+    --inset-shadow: 1px 1px 4px #000000 inset;
+    --btn-shadow: 1px 1px 4px #000000;
+    --tool-item-shadow: 2px 2px 4px var(--bs-professional-grey-700);
+    --bs-focus-ring-color: transparent;
+}
+
+#__shell {
+    visibility: collapse;
+}
+
+html {
+    min-width: 95%;
+    overflow: hidden;
+}
+
+* {
+    --face-transition: .6s all ease;
+}
+
+.page,
+#__message-container,
+.page > * {
+    visibility: hidden !important;
+}
+
+body {
+    overflow: hidden;
+    font-family: 'Josefin Sans';
+    transition: all 1s ease;
+    background-color: var(--bs-theme-cornsilk) !important;
+}
+
+.link:hover {
+    cursor: pointer;
+}
+
+body > * {
+    transition: all 1s ease;
+}
+
+.widget-header {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: #5865f2;
+    font-family: 'Josefin Sans';
+    padding-inline: 1rem;
+    color: white;
+}
+
+.mobile-business-card {
+    visibility: visible;
+    outline: 3px solid black;
+    border-radius: .5rem;
+    outline-offset: -4px;
+    position: absolute;
+    top: calc(50% - 175px);
+    min-width: 600px;
+    max-width: 600px;
+    min-height: 350px;
+    left: calc(50% - 300px);
+}
+
+.business-card-body {
+    visibility: visible;
+    outline: 2px solid black;
+    border-radius: .75rem;
+    outline-offset: -8px;
+    position: absolute;
+    top: 3px;
+    bottom: 3px;
+    left: 3px;
+    right: 3px;
+}
+
+#__card-logo {
+    background-color: var(--bs-professional-grey-500);
+    border-radius: 50%;
+    padding: 1.75rem .5rem .5rem .75rem;
+    position: absolute;
+    margin-top: .5rem;
+    top: 1rem;
+    left: 8%;
+    width: 12%;
+}
+
+.input-label {
+    font-size: 10pt;
+    color: var(--bs-professional-grey-200) !important;
+    font-weight: 600;
+}
+
+#__slogan {
+    position: absolute;
+    bottom: 3%;
+    right: 6%;
+    font-size: 12pt;
+}
+
+.letter-head {
+    position: absolute;
+    top: 2.5rem;
+    left: 27%;
+}
+
+#__name-link {
+    font-size: 24pt;
+    line-height: 2rem;
+    font-weight: 500;
+    color: var(--bs-professional-grey-800);
+    text-decoration-line: underline;
+    /*    text-decoration-thickness: 2px;*/
+    text-decoration-color: var(--bs-professional-grey-300);
+    text-decoration-skip-ink: all;
+}
+
+#__sub-name {
+    text-decoration: none;
+    color: var(--bs-professional-grey-600);
+    font-weight: 500;
+    text-indent: 2px;
+}
+
+#__dev {
+    font-size: 16pt;
+}
+
+#__titles {
+    font-size: 12pt;
+    margin-bottom: 0;
+    margin-top: auto;
+    padding-bottom: 0;
+    line-height: .5rem;
+}
+
+.link-list {
+    text-decoration-color: var(--bs-tertiary) !important;
+    position: absolute;
+    bottom: 14%;
+    left: 5%;
+}
+
+.link-business-card {
+    color: var(--bs-professional-grey-300);
+    text-decoration: none;
+}
+
+.h4 {
+    font-weight: 500;
+}
+
+.link-business-card:hover, .link-business-card:active {
+    color: var(--bs-tertiary) !important;
+}
+
+@media screen and (max-width: 600px) {
+
+    .mobile-business-card {
+        transform: scale(.7);
+        top: 0;
+    }
+}
+
+.link:hover #__resume {
+    fill: #ff0600;
+    color: #ff0600;
+    transition: all .6s linear;
+    --bs-link-hover-color: var(--bs-theme-cornsilk);
+}
+
+.link:hover #__linked-in {
+    fill: #378fe9;
+    transition: all .6s linear;
+}
+
+.link:hover #__github {
+    color: black;
+    transition: all .6s linear;
+}
+
+.link:hover #__yellow-g {
+    fill: #FFC107;
+    transition: all .6s linear;
+}
+
+.link:hover #__orange-g {
+    fill: #FF3D00;
+    transition: all .6s linear;
+}
+
+.link:hover #__green-g {
+    fill: #4CAF50;
+    transition: all .6s linear;
+}
+
+.link:hover #__blue-g {
+    fill: #1976D2;
+    transition: all .6s linear;
+}
+
+.fa-ul {
+    margin-left: 1.6rem !important;
+}
+
+.fa-li {
+    color: var(--bs-tertiary);
+    fill: var(--bs-tertiary);
+}
+
+#__mobile-message {
+    position: absolute;
+    bottom: 16%;
+    left: 33%;
+    max-width: fit-content;
+    max-height: fit-content;
+    overflow-block: hidden;
+}
+
+    #__mobile-message input {
+        background-color: rgba(var(--bs-100-rgb), 255);
+        border-radius: 5px;
+        border: 1px solid var(--bs-600);
+        max-height: 2rem;
+        font-weight: 300 !important;
+        color: black;
+        font-size: 10pt;
+        font-family: 'Cascadia Mono';
+    }
+
+    #__mobile-message .input-group {
+        min-width: 10rem;
+        max-width: 10rem;
+    }
+
+    #__mobile-message .textarea {
+        background-color: rgba(var(--bs-100-rgb), 255);
+        border: 1px solid var(--bs-600);
+        border-radius: 5px;
+        font-size: 10pt;
+        font-family: 'Cascadia Mono';
+        resize: none;
+        color: var(--bs-professional-grey-700);
+    }
+
+textarea:focus {
+    outline: none !important;
+    border: 3px solid var(--bs-tertiary) !important;
+    box-shadow: 0 0 5px var(--bs-tertiary) !important;
+}
+
+.btn-outline-tertiary {
+    --bs-btn-hover-color: white !important;
+    --bs-btn-hover-border-color: var(--bs-gray-600) !important;
+}
+
+    .btn-outline-tertiary:hover {
+        box-shadow: 0 0 1px 0px black;
+    }
+
+.business-toast {
+    max-width: 10rem;
+    min-width: 7rem;
+    max-height: 4rem;
+    min-height: 4rem;
+    border: 1px solid var(--bs-professional-grey-800);
+    box-shadow: 1px 1px 4px 0px var(--bs-professional-grey-300);
+    right: 1rem;
+    top: 1rem;
+    position: absolute;
+    border-radius: 5px;
+    transition: all .7s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    font-size: 10pt !important;
+    padding-inline: 4px;
+}
+
+i.bi-circle {
+    transform: scale(.6) !important;
+}
+
+.toast-default {
+    visibility: hidden;
+    transition: all .7s ease-in-out;
+    transform: translateY(1rem);
+}
+
+.toast-success {
+    transition: all .7s ease-in-out;
+    border-color: #22c834 !important;
+    color: var(--bs-theme-green) !important;
+}
