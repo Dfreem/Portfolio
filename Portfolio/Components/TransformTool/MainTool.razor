@@ -282,13 +282,11 @@ else
 
     public void OnShowHideTool()
     {
-        // await _module!.InvokeVoidAsync("resetTooltip", "__pull-tab");
         HideShell = !HideShell;
     }
 
     public void ExampleObject()
     {
-        Console.WriteLine("example");
         if (Tool!.ElementIds.Contains("example-object"))
         {
             var elementList = Tool.ElementIds.ToList();
@@ -332,7 +330,6 @@ else
     private void SetLocation()
     {
         _ = _module!.InvokeVoidAsync("setSidebarPosition", Tool!.Pos);
-        // _ = _module!.InvokeVoidAsync("showShell");
     }
 
 
@@ -431,7 +428,6 @@ else
                     temp.PerspectiveEnabled = false;
                 }
             }
-            // await _module!.InvokeVoidAsync("initToast");
             HideShell = true;
             Tool.IsInitialized = true;
             StateHasChanged();
