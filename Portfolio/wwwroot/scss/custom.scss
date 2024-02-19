@@ -1,0 +1,116 @@
+﻿@use "sass:color";
+
+@import "../bootstrap/scss/_functions.scss";
+
+/* SCSS HEX */
+$gunmetal: #2d3142;
+$silver: #bfc0c0;
+$white: #ffffff;
+$coral: #ef8354;
+$paynes-gray: #4f5d75;
+
+$safety-orange: #ed7916;
+$dark-purple: #292749;
+
+$theme-dark-blue: #175484;
+$theme-cornsilk: #fefae0;
+$theme-earth-yellow: #DCAB13;
+$theme-flax: #f4e285;
+$theme-viridian: #5b8e7d;
+$theme-green-dark: #8cb369;
+$theme-green-light: color.adjust($theme-green-dark, $lightness: 30%, $saturation: -10%);
+$theme-green: color.adjust($theme-green-dark, $lightness: 15%, $saturation: -05%);
+$theme-bittersweet-shimmer: #864c4e;
+$theme-professional-grey: #313636;
+$theme-professional-grey-light: #65686c;
+$professional-grey-100: tint-color($theme-professional-grey, 80%) !default;
+$professional-grey-200: tint-color($theme-professional-grey, 60%) !default;
+$professional-grey-300: tint-color($theme-professional-grey, 40%) !default;
+$professional-grey-400: tint-color($theme-professional-grey, 20%) !default;
+$professional-grey-500: $theme-professional-grey !default;
+$professional-grey-600: shade-color($theme-professional-grey, 10%) !default;
+$professional-grey-700: shade-color($theme-professional-grey, 20%) !default;
+$professional-grey-800: shade-color($theme-professional-grey, 30%) !default;
+$professional-grey-900: shade-color($theme-professional-grey, 40%) !default;
+
+@import "../bootstrap/scss/_variables.scss";
+@import "../bootstrap/scss/_variables-dark.scss";
+
+$primary: $gray-700;
+$secondary: $professional-grey-400;
+$tertiary: $coral;
+$info: $theme-viridian;
+$success: #8cb369;
+$danger: $theme-bittersweet-shimmer;
+$warning: #F4EF85;
+
+$body-bg: $gray-800;
+$body-color: $safety-orange;
+
+$btn-box-shadow: 1px 1px 4px $professional-grey-800;
+$btn-font-family: "Cuisine", sans-serif;
+$btn-secondary-bg: color.adjust($gray-500, $hue: 22deg, $lightness: 12%);
+$btn-danger-bg: $theme-bittersweet-shimmer;
+
+$custom-colors: ( "theme-green": $theme-green, "theme-green-light": $theme-green-light, "theme-dark-blue": $theme-dark-blue, "theme-cornsilk": $theme-cornsilk, "theme-earth-yellow": $theme-earth-yellow, "theme-flax": $theme-flax, "theme-viridian": $theme-viridian, "theme-bittersweet-shimmer": $theme-bittersweet-shimmer, "theme-professional-grey": $professional-grey-500,"primary":$primary, "secondary": $secondary, "tertiary": $tertiary, "body-bg": $body-bg, "body-color": $body-color, "link-color": $link-color, "link-hover-color": $link-hover-color, "dark-purple": $dark-purple, "theme-green-dark":$theme-green-dark, "safety-orange": $safety-orange);
+
+$professional-greys: ("professional-grey-100": $professional-grey-100,"professional-grey-200": $professional-grey-200,"professional-grey-300": $professional-grey-300,"professional-grey-400": $professional-grey-400,"professional-grey-500": $professional-grey-500,"professional-grey-600": $professional-grey-600,"professional-grey-700": $professional-grey-700,"professional-grey-800": $professional-grey-800,"professional-grey-900": $professional-grey-900, "professional-grey-light": $theme-professional-grey-light);
+
+$theme-colors: ("primary": $primary, "secondary": $secondary, "tertiary": $tertiary, "info": $info, "danger": $danger);
+
+$all-colors: map-merge-multiple( $blues, $reds, $oranges, $yellows, $greens, $purples, $teals, $grays, $theme-colors, $custom-colors, $professional-greys );
+$theme-colors: map-merge-multiple($theme-colors, $all-colors, $custom-colors);
+$form-check-bg: $tertiary;
+$form-label-color: $theme-cornsilk;
+@import "../bootstrap/scss/_maps.scss";
+@import "../bootstrap/scss/_mixins.scss";
+@import "../bootstrap/scss/_root.scss";
+@import "../bootstrap/scss/_buttons.scss";
+@import "../bootstrap/scss/_utilities.scss";
+@import "_callout.scss";
+$utilities: map-merge( $utilities, ( "color": map-merge( map-get($utilities, "color"), ( values: map-merge( map-get( map-get( $utilities, "text-color"), "values"), ($theme-colors)) ) ) ) );
+
+$utilities-text-colors: map-merge($utilities-text-colors, $all-colors);
+
+
+@each $color, $value in $theme-colors {
+    .bg-#{$color} {
+        background-color: $value;
+    }
+
+    .link-#{$color} {
+        color: $value;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .link-#{$color}:focus,
+    .link-#{$color}:hover {
+        color: color.adjust($value, $hue: 180deg);
+        text-shadow: 0px 0px 3px color.adjust($value, $hue: 180deg);
+    }
+
+    .text-#{$color} {
+        color: $value;
+    }
+}
+
+$df-breakpoints: ("10": 10%,"11": 11%,"12": 12%,"13":13%, "14":14%, "15":15%, "16":16%, "17":17%, "18":18%, "19":19%, "20": 20%, "30": 30%, "40": 40%, "50": 50%, "60": 60%, "70": 70%, "80": 80%, "100": 100%);
+
+@each $breakpoint, $value in $df-breakpoints {
+    .right-#{$breakpoint} {
+        right: $value;
+    }
+
+    .left-#{$breakpoint} {
+        left: $value;
+    }
+
+    .w-#{$breakpoint} {
+        min-width: $value;
+        max-width: $value;
+    }
+}
+
+$utilities: map-merge( $utilities-colors, ( "link-colors": $utilities-text-colors, "theme-colors": $all-colors ) );
+@include callout-variant($all-colors);

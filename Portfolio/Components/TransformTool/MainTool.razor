@@ -97,13 +97,13 @@
                     </button>
                 </li>
             </ul>
-        </div>
 
+        </div>
         <a @onclick='OnShowHideTool' class="icon-link link-tertiary">
             <i class="bi bi-x-circle"></i>
         </a>
 
-        <div class='@Tool.CollapseToggle(TabName.Transformer)' id="__transformer">
+        <div class='@Tool.CollapseToggle(TabName.Transformer) card-body pt-0 px-0' id="__transformer">
             <div class="row">
                 <div class="mx-auto mb-1 mt-2">
                     <Select Options="Tool.ElementIds" OnChange="OnTargetSelected" TitleLabel="Select Element" />

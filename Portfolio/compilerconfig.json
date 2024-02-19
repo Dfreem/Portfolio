@@ -1,0 +1,8 @@
+[
+  {
+    "outputFile": "wwwroot/scss/custom.css",
+    "inputFile": "wwwroot/scss/custom.scss",
+    "sourceMap": false,
+    "useNodeSass": false
+  }
+]

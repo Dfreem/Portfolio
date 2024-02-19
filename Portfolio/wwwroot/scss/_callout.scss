@@ -1,0 +1,23 @@
+﻿@use "sass:color";
+
+@mixin callout-variant( $all-colors) {
+
+    .callout {
+        padding-block: .5em;
+        margin-top: .5rem;
+        margin-bottom: 1em;
+        padding-inline-start: 1em;
+        min-height: 4em;
+        border-left-style: solid;
+        border-left-width: 3px;
+        font-style: italic;
+        font-family: Bahnschrift;
+    }
+
+    @each $color, $value in $all-colors {
+        .callout-#{$color} {
+            background-color: rgba($value, 0.3);
+            border-color: color.adjust($value, $lightness: 15%) !important;
+        }
+    }
+}

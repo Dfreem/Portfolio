@@ -12,20 +12,20 @@
          @onmousedown="(() => _canSense = true)"
          @onmouseup="(() => _canSense = false)">
     </div>
-    <div class="text-professional-grey-100" id="__x-axis">
+    <div class="touchpad-label" id="__x-axis">
         @XLabel
 
     </div>
-    <div class="text-professional-grey-100" id="__y-axis">
+    <div class="touchpad-label" id="__y-axis">
         @YLabel
     </div>
-    <div class="text-orange-400" id="__y-value">@ExtractValue(Params!.TranslateY)</div>
-    <div class="text-orange-400" id="__x-value"> @ExtractValue(Params!.TranslateX)</div>
+    <div class="touchpad-value" id="__y-value">@ExtractValue(Params!.TranslateY)</div>
+    <div class="touchpad-value" id="__x-value"> @ExtractValue(Params!.TranslateX)</div>
 </div>
 
 
 
-@* <label class="text-professional-grey-100">sensitivity</label> *@
+@* <label class="touchpad-label">sensitivity</label> *@
 <div class="d-flex">
     <div class="mx-auto mb-2 mt-1">
 

@@ -7,7 +7,6 @@
 }
 
 .touchpad {
-    text-shadow: 0 0 7px var(--bs-professionial-grey-700);
     flex-basis: 100%;
     min-height: 13rem;
     max-height: auto;
@@ -16,7 +15,7 @@
     border-radius: 5px;
     box-shadow: 2px 2px 4px inset var(--bs-professional-grey-500);
     outline: 2px inset var(--bs-orange-700);
-    background-color: var(--bs-gray-600);
+    background-color: #bac2ca;
 }
 #__y-value {
     position: absolute;
@@ -29,7 +28,6 @@
 #__y-axis {
     position: absolute;
     transform: translate(-25px, -130px) rotateZ(90deg);
-    text-shadow: 0 0 3px var(--bs-professional-grey-700);
 }
 
 #__x-value {
@@ -40,7 +38,6 @@
 }
 
 #__x-axis {
-    text-shadow: 0 0 3px var(--bs-professional-grey-700);
     position: absolute;
     transform: translate(80px, -25px);
 }
@@ -53,4 +50,11 @@
     /*margin-top: 10px;*/
 }
 
-
+.touchpad-label {
+    color: var(--bs-professional-grey-800);
+    filter: contrast(1.5);
+}
+.touchpad-value {
+    color: var(--bs-teal-700);
+    filter: contrast(2);
+}

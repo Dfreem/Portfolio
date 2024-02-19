@@ -9,7 +9,6 @@
     --sidetab-transition: all .6s cubic-bezier(.34,.66,.62,.99);
     --bs-focus-ring-color: transparent;
 }
-
 .mobile-business-card {
     visibility: collapse;
 }

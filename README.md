@@ -4,9 +4,9 @@
 
 - [x] Tooltips
 - [x] Fix user upload feature
-- [ ] About
-  - [ ] the site
-  - [ ] me
+- [x] About
+  - [x] the site
+  - [x] me
   - [x] my resume
 - [ ] ~~WebAssembly games~~
 - [ ] message text formatting/style

@@ -1,0 +1,153 @@
+﻿<div class="modal fade" id="about-modal" tabindex="-1" aria-labelledby="aboutLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content card">
+            <div class="modal-header card-header py-3">
+                <div class="d-flex w-100">
+
+                    <div class="modal-title fs-16 align-text-bottom mt-auto mb-0 pb-0" id="aboutLabel">
+                        About
+                        <span class='text-orange-300 fst-italic fs-16 @(CurrentTab == AboutTab.Devin ?"": "collapse")'>
+                            Me
+                        </span>
+                        <span class='text-orange-300 fst-italic fs-16 @(CurrentTab == AboutTab.Site ?"": "collapse")'>
+                            This Site
+                        </span>
+                    </div>
+                    <div class="btn-group ms-auto">
+                        <a class='btn text-tertiary btn-outline-400 @(CurrentTab == AboutTab.Devin ? "active" : string.Empty)' @onclick='(() => ShowHide(AboutTab.Devin))'>Devin</a>
+                        <a class='btn text-tertiary btn-outline-400 @(CurrentTab == AboutTab.Site ? "active" : string.Empty)' @onclick='(() => ShowHide(AboutTab.Site))'>This Site</a>
+                    </div>
+                    <a class="ms-3 link link-red-500" data-bs-toggle="modal" data-bs-target="about-modal">
+                        <i class="bi bi-x-circle"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="modal-body card-body full-size-modal">
+                <div id="about-devin" class="@Visibility[AboutTab.Devin] mt-3">
+
+                    <p>
+                        Prior to a career shift in 2022, I used to make a living as a cook.
+                        I graduated culinary school in 2010, however at that point I had been cooking professionaly for 4 years.
+                    </p>
+                    <p>
+
+                        I've learned that A successful Programmer has a couple traits in common with a successful Cook:
+                        our level of <span class="fw-bold text-theme-flax">attention to details</span> and our level of <span class="fw-bold text-theme-flax">passion</span> for the job. My passion for programming is evident in my work and my attention to details is the reason that employers are satisfied with the end product.
+                    </p>
+                    <p>
+                        An early sign foreshadowing my future profession was my encounter with the TI-83 calculator should have been an early clue that I belong in the programming world. I taught myself how to make simple games for the calculator by reading the manual from cover to cover. I had no idea that I was actually learning a subset of the BASIC programming language or even any programming language at all.
+                    </p>
+                    <p>
+                        During the last two years of high school, I jumped at the chance of attending an Engineering program being offered through the school distraict I was in. Here I got to learn and experiment hands on with Computer Aided Drafting software, CNC machines, Programmable Logic Controllers and robotic arms. I went on to start college for engineering, but wasn't able to finish at the time.
+
+                        I had recently fallen into kitchen work as one of my first jobs, I decided to lean into that, making it more than a decade before I would continue training for a technical profession.
+                    </p>
+                    <p>
+                        While earning my AAS, I found myself gravitating towards a student support role.
+                        I was able to secure a <span class="fw-bold text-theme-flax">tutoring</span> position in my schools tutor center.
+                        As I have transitioned from school to the work force, I find myself still drawn towards a <span class="fw-bold text-theme-flax">support</span> role.
+                        <span class="fw-bold text-theme-flax">Troubleshooting</span> and <span class="fw-bold text-theme-flax">discussing coding concepts</span> are things I like to do and I continue to maintain the student server for not just the students benefit but maybe more so, my own aswell.
+                    </p>
+                    <p>
+                        After graduation, I was offered a position, and am now employed at <a class="link-underline link-info" href="https://home.localfoodmarketplace.com">Local Food Marketplace</a> as an Application Developer. This company has allowed me to expand my list of skills very quickly by allowing me to explore and get to know their software systems on a deep level. Using ASP.Net's MVC pattern based architecture, My first project was to build a new updated version of our internal administrator application.
+                    </p>
+                    <p>
+                        I appreciate that you have taken the time to read this breif overview of my early experiences while entering into the Software Development industry.
+                    </p>
+                    <p>
+
+                        My goal here is for you to leave with a small sense of what has shaped me so far as a developer;
+                        <ul class="text-100">
+                            <li>I possess a high level of <span class="fw-bold text-theme-flax">attention to detail</span></li>
+                            <li>I'm <span class="fw-bold text-theme-flax">passioniate</span> about programming, it's what I want to be doing</li>
+                            <li>I view <span class="fw-bold text-theme-flax">tutoring, troubleshooting</span> and <span class="fw-bold text-theme-flax">technical support</span> as a few the skills that define who I am as a programmer.</li>
+                        </ul>
+                    </p>
+                </div>
+                <div id="about-site" class="@Visibility[AboutTab.Site] mt-3">
+                    <p>
+
+                        This portfolio website was built using a small handful of technologies including Asp.Net Blazor Server Components. Blazor is Asp's take on a single page application model.
+                    </p>
+                    <p>
+                        Here we go through some of the other technologies used in addition to blazor components, along with a short explenation of the roles they play here:
+                        <br />
+                        <dl>
+                            <dt>
+                                Linux
+                            </dt>
+                            <dd class="mt-2">
+                                The site is running inside a Linux Virtual environment running Ubuntu 23.10. It's hosted inside a
+                                DigitalOcean Droplet. The environment does not use a managed service for any functionality. Instead the Linux environment contains all the services and configuraiton needed. For comparison, and managed database service on most of the previlent hosting platforms cost just as much as a virtual machine does in the first place, effectively doubling hosoting costs for development or small scale.
+                            </dd>
+                            <dt>
+                                NGINX
+                            </dt>
+                            <dd>
+                                Nginx describes itself as
+                                <div class="callout callout-teal-500 mx-auto">
+                                    a web server that can also be used as a reverse proxy, load balancer, mail proxy and HTTP cache.
+                                </div>
+                                Asp.NET runs using a Kestral server internally. While it is possible to use this Kestral server to directly interact with web-traffic, this project is using Nginx as a reverse proxy servers, used to upgrade and forward the connection to Asp.NET's Kestral server that the app is using internally. Nginx is a good choice for this project because it gives me full control over the deployed assets and endpoints and it's effective for a wide range of hosting scenerios.
+                            </dd>
+                            <dt>
+                                MySql
+                            </dt>
+                            <dd class="mt-2">
+                                Although initially the site does not have a large damand for data storage, I chose MySql so that I am able to add more data and complexity as the site is developed.
+                                With the amount of data storage necessary early on in development, a relationial database is not a necessity at all. My goal for this website however is to consistently be adding new content and funcitonality. While MySql's implimentation of SQL may not be as robust and feature rich as for instance MS Sql-Server, it's very easy to install and configure on a linux command line and will me all of the apps relational data needs.
+                            </dd>
+                            <dt>
+                                Blazor Server
+                            </dt>
+                            <dd>
+                                Blazor is a Wep Framework that use's "Razor syntax" to write C# and html together. This website uses blazor routable pages and server components, as apposed to a blazor WASM project that use Web Assembly. To see an example of how this web app uses components, try out the CSS Transform Tool on the Home page. You can find it by clicking the tab in the top right corner of the page. Blazor server uses Web Sockets to provide real time user interactivity. The Transform tool uses this feature to move html elements using a collection of slider controls.
+                            </dd>
+
+                        </dl>
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer align-text-bottom pb-0 mb-0">
+                <div class="fs-5 my-0 py-0 fit-width">Devin Freeman</div>
+                <div class="ms-auto text-orange-300">
+                    <b>I.T.</b> support for the <b>I.T.</b> support.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@code {
+    static string _collapse = "collapse";
+
+    public enum AboutTab
+    {
+        Devin = 0,
+        Site = 1
+    }
+
+    public AboutTab CurrentTab { get; set; }
+
+    public Dictionary<AboutTab, string> Visibility { get; set; } = new()
+    {
+    {AboutTab.Devin, ""},
+    {AboutTab.Site, _collapse}
+    };
+
+    public void ShowHide(AboutTab show)
+    {
+        Visibility[CurrentTab] = _collapse;
+        CurrentTab = show;
+        Visibility[CurrentTab] = string.Empty;
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            CurrentTab = AboutTab.Devin;
+            Visibility[CurrentTab] = string.Empty;
+        }
+        base.OnAfterRender(firstRender);
+    }
+}

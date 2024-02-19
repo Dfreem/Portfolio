@@ -1,12 +1,12 @@
 ﻿* {
-    --select-bg: var(--bs-gray-500);
+    --select-bg: #bac2ca;
     --select-color: var(--bs-gray-900);
-    --select-outline-color: goldenrod;
-    --select-title-color: goldenrod;
+    --select-outline: 3px solid var(--bs-yellow-500);
+    --select-title-color: var(--bs-gray-900);
     --select-hover-title-color: var(--bs-professional-grey-600);
     --select-hover-color: var(--bs-gray-700);
     --select-hover-bg: var(--gray-600);
-    --select-hover-outline-color: darkgoldenrod;
+    --select-hover-outline-color: var(--bs-yellow-500);
     --select-selected-bg: var(--bs-gray-400);
     --select-selected-color: var(--bs-gray-900);
     --select-selected-outline-color: var(--bs-theme-green);
@@ -53,6 +53,7 @@
     border-radius: .25rem;
     display: flex;
     color: var(--select-color);
+    background-color:var(--select-bg);
 }
 
 .title-label {
@@ -79,7 +80,7 @@
     min-height: 2rem;
     max-height: 2rem;
     margin-block: .5em;
-    outline: 4px solid var(--select-outline-color);
+    outline: var(--select-outline);
     border-radius: .25rem;
 }
 

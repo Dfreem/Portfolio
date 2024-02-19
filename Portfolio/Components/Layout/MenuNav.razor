@@ -17,6 +17,11 @@
                 Contact Me
             </a>
         </li> 
+        <li>
+            <a data-bs-toggle="modal" data-bs-target="#about-modal" class="link link-yellow-400">
+                About
+            </a>
+        </li>
     </ul>
 </div>
 
@@ -62,6 +67,7 @@
     {
         Active.Add("/", string.Empty);
         Active.Add("/contact", string.Empty);
+        Active.Add("/about", string.Empty);
 
         base.OnInitialized();
     }
